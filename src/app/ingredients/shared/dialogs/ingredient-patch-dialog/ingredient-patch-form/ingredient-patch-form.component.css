@@ -1,0 +1,21 @@
+.ingredient-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.nutrition-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.makros-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+}

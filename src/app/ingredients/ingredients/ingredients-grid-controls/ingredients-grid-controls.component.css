@@ -1,0 +1,13 @@
+.ingredient-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+}
+
+.search-field {
+  flex: 10 0 50%;
+}
+
+.filter-field {
+  flex: 1 1 min-content;
+}

@@ -1,0 +1,35 @@
+@if(loadingDisplayedIngredients() == true){
+<div class="spinner-wrapper">
+  <mat-spinner></mat-spinner>
+</div>
+}
+
+@if(loadingDisplayedIngredients() == false && errorLoadingDisplayedIngredients() == false) {
+  <section class="grid-wrapper">
+    <app-ingredients-grid-controls [ingredients]="displayedIngredients" />
+    
+    <div class="grid" [style.--fields]="displayedFields().length">
+      <app-ingredients-grid-header [displayedFields]="displayedFields" />
+      
+      @for (ingredient of displayedIngredients(); track ingredient){
+        <app-ingredients-grid-row
+        [ingredient]="ingredient"
+        [displayedFields]="displayedFields()"
+        />
+      }
+    </div>
+    @if(displayedIngredients().length == 0){
+      <p>Keine passenden Zutaten gefunden</p>
+    }
+
+    <div class="button-wrapper">
+      <button mat-icon-button (click)="openCreateIngredientDialog()">
+        <mat-icon
+        aria-hidden="false"
+        aria-label="Hinzufügen"
+        fontIcon="add"
+        ></mat-icon>
+      </button>
+    </div>
+  </section> 
+}

@@ -1,0 +1,8 @@
+:host {
+  display: grid;
+  place-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

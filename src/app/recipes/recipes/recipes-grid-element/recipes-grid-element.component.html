@@ -1,0 +1,14 @@
+<!-- optional chain used to avoid 'ctx.recipe is undefined' error -->
+<!-- recipe should never be undefined as it passed in as input -->
+<!-- @if(recipe?.image){
+<img [src]="recipe?.image" class="image" />} @else {
+<img src="../../assets/icons/hide_image.svg" class="no-image" />
+}
+<p>{{ recipe?.name }}</p> -->
+
+<mat-card>
+  <mat-card-content>
+    <img src="../../assets/icons/hide_image.svg" class="no-image" />
+    <p>{{ recipe?.name }}</p>
+  </mat-card-content>
+</mat-card>

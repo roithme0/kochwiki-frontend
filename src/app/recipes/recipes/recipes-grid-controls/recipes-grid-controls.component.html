@@ -1,0 +1,37 @@
+<form class="form">
+  <mat-form-field class="search-field">
+    <mat-label>Suche</mat-label>
+    <input
+      placeholder="Name oder Ersteller*in suchen ..."
+      [formControl]="searchControl"
+      matInput
+      [matAutocomplete]="search"
+    />
+    @if(searchControl.value){
+    <button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="searchControl.setValue('')"
+    >
+      <mat-icon color="warn">close</mat-icon>
+    </button>
+    }
+    <mat-autocomplete #search="matAutocomplete">
+      @if(filteredNames().size > 0){
+        <mat-optgroup label="Namen">
+          @for (name of filteredNames(); track name) {
+            <mat-option [value]="name">{{ name }}</mat-option>
+          }
+        </mat-optgroup>
+      }
+      @if(filteredOrigins().size > 0){
+        <mat-optgroup label="Ersteller*innen">
+          @for (origin of filteredOrigins(); track origin) {
+            <mat-option [value]="origin">{{ origin }}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

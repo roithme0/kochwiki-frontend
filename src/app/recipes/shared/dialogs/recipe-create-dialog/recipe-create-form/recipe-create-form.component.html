@@ -1,0 +1,35 @@
+@if (isLoadingFetchAllIngredients) {
+<mat-spinner />
+} @else { @if(hasErrorFetchAllIngredients) {
+<div>hasErrorFetchAllIngredients</div>
+} @else {
+<form [formGroup]="recipeForm" action="POST" class="form">
+  <mat-stepper #stepper>
+    <mat-step errorMessage="">
+      <app-recipe-meta-form />
+    </mat-step>
+
+    <mat-step errorMessage="">
+      <app-recipe-amounts-form [ingredients]="ingredients" />
+    </mat-step>
+
+    <mat-step errorMessage="">
+      <app-recipe-preparation-form />
+    </mat-step>
+  </mat-stepper>
+
+  <mat-divider />
+
+  <div class="button-wrapper">
+    <button
+      mat-stroked-button
+      type="submit"
+      color="primary"
+      [disabled]="!recipeForm.valid"
+      (click)="onSubmit()"
+    >
+      Speichern
+    </button>
+  </div>
+</form>
+} }

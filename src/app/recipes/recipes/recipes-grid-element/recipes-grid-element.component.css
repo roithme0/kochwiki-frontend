@@ -1,0 +1,12 @@
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image,
+.no-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

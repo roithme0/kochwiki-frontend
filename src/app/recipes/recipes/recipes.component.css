@@ -1,0 +1,12 @@
+:host {
+  /* stretch hole page */
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  /* stretch hole page */
+  height: 100%;
+  width: 100%;
+}

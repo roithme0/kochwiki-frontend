@@ -1,0 +1,23 @@
+html,
+body {
+  height: 100%; /* auto added by material ui */
+}
+
+body {
+  margin: 0; /* auto added by material ui */
+  font-family: Roboto, "Helvetica Neue", sans-serif; /* auto added by material ui */
+}
+
+app-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+main {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}

@@ -1,0 +1,24 @@
+:host {
+  display: grid;
+  place-items: center;
+}
+
+mat-spinner {
+  margin: 2rem;
+}
+
+.form {
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-wrapper {
+  padding: 24px;
+  display: flex;
+
+  button {
+    flex: 1;
+  }
+}

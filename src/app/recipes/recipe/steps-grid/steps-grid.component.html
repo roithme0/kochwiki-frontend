@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-content>
+    @if (recipe !== undefined) {
+    <header>
+      <h2>Zubereitung</h2>
+      @if(recipe.preptime){
+      <p>{{ recipe.preptime }} min</p>
+      }
+    </header>
+
+    @if(recipe.steps.length > 0){
+    <div class="grid">
+      @for(step of recipe.steps; track step.index){
+      <p>{{ step.index }}</p>
+      <p>{{ step.description }}</p>
+      }
+    </div>
+    }@else{
+    <p>Keine Schritte gefunden</p>
+    } }
+  </mat-card-content>
+</mat-card>

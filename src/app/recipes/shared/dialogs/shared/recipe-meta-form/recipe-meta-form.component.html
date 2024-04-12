@@ -1,0 +1,46 @@
+<div class="meta-fields-wrapper" [formGroup]="metaFormGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <!-- <div class="field">
+    <label
+    for="image"
+    class="field-label"
+    [class.required]="recipeForm.get('image')?.errors?.['required']"
+    >Bild</label
+    >
+    <input
+    type="file"
+    name="image"
+    id="image"
+    (change)="onUpload($event, 'image')"
+    />
+</div> -->
+
+  <!-- <div class="field">
+    <label
+    for="original"
+    class="field-label"
+    [class.required]="recipeForm.get('original')?.errors?.['required']"
+    >Original</label
+    >
+    <input
+    type="file"
+    name="original"
+    id="original"
+    (change)="onUpload($event, 'original')"
+    />
+</div> -->
+
+  <mat-form-field appearance="fill">
+    <mat-label>URL</mat-label>
+    <input matInput formControlName="originUrl" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Ersteller*in</mat-label>
+    <input matInput formControlName="originName" />
+  </mat-form-field>
+</div>

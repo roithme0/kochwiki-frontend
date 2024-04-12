@@ -1,0 +1,17 @@
+:host {
+  min-width: 0;
+}
+
+.amount-expansion-panel {
+  flex: 1;
+}
+
+.amount-fields-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0 0.5rem;
+}
+
+.ingredient-field {
+  flex: 1;
+}

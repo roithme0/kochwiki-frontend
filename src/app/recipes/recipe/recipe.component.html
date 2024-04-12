@@ -1,0 +1,34 @@
+<main>
+  <article>
+    @if(recipe !== null){
+    <!-- replace check for existence of recipe with loading -->
+    <!-- @if(recipe.image){
+        <img [src]="recipe.image" class="image" />} @else { -->
+    <img src="../../assets/icons/hide_image.svg" class="no-image" />
+    <!-- } -->
+
+    <app-amounts-grid [recipe]="recipe" />
+    <app-steps-grid [recipe]="recipe" />
+
+    <div class="buttons-wrapper">
+      <button mat-icon-button (click)="openPatchRecipeDialog()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="edit icon"
+          fontIcon="edit"
+        ></mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="openDeleteRecipeDialog()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="delete icon"
+          fontIcon="delete"
+        ></mat-icon>
+      </button>
+    </div>
+    }@else {
+    <p>Rezept nicht gefunden</p>
+    }
+  </article>
+</main>

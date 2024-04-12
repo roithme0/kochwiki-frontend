@@ -1,0 +1,24 @@
+<mat-toolbar>
+  <a routerLink="" routerLinkActive="active">
+    <button mat-icon-button color="accent">
+    <mat-icon
+    aria-hidden="false"
+      aria-label="Home"
+      fontIcon="home"
+      ></mat-icon>
+    </button>
+  </a>
+  <span>{{ headline() }}</span>
+  <span class="spacer"></span>
+  @if(showBack() == true){
+    <a [routerLink]="back()" routerLinkActive="active">
+      <button mat-icon-button color="accent">
+      <mat-icon
+      aria-hidden="false"
+        aria-label="Zurück"
+        fontIcon="arrow_back"
+        ></mat-icon>
+      </button>
+    </a>
+  }
+</mat-toolbar>

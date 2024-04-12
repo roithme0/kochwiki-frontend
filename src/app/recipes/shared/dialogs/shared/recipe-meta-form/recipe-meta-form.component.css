@@ -1,0 +1,4 @@
+.meta-fields-wrapper {
+  display: flex;
+  flex-direction: column;
+}
