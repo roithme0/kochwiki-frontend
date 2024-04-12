@@ -1,0 +1,30 @@
+name: Super-Linter
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  packages: read
+  statuses: write
+
+jobs:
+  super-linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Super Linter
+        uses: super-linter/super-linter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_HTML: false # validation does not work with Angular templates
+          FILTER_REGEX_EXCLUDE: .*.scss # validation does not work with scss files
+          VALIDATE_MARKDOWN: false # no diy markdown files
