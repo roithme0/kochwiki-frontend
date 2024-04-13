@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { IngredientsGridControlsService } from '../shared/ingredients-grid-controls.service';
-import { IngredientService } from '../../shared/services/ingredient.service';
+import { FoodstuffService } from '../../shared/services/foodstuff.service';
 
 import { UnitChoices } from '../../shared/interfaces/foodstuff-meta-data';
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
@@ -76,10 +76,8 @@ export class IngredientsGridControlsComponent {
 
   unitChoices: UnitChoices | null = null;
 
-  ingredientsGridControlsService: IngredientsGridControlsService = inject(
-    IngredientsGridControlsService
-  );
-  ingredientService: IngredientService = inject(IngredientService);
+  ingredientsGridControlsService = inject(IngredientsGridControlsService);
+  ingredientService = inject(FoodstuffService);
 
   constructor() {
     // emit search & filter values

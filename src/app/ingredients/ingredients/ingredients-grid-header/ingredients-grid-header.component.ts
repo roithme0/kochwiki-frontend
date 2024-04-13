@@ -1,7 +1,7 @@
 import { Component, Input, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { IngredientService } from '../../shared/services/ingredient.service';
+import { FoodstuffService } from '../../shared/services/foodstuff.service';
 import { VerboseNames } from '../../shared/interfaces/foodstuff-meta-data';
 
 @Component({
@@ -11,14 +11,14 @@ import { VerboseNames } from '../../shared/interfaces/foodstuff-meta-data';
   templateUrl: './ingredients-grid-header.component.html',
   styleUrl: './ingredients-grid-header.component.css',
 })
+// fetch foodstuff verbose names
+// render foodstuff verbose names
 export class IngredientsGridHeaderComponent {
-  // fetch ingredient verbose names
-  // render ingredient verbose names
   @Input() displayedFields: Signal<string[]> | undefined;
 
   verboseNames: VerboseNames | null = null;
 
-  ingredientService: IngredientService = inject(IngredientService);
+  ingredientService = inject(FoodstuffService);
 
   ngOnInit(): void {
     this.fetchVerboseNames();

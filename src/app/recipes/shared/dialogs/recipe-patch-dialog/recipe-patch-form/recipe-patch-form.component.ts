@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecipeService } from '../../../services/recipe.service';
-import { IngredientService } from '../../../../../ingredients/shared/services/ingredient.service';
+import { FoodstuffService } from '../../../../../ingredients/shared/services/foodstuff.service';
 
 import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
@@ -47,9 +47,9 @@ export class RecipePatchFormComponent {
   @Input() id: number | undefined;
   @Output() success: EventEmitter<void> = new EventEmitter();
 
-  fb: FormBuilder = inject(FormBuilder);
-  recipeService: RecipeService = inject(RecipeService);
-  ingredientService: IngredientService = inject(IngredientService);
+  fb = inject(FormBuilder);
+  recipeService = inject(RecipeService);
+  ingredientService = inject(FoodstuffService);
 
   ingredients!: Foodstuff[];
   recipe!: Recipe;
@@ -78,7 +78,7 @@ export class RecipePatchFormComponent {
   });
 
   constructor() {
-    this.ingredientService.ingredients$.subscribe(() => {
+    this.ingredientService.foodstuffs$.subscribe(() => {
       this.fetchAllIngredients();
     });
   }

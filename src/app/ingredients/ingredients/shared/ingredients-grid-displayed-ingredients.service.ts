@@ -9,7 +9,7 @@ import {
 
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
-import { IngredientService } from '../../shared/services/ingredient.service';
+import { FoodstuffService } from '../../shared/services/foodstuff.service';
 import { IngredientsGridControlsService } from './ingredients-grid-controls.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,12 +17,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root',
 })
+// provide displayed foodstuffs for the foodstuffs grid
 export class IngredientsGridDisplayedIngredientsService {
-  // provide displayed ingredients for ingredients grid
-  private ingredientService: IngredientService = inject(IngredientService);
-  private ingredientsGridControlsService: IngredientsGridControlsService =
-    inject(IngredientsGridControlsService);
-  private snackBarService: MatSnackBar = inject(MatSnackBar);
+  private ingredientService = inject(FoodstuffService);
+  private ingredientsGridControlsService = inject(
+    IngredientsGridControlsService
+  );
+  private snackBarService = inject(MatSnackBar);
 
   private ingredients: WritableSignal<Foodstuff[]> = signal([]);
   private _displayedIngredients: Signal<Foodstuff[]> = computed(() => {
@@ -43,8 +44,8 @@ export class IngredientsGridDisplayedIngredientsService {
   private _error: WritableSignal<boolean> = signal(false);
 
   constructor() {
-    // track changes to ingredients
-    this.ingredientService.ingredients$.subscribe(() => {
+    // track changes to foodstuffs
+    this.ingredientService.foodstuffs$.subscribe(() => {
       this.fetchIngredients();
     });
 

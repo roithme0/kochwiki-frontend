@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../shared/interfaces/recipe';
 
-import { IngredientService } from '../../../ingredients/shared/services/ingredient.service';
+import { FoodstuffService } from '../../../ingredients/shared/services/foodstuff.service';
 
 import { MatCardModule } from '@angular/material/card';
 
@@ -14,15 +14,15 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './amounts-grid.component.html',
   styleUrl: './amounts-grid.component.css',
 })
+// fetch foodstuffs associated with recipe
+// render amounts as grid
 export class AmountsGridComponent {
-  // fetch ingredients associated with recipe
-  // render amounts as grid
-  ingredientService: IngredientService = inject(IngredientService);
+  ingredientService = inject(FoodstuffService);
 
   @Input() recipe: Recipe | undefined;
 
+  // fetch foodstuffs associated with recipe
   ngOnInit() {
-    // fetch ingredients associated with recipe
     if (this.recipe === undefined) {
       console.error('no recipe provided');
       return;

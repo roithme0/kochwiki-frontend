@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { IngredientService } from '../../services/ingredient.service';
+import { FoodstuffService } from '../../services/foodstuff.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -22,7 +22,7 @@ export class IngredientDeleteDialogComponent {
   // render buttons to delete ingredient
   dialogRef: MatDialogRef<IngredientDeleteDialogComponent> =
     inject(MatDialogRef);
-  ingredientService: IngredientService = inject(IngredientService);
+  ingredientService = inject(FoodstuffService);
 
   ingredient: Foodstuff | undefined;
 

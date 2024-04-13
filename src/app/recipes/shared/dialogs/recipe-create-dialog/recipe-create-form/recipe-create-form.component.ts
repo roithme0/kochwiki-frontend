@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 import { RecipeService } from '../../../../shared/services/recipe.service';
-import { IngredientService } from '../../../../../ingredients/shared/services/ingredient.service';
+import { FoodstuffService } from '../../../../../ingredients/shared/services/foodstuff.service';
 
 import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
@@ -57,12 +57,12 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './recipe-create-form.component.html',
   styleUrl: './recipe-create-form.component.css',
 })
+// fetch all foodstuffs
+// render form to create recipe
 export class RecipeCreateFormComponent {
-  // fetch all ingredients
-  // render form to create recipe
-  fb: FormBuilder = inject(FormBuilder);
-  recipeService: RecipeService = inject(RecipeService);
-  ingredientService: IngredientService = inject(IngredientService);
+  fb = inject(FormBuilder);
+  recipeService = inject(RecipeService);
+  ingredientService = inject(FoodstuffService);
 
   @Output() success: EventEmitter<void> = new EventEmitter();
 
@@ -90,7 +90,7 @@ export class RecipeCreateFormComponent {
   });
 
   constructor() {
-    this.ingredientService.ingredients$.subscribe(() => {
+    this.ingredientService.foodstuffs$.subscribe(() => {
       this.fetchIngredients();
     });
   }

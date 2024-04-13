@@ -13,20 +13,19 @@ const backendUrl: string = environment.backendUrl;
 @Injectable({
   providedIn: 'root',
 })
-export class IngredientService {
-  // backend communication for ingredients
+// backend communication for foodstuffs
+export class FoodstuffService {
   private http: HttpClient = inject(HttpClient);
 
   private ingredientsSubject = new Subject<void>();
-  ingredients$ = this.ingredientsSubject.asObservable();
+  foodstuffs$ = this.ingredientsSubject.asObservable();
 
   notifyIngredientsChanged() {
-    // notify subscribers that ingredients have changed
     this.ingredientsSubject.next();
   }
 
   getAllIngredients(): Observable<Foodstuff[]> {
-    console.debug('GET: fetching all ingredients ...');
+    console.debug('GET: fetching all foodstuffs ...');
     return this.http.get<Foodstuff[]>(backendUrl + '/ingredients');
   }
 

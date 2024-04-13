@@ -7,7 +7,7 @@ import { Foodstuff } from '../../../interfaces/foodstuff';
 import { VerboseNames } from '../../../interfaces/foodstuff-meta-data';
 import { UnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
-import { IngredientService } from '../../../services/ingredient.service';
+import { FoodstuffService } from '../../../services/foodstuff.service';
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,8 +38,8 @@ export class IngredientCreateFormComponent {
   verboseNames: VerboseNames | null = null;
   unitChoices: UnitChoices | null = null;
 
-  ingredientService: IngredientService = inject(IngredientService);
-  fb: FormBuilder = inject(FormBuilder);
+  ingredientService = inject(FoodstuffService);
+  fb = inject(FormBuilder);
 
   ingredientForm = this.fb.group({
     name: ['', Validators.required],

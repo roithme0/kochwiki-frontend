@@ -7,7 +7,7 @@ import { Foodstuff } from '../../../interfaces/foodstuff';
 import { VerboseNames } from '../../../interfaces/foodstuff-meta-data';
 import { UnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
-import { IngredientService } from '../../../services/ingredient.service';
+import { FoodstuffService } from '../../../services/foodstuff.service';
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,8 +34,8 @@ export class IngredientPatchFormComponent {
   // fetch ingredient meta data
   // fetch ingredient by id
   // render form to edit ingredient
-  ingredientService: IngredientService = inject(IngredientService);
-  fb: FormBuilder = inject(FormBuilder);
+  ingredientService = inject(FoodstuffService);
+  fb = inject(FormBuilder);
 
   @Input() id: number | undefined;
   @Output() success: EventEmitter<void> = new EventEmitter();
