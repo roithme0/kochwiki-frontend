@@ -14,6 +14,6 @@ import { FoodstuffCreateFormComponent } from './foodstuff-create-form/foodstuff-
   styleUrl: './foodstuff-create-dialog.component.css',
 })
 // render foodstuff-create-form
-export class IngredientCreateDialogComponent {
+export class FoodstuffCreateDialogComponent {
   dialogRef = inject(MatDialogRef);
 }

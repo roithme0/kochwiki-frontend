@@ -25,13 +25,13 @@ export class FoodstuffsGridRowComponent {
 
   dialog = inject(MatDialog);
 
-  openEditIngredientDialog(): void {
+  openEditFoodstuffDialog(): void {
     this.dialog.open(FoodstuffPatchDialogComponent, {
       data: { id: this.foodstuff?.id },
     });
   }
 
-  openDeleteIngredientDialog(): void {
+  openDeleteFoodstuffDialog(): void {
     this.dialog.open(FoodstuffDeleteDialogComponent, {
       data: { id: this.foodstuff?.id },
     });

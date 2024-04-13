@@ -40,22 +40,21 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './recipe-patch-form.component.html',
   styleUrl: './recipe-patch-form.component.css',
 })
+// fetch foodstuff associated with recipe
+// render form with values to edit recipe
 export class RecipePatchFormComponent {
-  // fetch ingredient associated with recipe
-  // render form with values to edit recipe
-
   @Input() id: number | undefined;
   @Output() success: EventEmitter<void> = new EventEmitter();
 
   fb = inject(FormBuilder);
   recipeService = inject(RecipeService);
-  ingredientService = inject(FoodstuffService);
+  foodstuffService = inject(FoodstuffService);
 
-  ingredients!: Foodstuff[];
+  foodstuffs!: Foodstuff[];
   recipe!: Recipe;
 
-  isLoadingFetchAllIngredients: boolean = true;
-  hasErrorFetchAllIngredients: boolean = false;
+  isLoadingFetchAllFoodstuffs: boolean = true;
+  hasErrorFetchAllFoodstuffs: boolean = false;
   isLoadingFetchRecipe: boolean = true;
   hasErrorFetchRecipe: boolean = false;
 
@@ -78,31 +77,31 @@ export class RecipePatchFormComponent {
   });
 
   constructor() {
-    this.ingredientService.foodstuffs$.subscribe(() => {
-      this.fetchAllIngredients();
+    this.foodstuffService.foodstuffs$.subscribe(() => {
+      this.fetchAllFoodstuffs();
     });
   }
 
   ngOnInit(): void {
-    this.fetchAllIngredients();
+    this.fetchAllFoodstuffs();
     this.fetchRecipe();
   }
 
   // fetch all foodstuffs for adding amounts to recipe
-  fetchAllIngredients(): void {
-    this.ingredientService.getAllFoodstuffs().subscribe({
+  fetchAllFoodstuffs(): void {
+    this.foodstuffService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
-        this.ingredients = foodstuffs;
+        this.foodstuffs = foodstuffs;
 
-        this.isLoadingFetchAllIngredients = false;
-        this.hasErrorFetchAllIngredients = false;
+        this.isLoadingFetchAllFoodstuffs = false;
+        this.hasErrorFetchAllFoodstuffs = false;
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
 
-        this.isLoadingFetchAllIngredients = false;
-        this.hasErrorFetchAllIngredients = true;
+        this.isLoadingFetchAllFoodstuffs = false;
+        this.hasErrorFetchAllFoodstuffs = true;
       },
     });
   }

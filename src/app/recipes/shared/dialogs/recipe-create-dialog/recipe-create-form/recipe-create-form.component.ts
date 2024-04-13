@@ -62,14 +62,14 @@ import { MatDividerModule } from '@angular/material/divider';
 export class RecipeCreateFormComponent {
   fb = inject(FormBuilder);
   recipeService = inject(RecipeService);
-  ingredientService = inject(FoodstuffService);
+  foodstuffService = inject(FoodstuffService);
 
   @Output() success: EventEmitter<void> = new EventEmitter();
 
-  ingredients!: Foodstuff[];
+  foodstuffs!: Foodstuff[];
 
-  isLoadingFetchAllIngredients: boolean = true;
-  hasErrorFetchAllIngredients: boolean = false;
+  isLoadingFetchAllFoodstuffs: boolean = true;
+  hasErrorFetchAllFoodstuffs: boolean = false;
 
   recipeForm = this.fb.group({
     metaFormGroup: this.fb.group({
@@ -90,29 +90,29 @@ export class RecipeCreateFormComponent {
   });
 
   constructor() {
-    this.ingredientService.foodstuffs$.subscribe(() => {
-      this.fetchIngredients();
+    this.foodstuffService.foodstuffs$.subscribe(() => {
+      this.fetchFoodstuffs();
     });
   }
 
   ngOnInit(): void {
-    this.fetchIngredients();
+    this.fetchFoodstuffs();
   }
 
-  fetchIngredients(): void {
-    this.ingredientService.getAllFoodstuffs().subscribe({
+  fetchFoodstuffs(): void {
+    this.foodstuffService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
-        this.ingredients = foodstuffs;
+        this.foodstuffs = foodstuffs;
 
-        this.isLoadingFetchAllIngredients = false;
-        this.hasErrorFetchAllIngredients = false;
+        this.isLoadingFetchAllFoodstuffs = false;
+        this.hasErrorFetchAllFoodstuffs = false;
       },
       error: (error) => {
-        console.error('failed to fetch ingredients: ', error);
+        console.error('failed to fetch foodstuffs: ', error);
 
-        this.isLoadingFetchAllIngredients = false;
-        this.hasErrorFetchAllIngredients = true;
+        this.isLoadingFetchAllFoodstuffs = false;
+        this.hasErrorFetchAllFoodstuffs = true;
       },
     });
   }

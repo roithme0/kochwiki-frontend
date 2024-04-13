@@ -12,9 +12,9 @@ import { FoodstuffsGridRowComponent } from '../foodstuffs-grid-row/foodstuffs-gr
 
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
-import { IngredientCreateDialogComponent } from '../../shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
+import { FoodstuffCreateDialogComponent } from '../../shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 
-import { FoodstuffsGridDisplayedIngredientsService } from '../services/foodstuff-grid-displayed-ingredients.service';
+import { FoodstuffsGridDisplayedFoodstuffsService } from '../services/foodstuff-grid-displayed-foodstuffs.service';
 import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid-displayed-fields.service';
 
 @Component({
@@ -36,21 +36,19 @@ import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid
 // render foodstuffs as grid
 export class FoodstuffsGridComponent {
   dialog = inject(MatDialog);
-  displayedFoodstuffsService = inject(
-    FoodstuffsGridDisplayedIngredientsService
-  );
+  displayedFoodstuffsService = inject(FoodstuffsGridDisplayedFoodstuffsService);
   displayedFieldsService = inject(FoodstuffsGridDisplayedFieldsService);
 
-  displayedIngredients: Signal<Foodstuff[]> =
+  displayedFoodstuffs: Signal<Foodstuff[]> =
     this.displayedFoodstuffsService.displayedFoodstuffs;
-  loadingDisplayedIngredients: Signal<boolean> =
+  loadingDisplayedFoodstuffs: Signal<boolean> =
     this.displayedFoodstuffsService.loading;
-  errorLoadingDisplayedIngredients: Signal<boolean> =
+  errorLoadingDisplayedFoodstuffs: Signal<boolean> =
     this.displayedFoodstuffsService.error;
   displayedFields: Signal<string[]> =
     this.displayedFieldsService.displayedFields;
 
-  openCreateIngredientDialog(): void {
-    this.dialog.open(IngredientCreateDialogComponent);
+  openCreateFoodstuffDialog(): void {
+    this.dialog.open(FoodstuffCreateDialogComponent);
   }
 }

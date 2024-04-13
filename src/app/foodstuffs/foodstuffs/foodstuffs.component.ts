@@ -18,7 +18,7 @@ export class FoodstuffsComponent {
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
 
   ngOnInit() {
-    this.pageHeaderService.headline = 'Zutaten';
+    this.pageHeaderService.headline = 'Lebensmittel';
     this.pageHeaderService.back = '';
     this.pageHeaderService.showBack = true;
   }

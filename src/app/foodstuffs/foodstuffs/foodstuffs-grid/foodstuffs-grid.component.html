@@ -1,28 +1,28 @@
-@if(loadingDisplayedIngredients() == true){
+@if(loadingDisplayedFoodstuffs() == true){
 <div class="spinner-wrapper">
   <mat-spinner></mat-spinner>
 </div>
-} @if(loadingDisplayedIngredients() == false &&
-errorLoadingDisplayedIngredients() == false) {
+} @if(loadingDisplayedFoodstuffs() == false && errorLoadingDisplayedFoodstuffs()
+== false) {
 <section class="grid-wrapper">
-  <app-foodstuffs-grid-controls [foodstuffs]="displayedIngredients" />
+  <app-foodstuffs-grid-controls [foodstuffs]="displayedFoodstuffs" />
 
   <div class="grid" [style.--fields]="displayedFields().length">
     <app-foodstuffs-grid-header [displayedFields]="displayedFields" />
 
-    @for (ingredient of displayedIngredients(); track ingredient){
+    @for (foodstuff of displayedFoodstuffs(); track foodstuff){
     <app-foodstuffs-grid-row
-      [foodstuff]="ingredient"
+      [foodstuff]="foodstuff"
       [displayedFields]="displayedFields()"
     />
     }
   </div>
-  @if(displayedIngredients().length == 0){
-  <p>Keine passenden Zutaten gefunden</p>
+  @if(displayedFoodstuffs().length == 0){
+  <p>Keine passenden Lebensmittel gefunden</p>
   }
 
   <div class="button-wrapper">
-    <button mat-icon-button (click)="openCreateIngredientDialog()">
+    <button mat-icon-button (click)="openCreateFoodstuffDialog()">
       <mat-icon
         aria-hidden="false"
         aria-label="Hinzufügen"

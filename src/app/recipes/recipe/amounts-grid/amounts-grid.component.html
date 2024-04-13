@@ -2,20 +2,20 @@
   <mat-card-content>
     @if (recipe !== undefined) {
     <header>
-      <h2>Zutaten</h2>
+      <h2>Lebensmittel</h2>
       <p>{{ recipe.servings }} Portionen</p>
     </header>
 
     @if(recipe.amounts.length > 0){
     <div class="grid">
       @for(amount of recipe.amounts; track amount.index){
-      <p>{{ amount.ingredient.name }}</p>
+      <p>{{ amount.foodstuff.name }}</p>
       <p>{{ amount.amount }}</p>
-      <p>{{ amount.ingredient.unitVerbose }}</p>
+      <p>{{ amount.foodstuff.unitVerbose }}</p>
       }
     </div>
     }@else {
-    <p>Keine Zutaten gefunden</p>
+    <p>Keine Lebensmittel gefunden</p>
     } }
   </mat-card-content>
 </mat-card>

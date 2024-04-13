@@ -17,7 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 // fetch foodstuffs associated with recipe
 // render amounts as grid
 export class AmountsGridComponent {
-  ingredientService = inject(FoodstuffService);
+  foodstuffService = inject(FoodstuffService);
 
   @Input() recipe: Recipe | undefined;
 
@@ -29,10 +29,10 @@ export class AmountsGridComponent {
     }
 
     for (let amount of this.recipe.amounts) {
-      this.ingredientService.getFoodstuffById(amount.ingredientId).subscribe({
+      this.foodstuffService.getFoodstuffById(amount.foodstuffId).subscribe({
         next: (foodstuff) => {
           console.debug('fetched foodstuff: ', foodstuff);
-          amount.ingredient = foodstuff;
+          amount.foodstuff = foodstuff;
         },
         error: (error) => {
           console.error('failed to fetch foodstuff: ', error);

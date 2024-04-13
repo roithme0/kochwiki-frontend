@@ -18,7 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 // provide displayed foodstuffs for the foodstuffs grid
-export class FoodstuffsGridDisplayedIngredientsService {
+export class FoodstuffsGridDisplayedFoodstuffsService {
   private foodstuffService = inject(FoodstuffService);
   private foodstuffsGridControlsService = inject(FoodstuffsGridControlsService);
   private snackBarService = inject(MatSnackBar);
@@ -94,10 +94,10 @@ export class FoodstuffsGridDisplayedIngredientsService {
     if (searchBy === '') {
       return foodstuffs;
     }
-    return foodstuffs.filter((ingredient) => {
+    return foodstuffs.filter((foodstuff) => {
       return (
-        ingredient.name.toLowerCase().includes(searchBy.toLowerCase()) ||
-        ingredient.brand?.toLowerCase().includes(searchBy.toLowerCase())
+        foodstuff.name.toLowerCase().includes(searchBy.toLowerCase()) ||
+        foodstuff.brand?.toLowerCase().includes(searchBy.toLowerCase())
       );
     });
   }
@@ -108,8 +108,8 @@ export class FoodstuffsGridDisplayedIngredientsService {
     if (filterBy === 'all') {
       return foodstuffs;
     }
-    return foodstuffs.filter((ingredient) => {
-      return ingredient.unit === filterBy;
+    return foodstuffs.filter((foodstuff) => {
+      return foodstuff.unit === filterBy;
     });
   }
 }
