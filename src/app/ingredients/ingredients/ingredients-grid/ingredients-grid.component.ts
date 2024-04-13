@@ -14,8 +14,8 @@ import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { IngredientCreateDialogComponent } from '../../shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 
-import { IngredientsGridDisplayedIngredientsService } from '../shared/ingredients-grid-displayed-ingredients.service';
-import { IngredientsGridDisplayedFieldsService } from '../shared/ingredients-grid-displayed-fields.service';
+import { FoodstuffsGridDisplayedIngredientsService } from '../services/foodstuff-grid-displayed-ingredients.service';
+import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid-displayed-fields.service';
 
 @Component({
   selector: 'app-ingredients-grid',
@@ -32,18 +32,17 @@ import { IngredientsGridDisplayedFieldsService } from '../shared/ingredients-gri
   templateUrl: './ingredients-grid.component.html',
   styleUrl: './ingredients-grid.component.css',
 })
+// render foodstuffs-grid-controls component
+// render foodstuffs as grid
 export class IngredientsGridComponent {
-  // render ingredients-grid-controls component
-  // render ingredients as grid
-  dialog: MatDialog = inject(MatDialog);
-  displayedIngredientsService: IngredientsGridDisplayedIngredientsService =
-    inject(IngredientsGridDisplayedIngredientsService);
-  displayedFieldsService: IngredientsGridDisplayedFieldsService = inject(
-    IngredientsGridDisplayedFieldsService
+  dialog = inject(MatDialog);
+  displayedIngredientsService = inject(
+    FoodstuffsGridDisplayedIngredientsService
   );
+  displayedFieldsService = inject(FoodstuffsGridDisplayedFieldsService);
 
   displayedIngredients: Signal<Foodstuff[]> =
-    this.displayedIngredientsService.displayedIngredients;
+    this.displayedIngredientsService.displayedFoodstuffs;
   loadingDisplayedIngredients: Signal<boolean> =
     this.displayedIngredientsService.loading;
   errorLoadingDisplayedIngredients: Signal<boolean> =

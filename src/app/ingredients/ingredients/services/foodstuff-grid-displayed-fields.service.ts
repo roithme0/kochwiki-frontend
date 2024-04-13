@@ -5,14 +5,14 @@ import { WindowWidthService } from '../../../shared/services/window-width.servic
 @Injectable({
   providedIn: 'root',
 })
-export class IngredientsGridDisplayedFieldsService {
+export class FoodstuffsGridDisplayedFieldsService {
   private windowWidthService: WindowWidthService = inject(WindowWidthService);
 
   private windowInnerWidth: Signal<number> =
     this.windowWidthService.getWindowInnerWidth();
 
+  // adjust displayed fields based on window with
   private _displayedFields: Signal<string[]> = computed(() => {
-    // adjust displayed fields based on window with
     var displayedFields: string[] = ['name', 'brand'];
     if (this.windowInnerWidth() > 600) {
       displayedFields.push('kcal');

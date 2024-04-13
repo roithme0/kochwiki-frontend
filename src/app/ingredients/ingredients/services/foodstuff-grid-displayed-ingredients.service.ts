@@ -10,7 +10,7 @@ import {
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { FoodstuffService } from '../../shared/services/foodstuff.service';
-import { IngredientsGridControlsService } from './ingredients-grid-controls.service';
+import { FoodstuffsGridControlsService } from './foodstuff-grid-controls.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -18,42 +18,39 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 // provide displayed foodstuffs for the foodstuffs grid
-export class IngredientsGridDisplayedIngredientsService {
-  private ingredientService = inject(FoodstuffService);
-  private ingredientsGridControlsService = inject(
-    IngredientsGridControlsService
-  );
+export class FoodstuffsGridDisplayedIngredientsService {
+  private foodstuffService = inject(FoodstuffService);
+  private foodstuffsGridControlsService = inject(FoodstuffsGridControlsService);
   private snackBarService = inject(MatSnackBar);
 
-  private ingredients: WritableSignal<Foodstuff[]> = signal([]);
-  private _displayedIngredients: Signal<Foodstuff[]> = computed(() => {
-    // apply search & filter functions to ingredients
-    var displayedIngredients = this.ingredients();
-    displayedIngredients =
-      this.searchIngredientsByNameOrBrand(displayedIngredients);
-    displayedIngredients = this.filterIngredientsByUnit(displayedIngredients);
-    return displayedIngredients;
+  private foodstuffs: WritableSignal<Foodstuff[]> = signal([]);
+  // apply search & filter functions to foodstuffs
+  private _displayedFoodstuffs: Signal<Foodstuff[]> = computed(() => {
+    var displayedFoodstuffs = this.foodstuffs();
+    displayedFoodstuffs =
+      this.searchFoodstuffsByNameOrBrand(displayedFoodstuffs);
+    displayedFoodstuffs = this.filterFoodstuffsByUnit(displayedFoodstuffs);
+    return displayedFoodstuffs;
   });
 
   private searchBy: Signal<string> =
-    this.ingredientsGridControlsService.searchBy;
+    this.foodstuffsGridControlsService.searchBy;
   private filterBy: Signal<string> =
-    this.ingredientsGridControlsService.filterBy;
+    this.foodstuffsGridControlsService.filterBy;
 
   private _loading: WritableSignal<boolean> = signal(true);
   private _error: WritableSignal<boolean> = signal(false);
 
   constructor() {
-    // track changes to foodstuffs
-    this.ingredientService.foodstuffs$.subscribe(() => {
-      this.fetchIngredients();
+    this.foodstuffService.foodstuffs$.subscribe(() => {
+      this.fetchFoodstuffs();
     });
 
-    this.fetchIngredients();
+    this.fetchFoodstuffs();
   }
 
-  get displayedIngredients(): Signal<Foodstuff[]> {
-    return this._displayedIngredients;
+  get displayedFoodstuffs(): Signal<Foodstuff[]> {
+    return this._displayedFoodstuffs;
   }
 
   get loading(): Signal<boolean> {
@@ -65,12 +62,12 @@ export class IngredientsGridDisplayedIngredientsService {
   }
 
   // fetch all foodstuffs
-  private async fetchIngredients() {
+  private async fetchFoodstuffs() {
     this._loading.set(true);
-    this.ingredientService.getAllFoodstuffs().subscribe({
+    this.foodstuffService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
-        this.ingredients.set(foodstuffs);
+        this.foodstuffs.set(foodstuffs);
         this._error.set(false);
       },
       error: (error) => {
@@ -91,15 +88,13 @@ export class IngredientsGridDisplayedIngredientsService {
     });
   }
 
-  private searchIngredientsByNameOrBrand(
-    ingredients: Foodstuff[]
-  ): Foodstuff[] {
+  private searchFoodstuffsByNameOrBrand(foodstuffs: Foodstuff[]): Foodstuff[] {
     const searchBy: string = this.searchBy();
-    console.debug('searching ingredients by: ' + searchBy);
+    console.debug('searching foodstuffs by: ' + searchBy);
     if (searchBy === '') {
-      return ingredients;
+      return foodstuffs;
     }
-    return ingredients.filter((ingredient) => {
+    return foodstuffs.filter((ingredient) => {
       return (
         ingredient.name.toLowerCase().includes(searchBy.toLowerCase()) ||
         ingredient.brand?.toLowerCase().includes(searchBy.toLowerCase())
@@ -107,13 +102,13 @@ export class IngredientsGridDisplayedIngredientsService {
     });
   }
 
-  private filterIngredientsByUnit(ingredients: Foodstuff[]): Foodstuff[] {
+  private filterFoodstuffsByUnit(foodstuffs: Foodstuff[]): Foodstuff[] {
     const filterBy: string = this.filterBy();
-    console.debug('filtering ingredients by: ' + filterBy);
+    console.debug('filtering foodstuffs by: ' + filterBy);
     if (filterBy === 'all') {
-      return ingredients;
+      return foodstuffs;
     }
-    return ingredients.filter((ingredient) => {
+    return foodstuffs.filter((ingredient) => {
       return ingredient.unit === filterBy;
     });
   }
