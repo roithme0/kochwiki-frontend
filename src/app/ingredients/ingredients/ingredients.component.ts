@@ -1,24 +1,23 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { IngredientsGridComponent } from './ingredients-grid/ingredients-grid.component';
+import { FoodstuffsGridComponent } from './foodstuffs-grid/foodstuffs-grid.component';
 
 import { PageHeaderService } from '../../shared/services/page-header.service';
 
 @Component({
   selector: 'app-ingredients',
   standalone: true,
-  imports: [CommonModule, IngredientsGridComponent],
+  imports: [CommonModule, FoodstuffsGridComponent],
   templateUrl: './ingredients.component.html',
   styleUrl: './ingredients.component.css',
 })
+// set header values
+// render foodtuffs-grid component
 export class IngredientsComponent {
-  // set header values
-  // render ingredients-grid component
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
 
   ngOnInit() {
-    // set header values
     this.pageHeaderService.headline = 'Zutaten';
     this.pageHeaderService.back = '';
     this.pageHeaderService.showBack = true;

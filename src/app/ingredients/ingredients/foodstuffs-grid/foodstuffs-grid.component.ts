@@ -18,7 +18,7 @@ import { FoodstuffsGridDisplayedIngredientsService } from '../services/foodstuff
 import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid-displayed-fields.service';
 
 @Component({
-  selector: 'app-ingredients-grid',
+  selector: 'app-foodstuffs-grid',
   standalone: true,
   imports: [
     CommonModule,
@@ -29,24 +29,24 @@ import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid
     MatIconModule,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './ingredients-grid.component.html',
-  styleUrl: './ingredients-grid.component.css',
+  templateUrl: './foodstuffs-grid.component.html',
+  styleUrl: './foodstuffs-grid.component.css',
 })
 // render foodstuffs-grid-controls component
 // render foodstuffs as grid
-export class IngredientsGridComponent {
+export class FoodstuffsGridComponent {
   dialog = inject(MatDialog);
-  displayedIngredientsService = inject(
+  displayedFoodstuffsService = inject(
     FoodstuffsGridDisplayedIngredientsService
   );
   displayedFieldsService = inject(FoodstuffsGridDisplayedFieldsService);
 
   displayedIngredients: Signal<Foodstuff[]> =
-    this.displayedIngredientsService.displayedFoodstuffs;
+    this.displayedFoodstuffsService.displayedFoodstuffs;
   loadingDisplayedIngredients: Signal<boolean> =
-    this.displayedIngredientsService.loading;
+    this.displayedFoodstuffsService.loading;
   errorLoadingDisplayedIngredients: Signal<boolean> =
-    this.displayedIngredientsService.error;
+    this.displayedFoodstuffsService.error;
   displayedFields: Signal<string[]> =
     this.displayedFieldsService.displayedFields;
 
