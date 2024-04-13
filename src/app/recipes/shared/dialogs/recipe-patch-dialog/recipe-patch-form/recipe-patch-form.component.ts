@@ -8,7 +8,7 @@ import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff
 import { Recipe } from '../../../interfaces/recipe';
 
 import { RecipeMetaFormComponent } from '../../shared/recipe-meta-form/recipe-meta-form.component';
-import { RecipeAmountsFormComponent } from '../../shared/recipe-amounts-form/recipe-amounts-form.component';
+import { RecipeIngredientsFormComponent } from '../../shared/recipe-ingredients-form/recipe-ingredients-form.component';
 import { RecipePreparationFormComponent } from '../../shared/recipe-preparation-form/recipe-preparation-form.component';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [
     CommonModule,
     RecipeMetaFormComponent,
-    RecipeAmountsFormComponent,
+    RecipeIngredientsFormComponent,
     RecipePreparationFormComponent,
     ReactiveFormsModule,
     MatButtonModule,

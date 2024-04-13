@@ -25,7 +25,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-recipe-amounts-form',
+  selector: 'app-recipe-ingredients-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -38,10 +38,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatExpansionModule,
     MatSelectModule,
   ],
-  templateUrl: './recipe-amounts-form.component.html',
-  styleUrl: './recipe-amounts-form.component.css',
+  templateUrl: './recipe-ingredients-form.component.html',
+  styleUrl: './recipe-ingredients-form.component.css',
 })
-export class RecipeAmountsFormComponent {
+export class RecipeIngredientsFormComponent {
   @Input() foodstuffs!: Foodstuff[];
   @Input() recipe?: Recipe;
 
@@ -50,11 +50,11 @@ export class RecipeAmountsFormComponent {
   dialog: MatDialog = inject(MatDialog);
 
   recipeForm!: FormGroup;
-  amountsFormGroup!: FormGroup;
+  ingredientsFormGroup!: FormGroup;
 
   ngOnInit() {
     this.recipeForm = this.recipeFormDirective.control;
-    this.amountsFormGroup = this.recipeForm.get(
+    this.ingredientsFormGroup = this.recipeForm.get(
       'amountsFormGroup'
     ) as FormGroup;
 
@@ -64,7 +64,7 @@ export class RecipeAmountsFormComponent {
         servings: this.recipe.servings,
       });
       this.recipe.ingredients.forEach((ingredient) =>
-        this.addAmount(ingredient)
+        this.addIngredient(ingredient)
       );
     }
   }
@@ -74,18 +74,18 @@ export class RecipeAmountsFormComponent {
   }
 
   // add either empty or existing ingredient to form
-  addAmount(amount?: Ingredient): void {
+  addIngredient(ingredient?: Ingredient): void {
     this.amounts.push(
       this.fb.group({
         index: [1, Validators.required],
         // index: [amount?.index ?? null, Validators.required],
-        foodstuffId: [amount?.foodstuffId ?? null, Validators.required],
-        amount: [amount?.amount ?? null, Validators.required],
+        foodstuffId: [ingredient?.foodstuffId ?? null, Validators.required],
+        amount: [ingredient?.amount ?? null, Validators.required],
       })
     );
   }
 
-  removeAmount(index: number): void {
+  removeIngredient(index: number): void {
     this.amounts.removeAt(index);
   }
 
