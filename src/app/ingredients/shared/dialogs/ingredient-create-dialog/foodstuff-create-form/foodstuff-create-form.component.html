@@ -1,9 +1,4 @@
-<form
-  action="POST"
-  class="ingredient-form"
-  [formGroup]="ingredientForm"
-  (ngSubmit)="onSubmit()"
->
+<form action="POST" [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
   <div class="fields">
     <mat-form-field appearance="fill">
       <mat-label>{{ verboseNames?.name }}</mat-label>

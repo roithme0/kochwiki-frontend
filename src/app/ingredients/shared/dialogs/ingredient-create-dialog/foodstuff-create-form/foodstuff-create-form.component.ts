@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-ingredient-create-form',
+  selector: 'app-foodstuff-create-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,12 +27,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatSelectModule,
   ],
-  templateUrl: './ingredient-create-form.component.html',
-  styleUrl: './ingredient-create-form.component.css',
+  templateUrl: './foodstuff-create-form.component.html',
+  styleUrl: './foodstuff-create-form.component.css',
 })
-export class IngredientCreateFormComponent {
-  // fetch ingredient meta data
-  // render form to create ingredient
+// fetch foodstuff meta data
+// render form to create foodstuff
+export class FoodstuffCreateFormComponent {
   @Output() success: EventEmitter<void> = new EventEmitter();
 
   verboseNames: VerboseNames | null = null;
