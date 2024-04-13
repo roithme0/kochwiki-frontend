@@ -88,18 +88,18 @@ export class RecipePatchFormComponent {
     this.fetchRecipe();
   }
 
-  // fetch all ingredients for adding amounts to recipe
+  // fetch all foodstuffs for adding amounts to recipe
   fetchAllIngredients(): void {
-    this.ingredientService.getAllIngredients().subscribe({
-      next: (ingredients) => {
-        console.debug('fetched ingredients: ', ingredients);
-        this.ingredients = ingredients;
+    this.ingredientService.getAllFoodstuffs().subscribe({
+      next: (foodstuffs) => {
+        console.debug('fetched foodstuffs: ', foodstuffs);
+        this.ingredients = foodstuffs;
 
         this.isLoadingFetchAllIngredients = false;
         this.hasErrorFetchAllIngredients = false;
       },
       error: (error) => {
-        console.error('failed to fetch ingredients: ', error);
+        console.error('failed to fetch foodstuffs: ', error);
 
         this.isLoadingFetchAllIngredients = false;
         this.hasErrorFetchAllIngredients = true;

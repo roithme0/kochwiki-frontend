@@ -64,20 +64,24 @@ export class IngredientsGridDisplayedIngredientsService {
     return this._error;
   }
 
+  // fetch all foodstuffs
   private async fetchIngredients() {
-    // fetch all ingredients
     this._loading.set(true);
-    this.ingredientService.getAllIngredients().subscribe({
-      next: (ingredients) => {
-        console.debug('fetched ingredients: ', ingredients);
-        this.ingredients.set(ingredients);
+    this.ingredientService.getAllFoodstuffs().subscribe({
+      next: (foodstuffs) => {
+        console.debug('fetched foodstuffs: ', foodstuffs);
+        this.ingredients.set(foodstuffs);
         this._error.set(false);
       },
       error: (error) => {
-        console.error('failed to fetch ingredients: ', error);
-        this.snackBarService.open('Zutaten konnten nicht geladen werden', '', {
-          duration: 5000,
-        });
+        console.error('failed to fetch foodstuffs: ', error);
+        this.snackBarService.open(
+          'Lebensmittel konnten nicht geladen werden',
+          '',
+          {
+            duration: 5000,
+          }
+        );
         this._error.set(true);
         this._loading.set(false);
       },

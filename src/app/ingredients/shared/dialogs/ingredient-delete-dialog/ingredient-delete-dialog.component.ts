@@ -16,10 +16,10 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './ingredient-delete-dialog.component.html',
   styleUrl: './ingredient-delete-dialog.component.css',
 })
+// get foodstuff id from mat dialog data
+// fetch foodstuff by id
+// render buttons to delete foodstuff
 export class IngredientDeleteDialogComponent {
-  // get ingredient id from mat dialog data
-  // fetch ingredient by id
-  // render buttons to delete ingredient
   dialogRef: MatDialogRef<IngredientDeleteDialogComponent> =
     inject(MatDialogRef);
   ingredientService = inject(FoodstuffService);
@@ -27,27 +27,27 @@ export class IngredientDeleteDialogComponent {
   ingredient: Foodstuff | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {
-    this.ingredientService.getIngredientById(data.id).subscribe({
-      next: (ingredient) => {
-        console.debug('ingredient fetched: ', ingredient);
-        this.ingredient = ingredient;
+    this.ingredientService.getFoodstuffById(data.id).subscribe({
+      next: (foodstuff) => {
+        console.debug('foodstuff fetched: ', foodstuff);
+        this.ingredient = foodstuff;
       },
       error: (error) => {
-        console.error('failed to fetch ingredient: ', error);
+        console.error('failed to fetch foodstuff: ', error);
       },
     });
   }
 
   deleteIngredient(): void {
     this.ingredient?.id
-      ? this.ingredientService.deleteIngredient(this.ingredient.id).subscribe({
+      ? this.ingredientService.deleteFoodstuff(this.ingredient.id).subscribe({
           next: (id) => {
-            console.info('ingredient deleted: ', id);
-            this.ingredientService.notifyIngredientsChanged();
+            console.info('foodstuff deleted: ', id);
+            this.ingredientService.notifyFoodstuffsChanged();
             this.dialogRef.close();
           },
           error: (error) => {
-            console.error('failed to delete ingredient: ', error);
+            console.error('failed to delete foodstuff: ', error);
           },
         })
       : null;

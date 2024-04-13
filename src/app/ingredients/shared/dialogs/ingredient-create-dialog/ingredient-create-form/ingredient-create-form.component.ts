@@ -57,24 +57,24 @@ export class IngredientCreateFormComponent {
     this.fetchUnitChoices();
   }
 
+  // submit form to create foodstuff
+  // close dialog on success
   onSubmit(): void {
-    // submit form to create ingredient
-    // close dialog on success
     console.debug(
       'submitting create ingredient form: ',
       this.ingredientForm.value
     );
-    const ingredient: Partial<Foodstuff> = this.ingredientForm
+    const foodstuff: Partial<Foodstuff> = this.ingredientForm
       .value as Foodstuff;
 
-    this.ingredientService.postIngredient(ingredient).subscribe({
-      next: (ingredient) => {
-        console.info('ingredient created: ', ingredient);
-        this.ingredientService.notifyIngredientsChanged();
+    this.ingredientService.postFoodstuff(foodstuff).subscribe({
+      next: (foodstuff) => {
+        console.info('foodstuff created: ', foodstuff);
+        this.ingredientService.notifyFoodstuffsChanged();
         this.success.emit();
       },
       error: (error) => {
-        console.error('failed to create ingredient: ', error);
+        console.error('failed to create foodstuff: ', error);
       },
     });
   }

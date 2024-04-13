@@ -15,55 +15,55 @@ const backendUrl: string = environment.backendUrl;
 })
 // backend communication for foodstuffs
 export class FoodstuffService {
-  private http: HttpClient = inject(HttpClient);
+  private http = inject(HttpClient);
 
-  private ingredientsSubject = new Subject<void>();
-  foodstuffs$ = this.ingredientsSubject.asObservable();
+  private foodstuffsSubject = new Subject<void>();
+  foodstuffs$ = this.foodstuffsSubject.asObservable();
 
-  notifyIngredientsChanged() {
-    this.ingredientsSubject.next();
+  notifyFoodstuffsChanged() {
+    this.foodstuffsSubject.next();
   }
 
-  getAllIngredients(): Observable<Foodstuff[]> {
+  getAllFoodstuffs(): Observable<Foodstuff[]> {
     console.debug('GET: fetching all foodstuffs ...');
     return this.http.get<Foodstuff[]>(backendUrl + '/ingredients');
   }
 
-  getIngredientById(id: number): Observable<Foodstuff> {
-    console.debug('GET: fetching ingredient by id "' + id + '" ...');
+  getFoodstuffById(id: number): Observable<Foodstuff> {
+    console.debug('GET: fetching foodstuff by id "' + id + '" ...');
     return this.http.get<Foodstuff>(backendUrl + '/ingredients/' + id);
   }
 
-  patchIngredient(
+  patchFoodstuff(
     id: number,
     updates: Partial<Foodstuff>
   ): Observable<Foodstuff> {
-    console.debug('PATCH: patching ingredient "' + id + '" ...');
+    console.debug('PATCH: patching foodstuff "' + id + '" ...');
     return this.http.patch<Foodstuff>(
       backendUrl + '/ingredients/' + id,
       updates
     );
   }
 
-  postIngredient(ingredient: Partial<Foodstuff>): Observable<Foodstuff> {
-    console.debug('POST: posting ingredient "' + ingredient + '" ...');
-    return this.http.post<Foodstuff>(backendUrl + '/ingredients', ingredient);
+  postFoodstuff(foodstuff: Partial<Foodstuff>): Observable<Foodstuff> {
+    console.debug('POST: posting foodstuff "' + foodstuff + '" ...');
+    return this.http.post<Foodstuff>(backendUrl + '/ingredients', foodstuff);
   }
 
-  deleteIngredient(id: number): Observable<number> {
-    console.debug('DELETE: deleting ingredient by id "' + id + '" ...');
+  deleteFoodstuff(id: number): Observable<number> {
+    console.debug('DELETE: deleting foodstuff by id "' + id + '" ...');
     return this.http.delete<number>(backendUrl + '/ingredients/' + id);
   }
 
   fetchVerboseNames(): Observable<VerboseNames> {
-    console.debug('GET: fetching ingredient verbose names ...');
+    console.debug('GET: fetching foodstuff verbose names ...');
     return this.http.get<VerboseNames>(
       backendUrl + '/ingredients-meta-data/verbose-names'
     );
   }
 
   fetchUnitChoices(): Observable<UnitChoices> {
-    console.debug('GET: fetching ingredient unit choices ...');
+    console.debug('GET: fetching foodstuff unit choices ...');
     return this.http.get<UnitChoices>(
       backendUrl + '/ingredients-meta-data/unit-choices'
     );

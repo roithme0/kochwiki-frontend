@@ -76,10 +76,10 @@ export class FoodstuffPatchFormComponent {
       return;
     }
 
-    this.foodstuffService.patchIngredient(this.id, updates).subscribe({
+    this.foodstuffService.patchFoodstuff(this.id, updates).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff patched: ', foodstuff);
-        this.foodstuffService.notifyIngredientsChanged();
+        this.foodstuffService.notifyFoodstuffsChanged();
         this.success.emit();
       },
       error: (error) => {
@@ -89,7 +89,7 @@ export class FoodstuffPatchFormComponent {
   }
 
   fetchFoodstuffById(id: number): void {
-    this.foodstuffService.getIngredientById(id).subscribe({
+    this.foodstuffService.getFoodstuffById(id).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff fetched: ', foodstuff);
         this.foodstuffForm.patchValue(foodstuff);

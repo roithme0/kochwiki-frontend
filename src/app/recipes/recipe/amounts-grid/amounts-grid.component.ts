@@ -29,13 +29,13 @@ export class AmountsGridComponent {
     }
 
     for (let amount of this.recipe.amounts) {
-      this.ingredientService.getIngredientById(amount.ingredientId).subscribe({
-        next: (ingredient) => {
-          console.debug('fetched ingredient: ', ingredient);
-          amount.ingredient = ingredient;
+      this.ingredientService.getFoodstuffById(amount.ingredientId).subscribe({
+        next: (foodstuff) => {
+          console.debug('fetched foodstuff: ', foodstuff);
+          amount.ingredient = foodstuff;
         },
         error: (error) => {
-          console.error('failed to fetch ingredient: ', error);
+          console.error('failed to fetch foodstuff: ', error);
         },
       });
     }

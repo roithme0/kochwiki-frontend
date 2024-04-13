@@ -100,10 +100,10 @@ export class RecipeCreateFormComponent {
   }
 
   fetchIngredients(): void {
-    this.ingredientService.getAllIngredients().subscribe({
-      next: (ingredients) => {
-        console.debug('fetched ingredients: ', ingredients);
-        this.ingredients = ingredients;
+    this.ingredientService.getAllFoodstuffs().subscribe({
+      next: (foodstuffs) => {
+        console.debug('fetched foodstuffs: ', foodstuffs);
+        this.ingredients = foodstuffs;
 
         this.isLoadingFetchAllIngredients = false;
         this.hasErrorFetchAllIngredients = false;
