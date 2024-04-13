@@ -55,12 +55,12 @@ export class RecipeIngredientsFormComponent {
   ngOnInit() {
     this.recipeForm = this.recipeFormDirective.control;
     this.ingredientsFormGroup = this.recipeForm.get(
-      'amountsFormGroup'
+      'ingredientsFormGroup'
     ) as FormGroup;
 
     // set form values
     if (this.recipe) {
-      this.recipeForm.get('amountsFormGroup')?.patchValue({
+      this.recipeForm.get('ingredientsFormGroup')?.patchValue({
         servings: this.recipe.servings,
       });
       this.recipe.ingredients.forEach((ingredient) =>
@@ -69,16 +69,16 @@ export class RecipeIngredientsFormComponent {
     }
   }
 
-  get amounts(): FormArray {
-    return this.recipeForm.get('amountsFormGroup.amounts') as FormArray;
+  get ingredients(): FormArray {
+    return this.recipeForm.get('ingredientsFormGroup.ingredients') as FormArray;
   }
 
   // add either empty or existing ingredient to form
   addIngredient(ingredient?: Ingredient): void {
-    this.amounts.push(
+    this.ingredients.push(
       this.fb.group({
         index: [1, Validators.required],
-        // index: [amount?.index ?? null, Validators.required],
+        // index: [ingredient?.index ?? null, Validators.required],
         foodstuffId: [ingredient?.foodstuffId ?? null, Validators.required],
         amount: [ingredient?.amount ?? null, Validators.required],
       })
@@ -86,7 +86,7 @@ export class RecipeIngredientsFormComponent {
   }
 
   removeIngredient(index: number): void {
-    this.amounts.removeAt(index);
+    this.ingredients.removeAt(index);
   }
 
   openCreateFoodstuffDialog(): void {

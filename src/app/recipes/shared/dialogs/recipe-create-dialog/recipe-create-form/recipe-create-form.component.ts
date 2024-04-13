@@ -79,9 +79,9 @@ export class RecipeCreateFormComponent {
       originUrl: [''],
       // original: [<File | null>null],
     }),
-    amountsFormGroup: this.fb.group({
+    ingredientsFormGroup: this.fb.group({
       servings: [2, Validators.required],
-      amounts: this.fb.array([]),
+      ingredients: this.fb.array([]),
     }),
     preparationFormGroup: this.fb.group({
       preptime: [<number | null>null],
@@ -159,7 +159,7 @@ export class RecipeCreateFormComponent {
     console.debug('submitting create recipe form: ', formValue);
     const recipe: Partial<Recipe> = {
       ...formValue.metaFormGroup,
-      ...formValue.amountsFormGroup,
+      ...formValue.ingredientsFormGroup,
       ...formValue.preparationFormGroup,
     } as Recipe;
     this.recipeService.postRecipe(recipe).subscribe({

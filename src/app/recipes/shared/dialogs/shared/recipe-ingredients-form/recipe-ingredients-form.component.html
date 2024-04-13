@@ -4,8 +4,8 @@
     <input matInput type="number" formControlName="servings" />
   </mat-form-field>
 
-  <div class="ingredients-wrapper" formArrayName="amounts">
-    @for(amount of amounts.controls; track amount){
+  <div class="ingredients-wrapper" formArrayName="ingredients">
+    @for(ingredient of ingredients.controls; track ingredient){
     <div class="ingredient-wrapper" formGroupName="{{ $index }}">
       <button mat-icon-button color="warn" (click)="removeIngredient($index)">
         <mat-icon

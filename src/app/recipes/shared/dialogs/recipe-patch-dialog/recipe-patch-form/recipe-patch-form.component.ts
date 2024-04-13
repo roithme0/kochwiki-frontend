@@ -66,9 +66,9 @@ export class RecipePatchFormComponent {
       originUrl: [''],
       // original: [<File | null>null],
     }),
-    amountsFormGroup: this.fb.group({
+    ingredientsFormGroup: this.fb.group({
       servings: [<number | null>null, Validators.required],
-      amounts: this.fb.array([]),
+      ingredients: this.fb.array([]),
     }),
     preparationFormGroup: this.fb.group({
       preptime: [<number | null>null],
@@ -87,7 +87,7 @@ export class RecipePatchFormComponent {
     this.fetchRecipe();
   }
 
-  // fetch all foodstuffs for adding amounts to recipe
+  // fetch all foodstuffs for adding ingredients to recipe
   fetchAllFoodstuffs(): void {
     this.foodstuffService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
@@ -135,7 +135,7 @@ export class RecipePatchFormComponent {
     console.debug('submitting edit recipe form: ', formValue);
     const recipe: Partial<Recipe> = {
       ...formValue.metaFormGroup,
-      ...formValue.amountsFormGroup,
+      ...formValue.ingredientsFormGroup,
       ...formValue.preparationFormGroup,
     } as Recipe;
 

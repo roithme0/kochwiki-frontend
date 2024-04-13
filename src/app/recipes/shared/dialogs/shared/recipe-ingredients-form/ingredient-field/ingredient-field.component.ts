@@ -44,18 +44,18 @@ export class IngredientFieldComponent {
 
   ingredientsFormGroup!: FormGroup;
   foodstuffIdControl!: FormControl;
-  amountControl!: FormControl;
+  ingredientControl!: FormControl;
 
-  panelTitle: WritableSignal<string> = signal('Lebensmittel wählen');
+  panelTitle: WritableSignal<string> = signal('Lebensmittel wählen ...');
 
   // get form controls
   ngOnInit() {
     this.ingredientsFormGroup = this.ingredientsFormGroupDirective.control;
     this.foodstuffIdControl = this.ingredientsFormGroup.get(
-      `amounts.${this.index}.foodstuffId`
+      `ingredients.${this.index}.foodstuffId`
     ) as FormControl;
-    this.amountControl = this.ingredientsFormGroup.get(
-      `amounts.${this.index}.amount`
+    this.ingredientControl = this.ingredientsFormGroup.get(
+      `ingredients.${this.index}.amount`
     ) as FormControl;
 
     // set panel title if foodstuff is already selected
@@ -72,7 +72,7 @@ export class IngredientFieldComponent {
   updatePanelTitle(foodstuffId: number | null) {
     if (foodstuffId === null) {
       console.debug('No foodstuff id provided');
-      this.panelTitle.set('Lebensmittel wählen');
+      this.panelTitle.set('Lebensmittel wählen ...');
       return;
     }
 
