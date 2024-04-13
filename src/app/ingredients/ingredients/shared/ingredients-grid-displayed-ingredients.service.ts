@@ -7,12 +7,12 @@ import {
   inject,
 } from '@angular/core';
 
-import { Ingredient } from '../../shared/interfaces/ingredient';
+import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { IngredientService } from '../../shared/services/ingredient.service';
 import { IngredientsGridControlsService } from './ingredients-grid-controls.service';
 
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +24,8 @@ export class IngredientsGridDisplayedIngredientsService {
     inject(IngredientsGridControlsService);
   private snackBarService: MatSnackBar = inject(MatSnackBar);
 
-  private ingredients: WritableSignal<Ingredient[]> = signal([]);
-  private _displayedIngredients: Signal<Ingredient[]> = computed(() => {
+  private ingredients: WritableSignal<Foodstuff[]> = signal([]);
+  private _displayedIngredients: Signal<Foodstuff[]> = computed(() => {
     // apply search & filter functions to ingredients
     var displayedIngredients = this.ingredients();
     displayedIngredients =
@@ -47,11 +47,11 @@ export class IngredientsGridDisplayedIngredientsService {
     this.ingredientService.ingredients$.subscribe(() => {
       this.fetchIngredients();
     });
-    
+
     this.fetchIngredients();
   }
 
-  get displayedIngredients(): Signal<Ingredient[]> {
+  get displayedIngredients(): Signal<Foodstuff[]> {
     return this._displayedIngredients;
   }
 
@@ -74,19 +74,21 @@ export class IngredientsGridDisplayedIngredientsService {
       },
       error: (error) => {
         console.error('failed to fetch ingredients: ', error);
-        this.snackBarService.open('Zutaten konnten nicht geladen werden', '',{duration: 5000});
+        this.snackBarService.open('Zutaten konnten nicht geladen werden', '', {
+          duration: 5000,
+        });
         this._error.set(true);
         this._loading.set(false);
       },
       complete: () => {
         this._loading.set(false);
-      }
+      },
     });
   }
 
   private searchIngredientsByNameOrBrand(
-    ingredients: Ingredient[]
-  ): Ingredient[] {
+    ingredients: Foodstuff[]
+  ): Foodstuff[] {
     const searchBy: string = this.searchBy();
     console.debug('searching ingredients by: ' + searchBy);
     if (searchBy === '') {
@@ -100,7 +102,7 @@ export class IngredientsGridDisplayedIngredientsService {
     });
   }
 
-  private filterIngredientsByUnit(ingredients: Ingredient[]): Ingredient[] {
+  private filterIngredientsByUnit(ingredients: Foodstuff[]): Foodstuff[] {
     const filterBy: string = this.filterBy();
     console.debug('filtering ingredients by: ' + filterBy);
     if (filterBy === 'all') {

@@ -9,7 +9,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
-import { Ingredient } from '../../../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuff';
 import { Amount } from '../../../interfaces/amount';
 import { Recipe } from '../../../interfaces/recipe';
 
@@ -42,7 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './recipe-amounts-form.component.css',
 })
 export class RecipeAmountsFormComponent {
-  @Input() ingredients!: Ingredient[];
+  @Input() ingredients!: Foodstuff[];
   @Input() recipe?: Recipe;
 
   recipeFormDirective = inject(FormGroupDirective);

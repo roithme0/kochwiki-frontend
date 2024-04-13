@@ -1,6 +1,6 @@
 import { Amount } from '../../../recipes/shared/interfaces/amount';
 
-export interface Ingredient {
+export interface Foodstuff {
   [key: string]: any;
   id: number;
   name: string;

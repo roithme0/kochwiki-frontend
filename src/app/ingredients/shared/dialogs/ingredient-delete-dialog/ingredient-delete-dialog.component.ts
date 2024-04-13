@@ -1,7 +1,7 @@
 import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Ingredient } from '../../interfaces/ingredient';
+import { Foodstuff } from '../../interfaces/foodstuff';
 
 import { IngredientService } from '../../services/ingredient.service';
 
@@ -24,7 +24,7 @@ export class IngredientDeleteDialogComponent {
     inject(MatDialogRef);
   ingredientService: IngredientService = inject(IngredientService);
 
-  ingredient: Ingredient | undefined;
+  ingredient: Foodstuff | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {
     this.ingredientService.getIngredientById(data.id).subscribe({

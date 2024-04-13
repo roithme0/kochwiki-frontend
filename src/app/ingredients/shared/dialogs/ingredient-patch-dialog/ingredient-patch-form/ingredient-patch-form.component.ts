@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { Ingredient } from '../../../interfaces/ingredient';
-import { VerboseNames } from '../../../interfaces/ingredient-meta-data';
-import { UnitChoices } from '../../../interfaces/ingredient-meta-data';
+import { Foodstuff } from '../../../interfaces/foodstuff';
+import { VerboseNames } from '../../../interfaces/foodstuff-meta-data';
+import { UnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
 import { IngredientService } from '../../../services/ingredient.service';
 
@@ -71,7 +71,7 @@ export class IngredientPatchFormComponent {
     // submit form to patch ingredient
     // close dialog on success
     console.debug('submitting patch ingredient form: ', formData);
-    const updates: Partial<Ingredient> = formData as Ingredient;
+    const updates: Partial<Foodstuff> = formData as Foodstuff;
 
     if (this.id === undefined) {
       console.error('no ingredient id provided');

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RecipeService } from '../../../services/recipe.service';
 import { IngredientService } from '../../../../../ingredients/shared/services/ingredient.service';
 
-import { Ingredient } from '../../../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
 
 import { RecipeMetaFormComponent } from '../../shared/recipe-meta-form/recipe-meta-form.component';
@@ -51,7 +51,7 @@ export class RecipePatchFormComponent {
   recipeService: RecipeService = inject(RecipeService);
   ingredientService: IngredientService = inject(IngredientService);
 
-  ingredients!: Ingredient[];
+  ingredients!: Foodstuff[];
   recipe!: Recipe;
 
   isLoadingFetchAllIngredients: boolean = true;

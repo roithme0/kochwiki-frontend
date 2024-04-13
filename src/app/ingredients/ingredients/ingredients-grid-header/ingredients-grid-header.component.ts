@@ -2,7 +2,7 @@ import { Component, Input, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { IngredientService } from '../../shared/services/ingredient.service';
-import { VerboseNames } from '../../shared/interfaces/ingredient-meta-data';
+import { VerboseNames } from '../../shared/interfaces/foodstuff-meta-data';
 
 @Component({
   selector: 'app-ingredients-grid-header',

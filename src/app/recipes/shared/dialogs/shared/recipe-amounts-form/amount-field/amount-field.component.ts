@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 
-import { Ingredient } from '../../../../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../../../../ingredients/shared/interfaces/foodstuff';
 
 @Component({
   selector: 'app-amount-field',
@@ -37,7 +37,7 @@ import { Ingredient } from '../../../../../../ingredients/shared/interfaces/ingr
   styleUrl: './amount-field.component.css',
 })
 export class AmountFieldComponent {
-  @Input() ingredients!: Ingredient[];
+  @Input() ingredients!: Foodstuff[];
   @Input() index!: number;
 
   amountsFormGroupDirective = inject(FormGroupDirective);
@@ -76,7 +76,7 @@ export class AmountFieldComponent {
       return;
     }
 
-    const selectedIngredient: Ingredient | undefined = this.ingredients.find(
+    const selectedIngredient: Foodstuff | undefined = this.ingredients.find(
       (ingredient) => ingredient.id == ingredientId
     );
     if (selectedIngredient === undefined) {

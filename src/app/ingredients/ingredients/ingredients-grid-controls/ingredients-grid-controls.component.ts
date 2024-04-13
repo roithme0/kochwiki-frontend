@@ -12,8 +12,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { IngredientsGridControlsService } from '../shared/ingredients-grid-controls.service';
 import { IngredientService } from '../../shared/services/ingredient.service';
 
-import { UnitChoices } from '../../shared/interfaces/ingredient-meta-data';
-import { Ingredient } from '../../shared/interfaces/ingredient';
+import { UnitChoices } from '../../shared/interfaces/foodstuff-meta-data';
+import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -41,7 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class IngredientsGridControlsComponent {
   // track & emit grid control inputs
   // render grid controls
-  @Input() ingredients: Signal<Ingredient[]> = signal([]);
+  @Input() ingredients: Signal<Foodstuff[]> = signal([]);
 
   searchControl: FormControl = new FormControl('');
   filterControl: FormControl = new FormControl('all');
@@ -83,11 +83,11 @@ export class IngredientsGridControlsComponent {
 
   constructor() {
     // emit search & filter values
-    this.searchControl.valueChanges.subscribe((value) =>
-      this.ingredientsGridControlsService.searchBy = value
+    this.searchControl.valueChanges.subscribe(
+      (value) => (this.ingredientsGridControlsService.searchBy = value)
     );
-    this.filterControl.valueChanges.subscribe((value) =>
-      this.ingredientsGridControlsService.filterBy = value
+    this.filterControl.valueChanges.subscribe(
+      (value) => (this.ingredientsGridControlsService.filterBy = value)
     );
   }
 

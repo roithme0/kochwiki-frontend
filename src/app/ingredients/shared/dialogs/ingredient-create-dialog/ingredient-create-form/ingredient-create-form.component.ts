@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { Ingredient } from '../../../interfaces/ingredient';
-import { VerboseNames } from '../../../interfaces/ingredient-meta-data';
-import { UnitChoices } from '../../../interfaces/ingredient-meta-data';
+import { Foodstuff } from '../../../interfaces/foodstuff';
+import { VerboseNames } from '../../../interfaces/foodstuff-meta-data';
+import { UnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
 import { IngredientService } from '../../../services/ingredient.service';
 
@@ -64,8 +64,8 @@ export class IngredientCreateFormComponent {
       'submitting create ingredient form: ',
       this.ingredientForm.value
     );
-    const ingredient: Partial<Ingredient> = this.ingredientForm
-      .value as Ingredient;
+    const ingredient: Partial<Foodstuff> = this.ingredientForm
+      .value as Foodstuff;
 
     this.ingredientService.postIngredient(ingredient).subscribe({
       next: (ingredient) => {

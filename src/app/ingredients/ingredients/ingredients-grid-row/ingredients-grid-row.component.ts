@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Ingredient } from '../../shared/interfaces/ingredient';
+import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { IngredientPatchDialogComponent } from '../../shared/dialogs/ingredient-patch-dialog/ingredient-patch-dialog.component';
 import { IngredientDeleteDialogComponent } from '../../shared/dialogs/ingredient-delete-dialog/ingredient-delete-dialog.component';
@@ -20,7 +20,7 @@ import { IngredientDeleteDialogComponent } from '../../shared/dialogs/ingredient
 export class IngredientsGridRowComponent {
   // render ingredient data
   // render ingredient buttons
-  @Input() ingredient: Ingredient | undefined;
+  @Input() ingredient: Foodstuff | undefined;
   @Input() displayedFields: string[] = [];
 
   dialog: MatDialog = inject(MatDialog);

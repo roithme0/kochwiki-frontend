@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable, Subject } from 'rxjs';
 
-import { Ingredient } from '../interfaces/ingredient';
-import { VerboseNames, UnitChoices } from '../interfaces/ingredient-meta-data';
+import { Foodstuff } from '../interfaces/foodstuff';
+import { VerboseNames, UnitChoices } from '../interfaces/foodstuff-meta-data';
 
 import { environment } from '../../../../environments/environment';
 
@@ -25,30 +25,30 @@ export class IngredientService {
     this.ingredientsSubject.next();
   }
 
-  getAllIngredients(): Observable<Ingredient[]> {
+  getAllIngredients(): Observable<Foodstuff[]> {
     console.debug('GET: fetching all ingredients ...');
-    return this.http.get<Ingredient[]>(backendUrl + '/ingredients');
+    return this.http.get<Foodstuff[]>(backendUrl + '/ingredients');
   }
 
-  getIngredientById(id: number): Observable<Ingredient> {
+  getIngredientById(id: number): Observable<Foodstuff> {
     console.debug('GET: fetching ingredient by id "' + id + '" ...');
-    return this.http.get<Ingredient>(backendUrl + '/ingredients/' + id);
+    return this.http.get<Foodstuff>(backendUrl + '/ingredients/' + id);
   }
 
   patchIngredient(
     id: number,
-    updates: Partial<Ingredient>
-  ): Observable<Ingredient> {
+    updates: Partial<Foodstuff>
+  ): Observable<Foodstuff> {
     console.debug('PATCH: patching ingredient "' + id + '" ...');
-    return this.http.patch<Ingredient>(
+    return this.http.patch<Foodstuff>(
       backendUrl + '/ingredients/' + id,
       updates
     );
   }
 
-  postIngredient(ingredient: Partial<Ingredient>): Observable<Ingredient> {
+  postIngredient(ingredient: Partial<Foodstuff>): Observable<Foodstuff> {
     console.debug('POST: posting ingredient "' + ingredient + '" ...');
-    return this.http.post<Ingredient>(backendUrl + '/ingredients', ingredient);
+    return this.http.post<Foodstuff>(backendUrl + '/ingredients', ingredient);
   }
 
   deleteIngredient(id: number): Observable<number> {

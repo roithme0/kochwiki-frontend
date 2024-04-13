@@ -10,7 +10,7 @@ import {
 import { RecipeService } from '../../../../shared/services/recipe.service';
 import { IngredientService } from '../../../../../ingredients/shared/services/ingredient.service';
 
-import { Ingredient } from '../../../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
 
 import { RecipeMetaFormComponent } from '../../shared/recipe-meta-form/recipe-meta-form.component';
@@ -66,7 +66,7 @@ export class RecipeCreateFormComponent {
 
   @Output() success: EventEmitter<void> = new EventEmitter();
 
-  ingredients!: Ingredient[];
+  ingredients!: Foodstuff[];
 
   isLoadingFetchAllIngredients: boolean = true;
   hasErrorFetchAllIngredients: boolean = false;

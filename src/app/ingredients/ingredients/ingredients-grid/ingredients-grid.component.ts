@@ -10,7 +10,7 @@ import { IngredientsGridControlsComponent } from '../ingredients-grid-controls/i
 import { IngredientsGridHeaderComponent } from '../ingredients-grid-header/ingredients-grid-header.component';
 import { IngredientsGridRowComponent } from '../ingredients-grid-row/ingredients-grid-row.component';
 
-import { Ingredient } from '../../shared/interfaces/ingredient';
+import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { IngredientCreateDialogComponent } from '../../shared/dialogs/ingredient-create-dialog/ingredient-create-dialog.component';
 
@@ -42,11 +42,12 @@ export class IngredientsGridComponent {
     IngredientsGridDisplayedFieldsService
   );
 
-  displayedIngredients: Signal<Ingredient[]> =
+  displayedIngredients: Signal<Foodstuff[]> =
     this.displayedIngredientsService.displayedIngredients;
   loadingDisplayedIngredients: Signal<boolean> =
     this.displayedIngredientsService.loading;
-  errorLoadingDisplayedIngredients: Signal<boolean> = this.displayedIngredientsService.error;
+  errorLoadingDisplayedIngredients: Signal<boolean> =
+    this.displayedIngredientsService.error;
   displayedFields: Signal<string[]> =
     this.displayedFieldsService.displayedFields;
 
