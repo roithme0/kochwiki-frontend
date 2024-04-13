@@ -9,7 +9,7 @@ import { MatDialogContent } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-ingredient-patch-dialog',
+  selector: 'app-foodstuff-patch-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -17,14 +17,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     FoodstuffPatchFormComponent,
     MatDialogContent,
   ],
-  templateUrl: './ingredient-patch-dialog.component.html',
-  styleUrl: './ingredient-patch-dialog.component.css',
+  templateUrl: './foodstuff-patch-dialog.component.html',
+  styleUrl: './foodstuff-patch-dialog.component.css',
 })
-export class IngredientPatchDialogComponent {
-  // get ingredient id from mat dialog data
-  // render ingredient-patch-form
-  dialogRef: MatDialogRef<IngredientPatchDialogComponent> =
-    inject(MatDialogRef);
+// get foodstuff id from mat dialog data
+// render foodstuff-patch-form
+export class FoodstuffPatchDialogComponent {
+  dialogRef: MatDialogRef<FoodstuffPatchDialogComponent> = inject(MatDialogRef);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {}
 }

@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
-import { IngredientPatchDialogComponent } from '../../shared/dialogs/ingredient-patch-dialog/ingredient-patch-dialog.component';
+import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/ingredient-patch-dialog/foodstuff-patch-dialog.component';
 import { IngredientDeleteDialogComponent } from '../../shared/dialogs/ingredient-delete-dialog/ingredient-delete-dialog.component';
 
 @Component({
@@ -26,7 +26,7 @@ export class IngredientsGridRowComponent {
   dialog: MatDialog = inject(MatDialog);
 
   openEditIngredientDialog(): void {
-    this.dialog.open(IngredientPatchDialogComponent, {
+    this.dialog.open(FoodstuffPatchDialogComponent, {
       data: { id: this.ingredient?.id },
     });
   }
