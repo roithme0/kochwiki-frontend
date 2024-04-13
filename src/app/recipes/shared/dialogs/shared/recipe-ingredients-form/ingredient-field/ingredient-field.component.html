@@ -1,9 +1,9 @@
-<mat-expansion-panel class="amount-expansion-panel">
+<mat-expansion-panel class="ingredient-expansion-panel">
   <mat-expansion-panel-header>
     <mat-panel-title> {{ panelTitle() }} </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <div class="amount-fields-wrapper">
+  <div class="ingredient-fields-wrapper">
     <mat-form-field appearance="fill" class="foodstuff-field">
       <mat-label>Lebensmittel</mat-label>
       <mat-select
@@ -20,7 +20,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Menge</mat-label>
-      <input matInput type="number" [formControl]="amountControl" />
+      <input matInput type="number" [formControl]="ingredientControl" />
     </mat-form-field>
   </div>
 </mat-expansion-panel>

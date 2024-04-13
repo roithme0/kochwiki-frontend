@@ -11,7 +11,7 @@ import { Recipe } from '../shared/interfaces/recipe';
 import { RecipeService } from '../shared/services/recipe.service';
 import { PageHeaderService } from '../../shared/services/page-header.service';
 
-import { AmountsGridComponent } from './amounts-grid/amounts-grid.component';
+import { IngredientsGridComponent } from './ingredients-grid/ingredients-grid.component';
 import { StepsGridComponent } from './steps-grid/steps-grid.component';
 
 import { RecipePatchDialogComponent } from '../shared/dialogs/recipe-patch-dialog/recipe-patch-dialog.component';
@@ -22,7 +22,7 @@ import { RecipeDeleteDialogComponent } from '../shared/dialogs/recipe-delete-dia
   standalone: true,
   imports: [
     CommonModule,
-    AmountsGridComponent,
+    IngredientsGridComponent,
     StepsGridComponent,
     MatIconModule,
     MatButtonModule,

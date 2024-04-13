@@ -22,7 +22,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Foodstuff } from '../../../../../../foodstuffs/shared/interfaces/foodstuff';
 
 @Component({
-  selector: 'app-amount-field',
+  selector: 'app-ingredient-field',
   standalone: true,
   imports: [
     CommonModule,
@@ -33,29 +33,29 @@ import { Foodstuff } from '../../../../../../foodstuffs/shared/interfaces/foodst
     MatExpansionModule,
     MatSelectModule,
   ],
-  templateUrl: './amount-field.component.html',
-  styleUrl: './amount-field.component.css',
+  templateUrl: './ingredient-field.component.html',
+  styleUrl: './ingredient-field.component.css',
 })
-export class AmountFieldComponent {
+export class IngredientFieldComponent {
   @Input() foodstuffs!: Foodstuff[];
   @Input() index!: number;
 
-  amountsFormGroupDirective = inject(FormGroupDirective);
+  ingredientsFormGroupDirective = inject(FormGroupDirective);
 
-  amountsFormGroup!: FormGroup;
+  ingredientsFormGroup!: FormGroup;
   foodstuffIdControl!: FormControl;
-  amountControl!: FormControl;
+  ingredientControl!: FormControl;
 
-  panelTitle: WritableSignal<string> = signal('Lebensmittel wählen');
+  panelTitle: WritableSignal<string> = signal('Lebensmittel wählen ...');
 
+  // get form controls
   ngOnInit() {
-    // get form controls
-    this.amountsFormGroup = this.amountsFormGroupDirective.control;
-    this.foodstuffIdControl = this.amountsFormGroup.get(
-      `amounts.${this.index}.foodstuffId`
+    this.ingredientsFormGroup = this.ingredientsFormGroupDirective.control;
+    this.foodstuffIdControl = this.ingredientsFormGroup.get(
+      `ingredients.${this.index}.foodstuffId`
     ) as FormControl;
-    this.amountControl = this.amountsFormGroup.get(
-      `amounts.${this.index}.amount`
+    this.ingredientControl = this.ingredientsFormGroup.get(
+      `ingredients.${this.index}.amount`
     ) as FormControl;
 
     // set panel title if foodstuff is already selected
@@ -72,7 +72,7 @@ export class AmountFieldComponent {
   updatePanelTitle(foodstuffId: number | null) {
     if (foodstuffId === null) {
       console.debug('No foodstuff id provided');
-      this.panelTitle.set('Lebensmittel wählen');
+      this.panelTitle.set('Lebensmittel wählen ...');
       return;
     }
 

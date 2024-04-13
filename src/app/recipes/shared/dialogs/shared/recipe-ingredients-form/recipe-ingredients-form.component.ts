@@ -10,11 +10,11 @@ import {
 } from '@angular/forms';
 
 import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff';
-import { Amount } from '../../../interfaces/amount';
+import { Ingredient } from '../../../interfaces/ingredient';
 import { Recipe } from '../../../interfaces/recipe';
 
 import { FoodstuffCreateDialogComponent } from '../../../../../foodstuffs/shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
-import { AmountFieldComponent } from './amount-field/amount-field.component';
+import { IngredientFieldComponent } from './ingredient-field/ingredient-field.component';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,11 +25,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-recipe-amounts-form',
+  selector: 'app-recipe-ingredients-form',
   standalone: true,
   imports: [
     CommonModule,
-    AmountFieldComponent,
+    IngredientFieldComponent,
     MatButtonModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -38,10 +38,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatExpansionModule,
     MatSelectModule,
   ],
-  templateUrl: './recipe-amounts-form.component.html',
-  styleUrl: './recipe-amounts-form.component.css',
+  templateUrl: './recipe-ingredients-form.component.html',
+  styleUrl: './recipe-ingredients-form.component.css',
 })
-export class RecipeAmountsFormComponent {
+export class RecipeIngredientsFormComponent {
   @Input() foodstuffs!: Foodstuff[];
   @Input() recipe?: Recipe;
 
@@ -50,41 +50,43 @@ export class RecipeAmountsFormComponent {
   dialog: MatDialog = inject(MatDialog);
 
   recipeForm!: FormGroup;
-  amountsFormGroup!: FormGroup;
+  ingredientsFormGroup!: FormGroup;
 
   ngOnInit() {
     this.recipeForm = this.recipeFormDirective.control;
-    this.amountsFormGroup = this.recipeForm.get(
-      'amountsFormGroup'
+    this.ingredientsFormGroup = this.recipeForm.get(
+      'ingredientsFormGroup'
     ) as FormGroup;
 
     // set form values
     if (this.recipe) {
-      this.recipeForm.get('amountsFormGroup')?.patchValue({
+      this.recipeForm.get('ingredientsFormGroup')?.patchValue({
         servings: this.recipe.servings,
       });
-      this.recipe.amounts.forEach((amount) => this.addAmount(amount));
+      this.recipe.ingredients.forEach((ingredient) =>
+        this.addIngredient(ingredient)
+      );
     }
   }
 
-  get amounts(): FormArray {
-    return this.recipeForm.get('amountsFormGroup.amounts') as FormArray;
+  get ingredients(): FormArray {
+    return this.recipeForm.get('ingredientsFormGroup.ingredients') as FormArray;
   }
 
-  addAmount(amount?: Amount): void {
-    // add either empty or existing amount to form
-    this.amounts.push(
+  // add either empty or existing ingredient to form
+  addIngredient(ingredient?: Ingredient): void {
+    this.ingredients.push(
       this.fb.group({
         index: [1, Validators.required],
-        // index: [amount?.index ?? null, Validators.required],
-        foodstuffId: [amount?.foodstuffId ?? null, Validators.required],
-        amount: [amount?.amount ?? null, Validators.required],
+        // index: [ingredient?.index ?? null, Validators.required],
+        foodstuffId: [ingredient?.foodstuffId ?? null, Validators.required],
+        amount: [ingredient?.amount ?? null, Validators.required],
       })
     );
   }
 
-  removeAmount(index: number): void {
-    this.amounts.removeAt(index);
+  removeIngredient(index: number): void {
+    this.ingredients.removeAt(index);
   }
 
   openCreateFoodstuffDialog(): void {

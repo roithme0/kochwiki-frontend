@@ -1,4 +1,4 @@
-import { Amount } from './amount';
+import { Ingredient } from './ingredient';
 import { Step } from './step';
 
 export interface Recipe {
@@ -9,7 +9,7 @@ export interface Recipe {
   originUrl: string | null;
   // original: File | null;
   servings: number;
-  amounts: Amount[];
+  ingredients: Ingredient[];
   preptime: number | null;
   steps: Step[];
 }

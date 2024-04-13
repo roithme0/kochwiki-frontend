@@ -1,6 +1,6 @@
 import { Foodstuff } from '../../../foodstuffs/shared/interfaces/foodstuff';
 
-export interface Amount {
+export interface Ingredient {
   id: number;
   index: number;
   foodstuff: Foodstuff;

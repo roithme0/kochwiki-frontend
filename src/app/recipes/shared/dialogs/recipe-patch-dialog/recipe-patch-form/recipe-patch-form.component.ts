@@ -8,7 +8,7 @@ import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff
 import { Recipe } from '../../../interfaces/recipe';
 
 import { RecipeMetaFormComponent } from '../../shared/recipe-meta-form/recipe-meta-form.component';
-import { RecipeAmountsFormComponent } from '../../shared/recipe-amounts-form/recipe-amounts-form.component';
+import { RecipeIngredientsFormComponent } from '../../shared/recipe-ingredients-form/recipe-ingredients-form.component';
 import { RecipePreparationFormComponent } from '../../shared/recipe-preparation-form/recipe-preparation-form.component';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [
     CommonModule,
     RecipeMetaFormComponent,
-    RecipeAmountsFormComponent,
+    RecipeIngredientsFormComponent,
     RecipePreparationFormComponent,
     ReactiveFormsModule,
     MatButtonModule,
@@ -66,9 +66,9 @@ export class RecipePatchFormComponent {
       originUrl: [''],
       // original: [<File | null>null],
     }),
-    amountsFormGroup: this.fb.group({
+    ingredientsFormGroup: this.fb.group({
       servings: [<number | null>null, Validators.required],
-      amounts: this.fb.array([]),
+      ingredients: this.fb.array([]),
     }),
     preparationFormGroup: this.fb.group({
       preptime: [<number | null>null],
@@ -87,7 +87,7 @@ export class RecipePatchFormComponent {
     this.fetchRecipe();
   }
 
-  // fetch all foodstuffs for adding amounts to recipe
+  // fetch all foodstuffs for adding ingredients to recipe
   fetchAllFoodstuffs(): void {
     this.foodstuffService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
@@ -135,7 +135,7 @@ export class RecipePatchFormComponent {
     console.debug('submitting edit recipe form: ', formValue);
     const recipe: Partial<Recipe> = {
       ...formValue.metaFormGroup,
-      ...formValue.amountsFormGroup,
+      ...formValue.ingredientsFormGroup,
       ...formValue.preparationFormGroup,
     } as Recipe;
 

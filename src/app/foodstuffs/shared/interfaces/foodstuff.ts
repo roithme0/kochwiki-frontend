@@ -1,4 +1,4 @@
-import { Amount } from '../../../recipes/shared/interfaces/amount';
+import { Ingredient } from '../../../recipes/shared/interfaces/ingredient';
 
 export interface Foodstuff {
   [key: string]: any;
@@ -11,5 +11,5 @@ export interface Foodstuff {
   carbs: number | null;
   protein: number | null;
   fat: number | null;
-  amounts: Amount[];
+  ingredients: Ingredient[];
 }
