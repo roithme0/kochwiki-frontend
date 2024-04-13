@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../shared/interfaces/recipe';
 
-import { FoodstuffService } from '../../../ingredients/shared/services/foodstuff.service';
+import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.service';
 
 import { MatCardModule } from '@angular/material/card';
 

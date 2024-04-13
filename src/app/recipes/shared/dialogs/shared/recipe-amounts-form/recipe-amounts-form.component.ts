@@ -9,11 +9,11 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
-import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuff';
+import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff';
 import { Amount } from '../../../interfaces/amount';
 import { Recipe } from '../../../interfaces/recipe';
 
-import { IngredientCreateDialogComponent } from '../../../../../ingredients/shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
+import { IngredientCreateDialogComponent } from '../../../../../foodstuffs/shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 import { AmountFieldComponent } from './amount-field/amount-field.component';
 
 import { MatDialog } from '@angular/material/dialog';

@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecipeService } from '../../../services/recipe.service';
-import { FoodstuffService } from '../../../../../ingredients/shared/services/foodstuff.service';
+import { FoodstuffService } from '../../../../../foodstuffs/shared/services/foodstuff.service';
 
-import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuff';
+import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
 
 import { RecipeMetaFormComponent } from '../../shared/recipe-meta-form/recipe-meta-form.component';

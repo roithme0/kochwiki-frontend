@@ -6,15 +6,15 @@ import { FoodstuffsGridComponent } from './foodstuffs-grid/foodstuffs-grid.compo
 import { PageHeaderService } from '../../shared/services/page-header.service';
 
 @Component({
-  selector: 'app-ingredients',
+  selector: 'app-foodstuffs',
   standalone: true,
   imports: [CommonModule, FoodstuffsGridComponent],
-  templateUrl: './ingredients.component.html',
-  styleUrl: './ingredients.component.css',
+  templateUrl: './foodstuffs.component.html',
+  styleUrl: './foodstuffs.component.css',
 })
 // set header values
 // render foodtuffs-grid component
-export class IngredientsComponent {
+export class FoodstuffsComponent {
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
 
   ngOnInit() {

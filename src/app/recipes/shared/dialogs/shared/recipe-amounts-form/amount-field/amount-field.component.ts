@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 
-import { Foodstuff } from '../../../../../../ingredients/shared/interfaces/foodstuff';
+import { Foodstuff } from '../../../../../../foodstuffs/shared/interfaces/foodstuff';
 
 @Component({
   selector: 'app-amount-field',
