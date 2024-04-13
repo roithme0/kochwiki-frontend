@@ -28,7 +28,7 @@ export class AmountsGridComponent {
       return;
     }
 
-    for (let amount of this.recipe.amounts) {
+    for (let amount of this.recipe.ingredients) {
       this.foodstuffService.getFoodstuffById(amount.foodstuffId).subscribe({
         next: (foodstuff) => {
           console.debug('fetched foodstuff: ', foodstuff);

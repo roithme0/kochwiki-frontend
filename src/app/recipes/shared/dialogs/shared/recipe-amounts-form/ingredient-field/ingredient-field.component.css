@@ -2,11 +2,11 @@
   min-width: 0;
 }
 
-.amount-expansion-panel {
+.ingredient-expansion-panel {
   flex: 1;
 }
 
-.amount-fields-wrapper {
+.ingredient-fields-wrapper {
   display: flex;
   flex-flow: row wrap;
   gap: 0 0.5rem;

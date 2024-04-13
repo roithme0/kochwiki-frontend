@@ -10,11 +10,11 @@ import {
 } from '@angular/forms';
 
 import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff';
-import { Amount } from '../../../interfaces/amount';
+import { Ingredient } from '../../../interfaces/ingredient';
 import { Recipe } from '../../../interfaces/recipe';
 
 import { FoodstuffCreateDialogComponent } from '../../../../../foodstuffs/shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
-import { AmountFieldComponent } from './amount-field/amount-field.component';
+import { IngredientFieldComponent } from './ingredient-field/ingredient-field.component';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,7 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
   standalone: true,
   imports: [
     CommonModule,
-    AmountFieldComponent,
+    IngredientFieldComponent,
     MatButtonModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -63,7 +63,9 @@ export class RecipeAmountsFormComponent {
       this.recipeForm.get('amountsFormGroup')?.patchValue({
         servings: this.recipe.servings,
       });
-      this.recipe.amounts.forEach((amount) => this.addAmount(amount));
+      this.recipe.ingredients.forEach((ingredient) =>
+        this.addAmount(ingredient)
+      );
     }
   }
 
@@ -71,8 +73,8 @@ export class RecipeAmountsFormComponent {
     return this.recipeForm.get('amountsFormGroup.amounts') as FormArray;
   }
 
-  addAmount(amount?: Amount): void {
-    // add either empty or existing amount to form
+  // add either empty or existing ingredient to form
+  addAmount(amount?: Ingredient): void {
     this.amounts.push(
       this.fb.group({
         index: [1, Validators.required],
