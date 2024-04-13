@@ -1,4 +1,4 @@
-<form class="ingredient-form">
+<form>
   <mat-form-field class="search-field">
     <mat-label>Suche</mat-label>
     <input
@@ -19,20 +19,19 @@
     }
     <mat-autocomplete autoActiveFirstOption #search="matAutocomplete">
       @if(filteredNames().size > 0){
-        <mat-optgroup label="Namen">
-          @for (name of filteredNames(); track name) {
-            <mat-option [value]="name">{{ name }}</mat-option>
-          }
-        </mat-optgroup>
+      <mat-optgroup label="Namen">
+        @for (name of filteredNames(); track name) {
+        <mat-option [value]="name">{{ name }}</mat-option>
+        }
+      </mat-optgroup>
+      } @if(filteredBrands().size > 0){
+      <mat-optgroup label="Marken">
+        @for (brand of filteredBrands(); track brand) {
+        <mat-option [value]="brand">{{ brand }}</mat-option>
+        }
+      </mat-optgroup>
       }
-      @if(filteredBrands().size > 0){
-        <mat-optgroup label="Marken">
-          @for (brand of filteredBrands(); track brand) {
-            <mat-option [value]="brand">{{ brand }}</mat-option>
-          }
-        </mat-optgroup>
-      }
-      </mat-autocomplete>
+    </mat-autocomplete>
   </mat-form-field>
 
   <mat-form-field class="filter-field">

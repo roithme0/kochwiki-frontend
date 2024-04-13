@@ -5,7 +5,7 @@
 } @if(loadingDisplayedIngredients() == false &&
 errorLoadingDisplayedIngredients() == false) {
 <section class="grid-wrapper">
-  <app-ingredients-grid-controls [ingredients]="displayedIngredients" />
+  <app-foodstuffs-grid-controls [foodstuffs]="displayedIngredients" />
 
   <div class="grid" [style.--fields]="displayedFields().length">
     <app-foodstuffs-grid-header [displayedFields]="displayedFields" />

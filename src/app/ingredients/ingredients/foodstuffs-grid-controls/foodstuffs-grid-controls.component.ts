@@ -23,7 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-ingredients-grid-controls',
+  selector: 'app-foodstuffs-grid-controls',
   standalone: true,
   imports: [
     CommonModule,
@@ -35,38 +35,38 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatButtonModule,
   ],
-  templateUrl: './ingredients-grid-controls.component.html',
-  styleUrl: './ingredients-grid-controls.component.css',
+  templateUrl: './foodstuffs-grid-controls.component.html',
+  styleUrl: './foodstuffs-grid-controls.component.css',
 })
-export class IngredientsGridControlsComponent {
-  // track & emit grid control inputs
-  // render grid controls
-  @Input() ingredients: Signal<Foodstuff[]> = signal([]);
+// track & emit grid control inputs
+// render grid controls
+export class FoodstuffsGridControlsComponent {
+  @Input() foodstuffs: Signal<Foodstuff[]> = signal([]);
 
   searchControl: FormControl = new FormControl('');
   filterControl: FormControl = new FormControl('all');
 
+  // generate a list of names of all displayed foodstuffs
   names: Signal<string[]> = computed(() => {
-    // generate a list of names of all displayed ingredients
-    return this.ingredients().map((ingredient) => ingredient.name);
+    return this.foodstuffs().map((foodstuff) => foodstuff.name);
   });
+  // generate a list of brands of all displayed foodstuffs
   brands: Signal<string[]> = computed(() => {
-    // generate a list of brands of all displayed ingredients
-    const brands: string[] = this.ingredients().map(
-      (ingredient) => ingredient.brand || ''
+    const brands: string[] = this.foodstuffs().map(
+      (foodstuff) => foodstuff.brand || ''
     );
     return brands.filter((brand) => brand !== '');
   });
+  // filter names based on search input (case-insensitive)
   filteredNames: Signal<Set<string>> = computed(() => {
-    // filter names based on search input (case-insensitive)
     const searchValue = this.searchControl.value || '';
     const filtered = this.names().filter((name) =>
       name.toLowerCase().includes(searchValue.toLowerCase())
     );
     return new Set(filtered);
   });
+  // filter brands based on search input (case-insensitive)
   filteredBrands: Signal<Set<string>> = computed(() => {
-    // filter brands based on search input (case-insensitive)
     const searchValue = this.searchControl.value || '';
     const filtered = this.brands().filter((brand) =>
       brand.toLowerCase().includes(searchValue.toLowerCase())
@@ -76,16 +76,15 @@ export class IngredientsGridControlsComponent {
 
   unitChoices: UnitChoices | null = null;
 
-  ingredientsGridControlsService = inject(FoodstuffsGridControlsService);
-  ingredientService = inject(FoodstuffService);
+  foodstuffsGridControlsService = inject(FoodstuffsGridControlsService);
+  foodstuffService = inject(FoodstuffService);
 
   constructor() {
-    // emit search & filter values
     this.searchControl.valueChanges.subscribe(
-      (value) => (this.ingredientsGridControlsService.searchBy = value)
+      (value) => (this.foodstuffsGridControlsService.searchBy = value)
     );
     this.filterControl.valueChanges.subscribe(
-      (value) => (this.ingredientsGridControlsService.filterBy = value)
+      (value) => (this.foodstuffsGridControlsService.filterBy = value)
     );
   }
 
@@ -94,20 +93,20 @@ export class IngredientsGridControlsComponent {
   }
 
   fetchUnitChoices(): void {
-    this.ingredientService.fetchUnitChoices().subscribe({
+    this.foodstuffService.fetchUnitChoices().subscribe({
       next: (unitChoices) => {
-        console.debug('fetched ingredient unit choices: ', unitChoices);
+        console.debug('fetched foodstuff unit choices: ', unitChoices);
         this.unitChoices = unitChoices;
       },
       error: (error) => {
-        console.error('failed to fetch ingredient unit choices: ', error);
+        console.error('failed to fetch foodstuff unit choices: ', error);
       },
     });
   }
 
+  // return keys of object
+  // used in template as Object.keys() is not available
   getKeys(obj: Object): string[] {
-    // return keys of object
-    // used in template as Object.keys() is not available
     return Object.keys(obj);
   }
 }
