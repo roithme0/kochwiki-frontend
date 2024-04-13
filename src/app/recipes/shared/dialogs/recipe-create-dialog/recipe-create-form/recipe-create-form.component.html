@@ -1,7 +1,7 @@
-@if (isLoadingFetchAllIngredients) {
+@if (isLoadingFetchAllFoodstuffs) {
 <mat-spinner />
-} @else { @if(hasErrorFetchAllIngredients) {
-<div>hasErrorFetchAllIngredients</div>
+} @else { @if(hasErrorFetchAllFoodstuffs) {
+<div>hasErrorFetchAllFoodstuffs</div>
 } @else {
 <form [formGroup]="recipeForm" action="POST" class="form">
   <mat-stepper #stepper>
@@ -10,7 +10,7 @@
     </mat-step>
 
     <mat-step errorMessage="">
-      <app-recipe-amounts-form [ingredients]="ingredients" />
+      <app-recipe-amounts-form [foodstuffs]="foodstuffs" />
     </mat-step>
 
     <mat-step errorMessage="">

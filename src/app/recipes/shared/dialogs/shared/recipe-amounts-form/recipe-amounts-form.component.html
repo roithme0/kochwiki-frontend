@@ -15,7 +15,7 @@
         ></mat-icon>
       </button>
 
-      <app-amount-field [ingredients]="ingredients" [index]="$index" />
+      <app-amount-field [foodstuffs]="foodstuffs" [index]="$index" />
     </div>
     }
   </div>
@@ -32,8 +32,8 @@
     <button
       mat-stroked-button
       color="accent"
-      (click)="openCreateIngredientDialog()"
-      class="create-ingredient-button"
+      (click)="openCreateFoodstuffDialog()"
+      class="create-foodstuff-button"
     >
       Erstellen
     </button>

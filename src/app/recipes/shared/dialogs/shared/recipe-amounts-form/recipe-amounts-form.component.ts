@@ -9,11 +9,11 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
-import { Ingredient } from '../../../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff';
 import { Amount } from '../../../interfaces/amount';
 import { Recipe } from '../../../interfaces/recipe';
 
-import { IngredientCreateDialogComponent } from '../../../../../ingredients/shared/dialogs/ingredient-create-dialog/ingredient-create-dialog.component';
+import { FoodstuffCreateDialogComponent } from '../../../../../foodstuffs/shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 import { AmountFieldComponent } from './amount-field/amount-field.component';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -42,7 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './recipe-amounts-form.component.css',
 })
 export class RecipeAmountsFormComponent {
-  @Input() ingredients!: Ingredient[];
+  @Input() foodstuffs!: Foodstuff[];
   @Input() recipe?: Recipe;
 
   recipeFormDirective = inject(FormGroupDirective);
@@ -77,7 +77,7 @@ export class RecipeAmountsFormComponent {
       this.fb.group({
         index: [1, Validators.required],
         // index: [amount?.index ?? null, Validators.required],
-        ingredientId: [amount?.ingredientId ?? null, Validators.required],
+        foodstuffId: [amount?.foodstuffId ?? null, Validators.required],
         amount: [amount?.amount ?? null, Validators.required],
       })
     );
@@ -87,7 +87,7 @@ export class RecipeAmountsFormComponent {
     this.amounts.removeAt(index);
   }
 
-  openCreateIngredientDialog(): void {
-    this.dialog.open(IngredientCreateDialogComponent);
+  openCreateFoodstuffDialog(): void {
+    this.dialog.open(FoodstuffCreateDialogComponent);
   }
 }

@@ -8,9 +8,9 @@ import {
 } from '@angular/forms';
 
 import { RecipeService } from '../../../../shared/services/recipe.service';
-import { IngredientService } from '../../../../../ingredients/shared/services/ingredient.service';
+import { FoodstuffService } from '../../../../../foodstuffs/shared/services/foodstuff.service';
 
-import { Ingredient } from '../../../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../../../foodstuffs/shared/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
 
 import { RecipeMetaFormComponent } from '../../shared/recipe-meta-form/recipe-meta-form.component';
@@ -57,19 +57,19 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './recipe-create-form.component.html',
   styleUrl: './recipe-create-form.component.css',
 })
+// fetch all foodstuffs
+// render form to create recipe
 export class RecipeCreateFormComponent {
-  // fetch all ingredients
-  // render form to create recipe
-  fb: FormBuilder = inject(FormBuilder);
-  recipeService: RecipeService = inject(RecipeService);
-  ingredientService: IngredientService = inject(IngredientService);
+  fb = inject(FormBuilder);
+  recipeService = inject(RecipeService);
+  foodstuffService = inject(FoodstuffService);
 
   @Output() success: EventEmitter<void> = new EventEmitter();
 
-  ingredients!: Ingredient[];
+  foodstuffs!: Foodstuff[];
 
-  isLoadingFetchAllIngredients: boolean = true;
-  hasErrorFetchAllIngredients: boolean = false;
+  isLoadingFetchAllFoodstuffs: boolean = true;
+  hasErrorFetchAllFoodstuffs: boolean = false;
 
   recipeForm = this.fb.group({
     metaFormGroup: this.fb.group({
@@ -90,29 +90,29 @@ export class RecipeCreateFormComponent {
   });
 
   constructor() {
-    this.ingredientService.ingredients$.subscribe(() => {
-      this.fetchIngredients();
+    this.foodstuffService.foodstuffs$.subscribe(() => {
+      this.fetchFoodstuffs();
     });
   }
 
   ngOnInit(): void {
-    this.fetchIngredients();
+    this.fetchFoodstuffs();
   }
 
-  fetchIngredients(): void {
-    this.ingredientService.getAllIngredients().subscribe({
-      next: (ingredients) => {
-        console.debug('fetched ingredients: ', ingredients);
-        this.ingredients = ingredients;
+  fetchFoodstuffs(): void {
+    this.foodstuffService.getAllFoodstuffs().subscribe({
+      next: (foodstuffs) => {
+        console.debug('fetched foodstuffs: ', foodstuffs);
+        this.foodstuffs = foodstuffs;
 
-        this.isLoadingFetchAllIngredients = false;
-        this.hasErrorFetchAllIngredients = false;
+        this.isLoadingFetchAllFoodstuffs = false;
+        this.hasErrorFetchAllFoodstuffs = false;
       },
       error: (error) => {
-        console.error('failed to fetch ingredients: ', error);
+        console.error('failed to fetch foodstuffs: ', error);
 
-        this.isLoadingFetchAllIngredients = false;
-        this.hasErrorFetchAllIngredients = true;
+        this.isLoadingFetchAllFoodstuffs = false;
+        this.hasErrorFetchAllFoodstuffs = true;
       },
     });
   }

@@ -1,0 +1,21 @@
+@if(foodstuff !== undefined){ @for(field of displayedFields; track field){
+<p>{{ foodstuff[field] }}</p>
+} }
+
+<div class="buttons-wrapper">
+  <button mat-icon-button (click)="openEditFoodstuffDialog()">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Bearbeiten"
+      fontIcon="edit"
+    ></mat-icon>
+  </button>
+
+  <button mat-icon-button color="warn" (click)="openDeleteFoodstuffDialog()">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Löschen"
+      fontIcon="delete"
+    ></mat-icon>
+  </button>
+</div>

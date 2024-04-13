@@ -1,0 +1,34 @@
+@if(loadingDisplayedFoodstuffs() == true){
+<div class="spinner-wrapper">
+  <mat-spinner></mat-spinner>
+</div>
+} @if(loadingDisplayedFoodstuffs() == false && errorLoadingDisplayedFoodstuffs()
+== false) {
+<section class="grid-wrapper">
+  <app-foodstuffs-grid-controls [foodstuffs]="displayedFoodstuffs" />
+
+  <div class="grid" [style.--fields]="displayedFields().length">
+    <app-foodstuffs-grid-header [displayedFields]="displayedFields" />
+
+    @for (foodstuff of displayedFoodstuffs(); track foodstuff){
+    <app-foodstuffs-grid-row
+      [foodstuff]="foodstuff"
+      [displayedFields]="displayedFields()"
+    />
+    }
+  </div>
+  @if(displayedFoodstuffs().length == 0){
+  <p>Keine passenden Lebensmittel gefunden</p>
+  }
+
+  <div class="button-wrapper">
+    <button mat-icon-button (click)="openCreateFoodstuffDialog()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Hinzufügen"
+        fontIcon="add"
+      ></mat-icon>
+    </button>
+  </div>
+</section>
+}

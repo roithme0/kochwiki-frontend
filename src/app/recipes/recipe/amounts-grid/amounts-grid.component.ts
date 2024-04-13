@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../shared/interfaces/recipe';
 
-import { IngredientService } from '../../../ingredients/shared/services/ingredient.service';
+import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.service';
 
 import { MatCardModule } from '@angular/material/card';
 
@@ -14,28 +14,28 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './amounts-grid.component.html',
   styleUrl: './amounts-grid.component.css',
 })
+// fetch foodstuffs associated with recipe
+// render amounts as grid
 export class AmountsGridComponent {
-  // fetch ingredients associated with recipe
-  // render amounts as grid
-  ingredientService: IngredientService = inject(IngredientService);
+  foodstuffService = inject(FoodstuffService);
 
   @Input() recipe: Recipe | undefined;
 
+  // fetch foodstuffs associated with recipe
   ngOnInit() {
-    // fetch ingredients associated with recipe
     if (this.recipe === undefined) {
       console.error('no recipe provided');
       return;
     }
 
     for (let amount of this.recipe.amounts) {
-      this.ingredientService.getIngredientById(amount.ingredientId).subscribe({
-        next: (ingredient) => {
-          console.debug('fetched ingredient: ', ingredient);
-          amount.ingredient = ingredient;
+      this.foodstuffService.getFoodstuffById(amount.foodstuffId).subscribe({
+        next: (foodstuff) => {
+          console.debug('fetched foodstuff: ', foodstuff);
+          amount.foodstuff = foodstuff;
         },
         error: (error) => {
-          console.error('failed to fetch ingredient: ', error);
+          console.error('failed to fetch foodstuff: ', error);
         },
       });
     }

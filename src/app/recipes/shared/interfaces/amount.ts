@@ -1,10 +1,10 @@
-import { Ingredient } from '../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../foodstuffs/shared/interfaces/foodstuff';
 
 export interface Amount {
   id: number;
   index: number;
-  ingredient: Ingredient;
-  ingredientId: number;
+  foodstuff: Foodstuff;
+  foodstuffId: number;
   amount: number;
   recipeId: number;
 }

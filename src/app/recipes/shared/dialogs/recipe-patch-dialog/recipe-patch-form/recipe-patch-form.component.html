@@ -1,7 +1,7 @@
-@if (isLoadingFetchRecipe || isLoadingFetchAllIngredients) {
+@if (isLoadingFetchRecipe || isLoadingFetchAllFoodstuffs) {
 <mat-spinner />
-} @else { @if(hasErrorFetchRecipe || hasErrorFetchAllIngredients) {
-<div>hasErrorFetchRecipe or hasErrorFetchAllIngredients</div>
+} @else { @if(hasErrorFetchRecipe || hasErrorFetchAllFoodstuffs) {
+<div>hasErrorFetchRecipe or hasErrorFetchAllFoodstuffs</div>
 } @else {
 <form [formGroup]="recipeForm" action="PATCH" class="form">
   <mat-stepper #stepper>
@@ -10,7 +10,7 @@
     </mat-step>
 
     <mat-step errorMessage="">
-      <app-recipe-amounts-form [ingredients]="ingredients" [recipe]="recipe" />
+      <app-recipe-amounts-form [foodstuffs]="foodstuffs" [recipe]="recipe" />
     </mat-step>
 
     <mat-step errorMessage="">

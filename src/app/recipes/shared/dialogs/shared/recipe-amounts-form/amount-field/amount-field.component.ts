@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 
-import { Ingredient } from '../../../../../../ingredients/shared/interfaces/ingredient';
+import { Foodstuff } from '../../../../../../foodstuffs/shared/interfaces/foodstuff';
 
 @Component({
   selector: 'app-amount-field',
@@ -37,54 +37,54 @@ import { Ingredient } from '../../../../../../ingredients/shared/interfaces/ingr
   styleUrl: './amount-field.component.css',
 })
 export class AmountFieldComponent {
-  @Input() ingredients!: Ingredient[];
+  @Input() foodstuffs!: Foodstuff[];
   @Input() index!: number;
 
   amountsFormGroupDirective = inject(FormGroupDirective);
 
   amountsFormGroup!: FormGroup;
-  ingredientIdControl!: FormControl;
+  foodstuffIdControl!: FormControl;
   amountControl!: FormControl;
 
-  panelTitle: WritableSignal<string> = signal('Zutat wählen');
+  panelTitle: WritableSignal<string> = signal('Lebensmittel wählen');
 
   ngOnInit() {
     // get form controls
     this.amountsFormGroup = this.amountsFormGroupDirective.control;
-    this.ingredientIdControl = this.amountsFormGroup.get(
-      `amounts.${this.index}.ingredientId`
+    this.foodstuffIdControl = this.amountsFormGroup.get(
+      `amounts.${this.index}.foodstuffId`
     ) as FormControl;
     this.amountControl = this.amountsFormGroup.get(
       `amounts.${this.index}.amount`
     ) as FormControl;
 
-    // set panel title if ingredient is already selected
-    const selectedIngredientId: number | null = this.ingredientIdControl.value;
-    this.updatePanelTitle(selectedIngredientId);
+    // set panel title if foodstuff is already selected
+    const selectedFoodstuffId: number | null = this.foodstuffIdControl.value;
+    this.updatePanelTitle(selectedFoodstuffId);
   }
 
-  // call expansion panel title update on ingredient selection change
+  // call expansion panel title update on foodstuff selection change
   onSelectionChange(event: MatSelectChange) {
     this.updatePanelTitle(event.value);
   }
 
   // update expansion panel title
-  updatePanelTitle(ingredientId: number | null) {
-    if (ingredientId === null) {
-      console.debug('No ingredient id provided');
-      this.panelTitle.set('Zutat wählen');
+  updatePanelTitle(foodstuffId: number | null) {
+    if (foodstuffId === null) {
+      console.debug('No foodstuff id provided');
+      this.panelTitle.set('Lebensmittel wählen');
       return;
     }
 
-    const selectedIngredient: Ingredient | undefined = this.ingredients.find(
-      (ingredient) => ingredient.id == ingredientId
+    const selectedFoodstuff: Foodstuff | undefined = this.foodstuffs.find(
+      (foodstuff) => foodstuff.id == foodstuffId
     );
-    if (selectedIngredient === undefined) {
-      console.debug('Ingredient not found');
+    if (selectedFoodstuff === undefined) {
+      console.debug('Foodstuff not found');
       this.panelTitle.set('Fehler');
       return;
     }
 
-    this.panelTitle.set(selectedIngredient.name);
+    this.panelTitle.set(selectedFoodstuff.name);
   }
 }
