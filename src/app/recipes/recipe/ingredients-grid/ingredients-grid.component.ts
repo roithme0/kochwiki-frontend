@@ -8,15 +8,15 @@ import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-amounts-grid',
+  selector: 'app-ingredients-grid',
   standalone: true,
   imports: [CommonModule, MatCardModule],
-  templateUrl: './amounts-grid.component.html',
-  styleUrl: './amounts-grid.component.css',
+  templateUrl: './ingredients-grid.component.html',
+  styleUrl: './ingredients-grid.component.css',
 })
 // fetch foodstuffs associated with recipe
-// render amounts as grid
-export class AmountsGridComponent {
+// render ingredients as grid
+export class IngredientsGridComponent {
   foodstuffService = inject(FoodstuffService);
 
   @Input() recipe: Recipe | undefined;
@@ -28,11 +28,11 @@ export class AmountsGridComponent {
       return;
     }
 
-    for (let amount of this.recipe.ingredients) {
-      this.foodstuffService.getFoodstuffById(amount.foodstuffId).subscribe({
+    for (let ingredient of this.recipe.ingredients) {
+      this.foodstuffService.getFoodstuffById(ingredient.foodstuffId).subscribe({
         next: (foodstuff) => {
           console.debug('fetched foodstuff: ', foodstuff);
-          amount.foodstuff = foodstuff;
+          ingredient.foodstuff = foodstuff;
         },
         error: (error) => {
           console.error('failed to fetch foodstuff: ', error);
