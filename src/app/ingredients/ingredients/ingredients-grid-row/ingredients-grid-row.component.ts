@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
-import { IngredientDeleteDialogComponent } from '../../shared/dialogs/ingredient-delete-dialog/ingredient-delete-dialog.component';
+import { FoodstuffDeleteDialogComponent } from '../../shared/dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
 
 @Component({
   selector: 'app-ingredients-grid-row',
@@ -17,9 +17,9 @@ import { IngredientDeleteDialogComponent } from '../../shared/dialogs/ingredient
   templateUrl: './ingredients-grid-row.component.html',
   styleUrl: './ingredients-grid-row.component.css',
 })
+// render foodstuff data
+// render foodstuff buttons
 export class IngredientsGridRowComponent {
-  // render ingredient data
-  // render ingredient buttons
   @Input() ingredient: Foodstuff | undefined;
   @Input() displayedFields: string[] = [];
 
@@ -32,7 +32,7 @@ export class IngredientsGridRowComponent {
   }
 
   openDeleteIngredientDialog(): void {
-    this.dialog.open(IngredientDeleteDialogComponent, {
+    this.dialog.open(FoodstuffDeleteDialogComponent, {
       data: { id: this.ingredient?.id },
     });
   }

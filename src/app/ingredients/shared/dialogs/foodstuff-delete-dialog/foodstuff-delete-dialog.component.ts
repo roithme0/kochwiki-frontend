@@ -10,27 +10,27 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-ingredient-delete-dialog',
+  selector: 'app-foodstuff-delete-dialog',
   standalone: true,
   imports: [CommonModule, MatButtonModule],
-  templateUrl: './ingredient-delete-dialog.component.html',
-  styleUrl: './ingredient-delete-dialog.component.css',
+  templateUrl: './foodstuff-delete-dialog.component.html',
+  styleUrl: './foodstuff-delete-dialog.component.css',
 })
 // get foodstuff id from mat dialog data
 // fetch foodstuff by id
 // render buttons to delete foodstuff
-export class IngredientDeleteDialogComponent {
-  dialogRef: MatDialogRef<IngredientDeleteDialogComponent> =
+export class FoodstuffDeleteDialogComponent {
+  dialogRef: MatDialogRef<FoodstuffDeleteDialogComponent> =
     inject(MatDialogRef);
-  ingredientService = inject(FoodstuffService);
+  foodstuffService = inject(FoodstuffService);
 
-  ingredient: Foodstuff | undefined;
+  foodstuff: Foodstuff | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {
-    this.ingredientService.getFoodstuffById(data.id).subscribe({
+    this.foodstuffService.getFoodstuffById(data.id).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff fetched: ', foodstuff);
-        this.ingredient = foodstuff;
+        this.foodstuff = foodstuff;
       },
       error: (error) => {
         console.error('failed to fetch foodstuff: ', error);
@@ -38,12 +38,12 @@ export class IngredientDeleteDialogComponent {
     });
   }
 
-  deleteIngredient(): void {
-    this.ingredient?.id
-      ? this.ingredientService.deleteFoodstuff(this.ingredient.id).subscribe({
+  deleteFoodstuff(): void {
+    this.foodstuff?.id
+      ? this.foodstuffService.deleteFoodstuff(this.foodstuff.id).subscribe({
           next: (id) => {
             console.info('foodstuff deleted: ', id);
-            this.ingredientService.notifyFoodstuffsChanged();
+            this.foodstuffService.notifyFoodstuffsChanged();
             this.dialogRef.close();
           },
           error: (error) => {
