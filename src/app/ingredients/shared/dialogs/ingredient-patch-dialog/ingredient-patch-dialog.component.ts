@@ -2,7 +2,7 @@ import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { IngredientPatchFormComponent } from './ingredient-patch-form/ingredient-patch-form.component';
+import { FoodstuffPatchFormComponent } from './foodstuff-patch-form/foodstuff-patch-form.component';
 
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialogContent } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    IngredientPatchFormComponent,
+    FoodstuffPatchFormComponent,
     MatDialogContent,
   ],
   templateUrl: './ingredient-patch-dialog.component.html',

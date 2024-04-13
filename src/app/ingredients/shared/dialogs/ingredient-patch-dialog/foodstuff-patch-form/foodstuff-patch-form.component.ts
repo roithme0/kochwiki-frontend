@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-ingredient-patch-form',
+  selector: 'app-foodstuff-patch-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,14 +27,14 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatSelectModule,
   ],
-  templateUrl: './ingredient-patch-form.component.html',
-  styleUrl: './ingredient-patch-form.component.css',
+  templateUrl: './foodstuff-patch-form.component.html',
+  styleUrl: './foodstuff-patch-form.component.css',
 })
-export class IngredientPatchFormComponent {
-  // fetch ingredient meta data
-  // fetch ingredient by id
-  // render form to edit ingredient
-  ingredientService = inject(FoodstuffService);
+// fetch foodstuff meta data
+// fetch foodstuff by id
+// render form to edit foodstuff
+export class FoodstuffPatchFormComponent {
+  foodstuffService = inject(FoodstuffService);
   fb = inject(FormBuilder);
 
   @Input() id: number | undefined;
@@ -43,7 +43,7 @@ export class IngredientPatchFormComponent {
   verboseNames: VerboseNames | null = null;
   unitChoices: UnitChoices | null = null;
 
-  ingredientForm = this.fb.group({
+  foodstuffForm = this.fb.group({
     name: ['', Validators.required],
     brand: [''],
     unit: ['', Validators.required],
@@ -54,81 +54,79 @@ export class IngredientPatchFormComponent {
   });
 
   ngOnInit(): void {
-    // fetch ingredient meta data
-    // fetch ingredient by id
     this.fetchVerboseNames();
     this.fetchUnitChoices();
 
     if (this.id === undefined) {
-      console.error('no ingredient id provided');
+      console.error('no foodstuff id provided');
       return;
     }
 
-    this.fetchIngredientById(this.id);
+    this.fetchFoodstuffById(this.id);
   }
 
+  // submit form to patch foodstuff
+  // close dialog on success
   onSubmit(formData: any): void {
-    // submit form to patch ingredient
-    // close dialog on success
-    console.debug('submitting patch ingredient form: ', formData);
+    console.debug('submitting patch foodstuff form: ', formData);
     const updates: Partial<Foodstuff> = formData as Foodstuff;
 
     if (this.id === undefined) {
-      console.error('no ingredient id provided');
+      console.error('no foodstuff id provided');
       return;
     }
 
-    this.ingredientService.patchIngredient(this.id, updates).subscribe({
-      next: (ingredient) => {
-        console.debug('ingredient patched: ', ingredient);
-        this.ingredientService.notifyIngredientsChanged();
+    this.foodstuffService.patchIngredient(this.id, updates).subscribe({
+      next: (foodstuff) => {
+        console.debug('foodstuff patched: ', foodstuff);
+        this.foodstuffService.notifyIngredientsChanged();
         this.success.emit();
       },
       error: (error) => {
-        console.error('failed to patch ingredient: ', error);
+        console.error('failed to patch foodstuff: ', error);
       },
     });
   }
 
-  fetchIngredientById(id: number): void {
-    this.ingredientService.getIngredientById(id).subscribe({
-      next: (ingredient) => {
-        console.debug('ingredient fetched: ', ingredient);
-        this.ingredientForm.patchValue(ingredient);
+  fetchFoodstuffById(id: number): void {
+    this.foodstuffService.getIngredientById(id).subscribe({
+      next: (foodstuff) => {
+        console.debug('foodstuff fetched: ', foodstuff);
+        this.foodstuffForm.patchValue(foodstuff);
       },
       error: (error) => {
-        console.error('failed to fetch ingredient: ', error);
+        console.error('failed to fetch foodstuff: ', error);
       },
     });
   }
 
   fetchVerboseNames(): void {
-    this.ingredientService.fetchVerboseNames().subscribe({
+    this.foodstuffService.fetchVerboseNames().subscribe({
       next: (verboseNames) => {
-        console.debug('fetched ingredient verbose names: ', verboseNames);
+        console.debug('fetched foodstuff verbose names: ', verboseNames);
         this.verboseNames = verboseNames;
       },
       error: (error) => {
-        console.error('failed to fetch ingredient verbose names: ', error);
+        console.error('failed to fetch foodstuff verbose names: ', error);
       },
     });
   }
 
   fetchUnitChoices(): void {
-    this.ingredientService.fetchUnitChoices().subscribe({
+    this.foodstuffService.fetchUnitChoices().subscribe({
       next: (unitChoices) => {
-        console.debug('fetched ingredient unit choices: ', unitChoices);
+        console.debug('fetched foodstuff unit choices: ', unitChoices);
         this.unitChoices = unitChoices;
       },
       error: (error) => {
-        console.error('failed to fetch ingredient unit choices: ', error);
+        console.error('failed to fetch foodstuff unit choices: ', error);
       },
     });
   }
 
+  // return keys of object
+  // used in template as Object.keys() is not available
   getKeys(obj: Object): string[] {
-    // return keys of object
-    // used in template as Object.keys() is not available
     return Object.keys(obj);
   }
 }

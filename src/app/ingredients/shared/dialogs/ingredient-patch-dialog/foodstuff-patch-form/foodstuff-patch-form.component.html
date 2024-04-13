@@ -1,8 +1,7 @@
 <form
   action="PATCH"
-  class="ingredient-form"
-  [formGroup]="ingredientForm"
-  (ngSubmit)="onSubmit(ingredientForm.value)"
+  [formGroup]="foodstuffForm"
+  (ngSubmit)="onSubmit(foodstuffForm.value)"
 >
   <div class="fields">
     <mat-form-field appearance="fill">
@@ -59,7 +58,7 @@
     mat-stroked-button
     type="submit"
     color="primary"
-    [disabled]="!ingredientForm.valid"
+    [disabled]="!foodstuffForm.valid"
   >
     Speichern
   </button>
