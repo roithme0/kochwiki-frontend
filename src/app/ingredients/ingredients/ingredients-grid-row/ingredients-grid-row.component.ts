@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
-import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/ingredient-patch-dialog/foodstuff-patch-dialog.component';
+import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
 import { IngredientDeleteDialogComponent } from '../../shared/dialogs/ingredient-delete-dialog/ingredient-delete-dialog.component';
 
 @Component({
