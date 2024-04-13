@@ -1,4 +1,4 @@
-<form action="POST" [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+<form action="POST" [formGroup]="foodstuffForm" (ngSubmit)="onSubmit()">
   <div class="fields">
     <mat-form-field appearance="fill">
       <mat-label>{{ verboseNames?.name }}</mat-label>
@@ -54,7 +54,7 @@
     mat-stroked-button
     type="submit"
     color="primary"
-    [disabled]="!ingredientForm.valid"
+    [disabled]="!foodstuffForm.valid"
   >
     Erstellen
   </button>

@@ -12,7 +12,7 @@ import { IngredientsGridRowComponent } from '../ingredients-grid-row/ingredients
 
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
-import { IngredientCreateDialogComponent } from '../../shared/dialogs/ingredient-create-dialog/ingredient-create-dialog.component';
+import { IngredientCreateDialogComponent } from '../../shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 
 import { IngredientsGridDisplayedIngredientsService } from '../shared/ingredients-grid-displayed-ingredients.service';
 import { IngredientsGridDisplayedFieldsService } from '../shared/ingredients-grid-displayed-fields.service';

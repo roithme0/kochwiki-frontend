@@ -7,11 +7,11 @@ import { MatDialogContent } from '@angular/material/dialog';
 import { FoodstuffCreateFormComponent } from './foodstuff-create-form/foodstuff-create-form.component';
 
 @Component({
-  selector: 'app-ingredient-create-dialog',
+  selector: 'app-foodstuff-create-dialog',
   standalone: true,
   imports: [CommonModule, FoodstuffCreateFormComponent, MatDialogContent],
-  templateUrl: './ingredient-create-dialog.component.html',
-  styleUrl: './ingredient-create-dialog.component.css',
+  templateUrl: './foodstuff-create-dialog.component.html',
+  styleUrl: './foodstuff-create-dialog.component.css',
 })
 // render foodstuff-create-form
 export class IngredientCreateDialogComponent {

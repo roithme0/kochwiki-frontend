@@ -13,7 +13,7 @@ import { Foodstuff } from '../../../../../ingredients/shared/interfaces/foodstuf
 import { Amount } from '../../../interfaces/amount';
 import { Recipe } from '../../../interfaces/recipe';
 
-import { IngredientCreateDialogComponent } from '../../../../../ingredients/shared/dialogs/ingredient-create-dialog/ingredient-create-dialog.component';
+import { IngredientCreateDialogComponent } from '../../../../../ingredients/shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 import { AmountFieldComponent } from './amount-field/amount-field.component';
 
 import { MatDialog } from '@angular/material/dialog';

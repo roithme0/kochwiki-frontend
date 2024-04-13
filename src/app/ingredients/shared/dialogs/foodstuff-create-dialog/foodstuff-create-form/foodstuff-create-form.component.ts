@@ -38,10 +38,10 @@ export class FoodstuffCreateFormComponent {
   verboseNames: VerboseNames | null = null;
   unitChoices: UnitChoices | null = null;
 
-  ingredientService = inject(FoodstuffService);
+  foodstuffService = inject(FoodstuffService);
   fb = inject(FormBuilder);
 
-  ingredientForm = this.fb.group({
+  foodstuffForm = this.fb.group({
     name: ['', Validators.required],
     brand: [''],
     unit: ['', Validators.required],
@@ -52,7 +52,6 @@ export class FoodstuffCreateFormComponent {
   });
 
   ngOnInit(): void {
-    // fetch ingredient meta data
     this.fetchVerboseNames();
     this.fetchUnitChoices();
   }
@@ -61,16 +60,15 @@ export class FoodstuffCreateFormComponent {
   // close dialog on success
   onSubmit(): void {
     console.debug(
-      'submitting create ingredient form: ',
-      this.ingredientForm.value
+      'submitting create foodstuff form: ',
+      this.foodstuffForm.value
     );
-    const foodstuff: Partial<Foodstuff> = this.ingredientForm
-      .value as Foodstuff;
+    const foodstuff: Partial<Foodstuff> = this.foodstuffForm.value as Foodstuff;
 
-    this.ingredientService.postFoodstuff(foodstuff).subscribe({
+    this.foodstuffService.postFoodstuff(foodstuff).subscribe({
       next: (foodstuff) => {
         console.info('foodstuff created: ', foodstuff);
-        this.ingredientService.notifyFoodstuffsChanged();
+        this.foodstuffService.notifyFoodstuffsChanged();
         this.success.emit();
       },
       error: (error) => {
@@ -80,32 +78,32 @@ export class FoodstuffCreateFormComponent {
   }
 
   fetchVerboseNames(): void {
-    this.ingredientService.fetchVerboseNames().subscribe({
+    this.foodstuffService.fetchVerboseNames().subscribe({
       next: (verboseNames) => {
-        console.debug('fetched ingredient verbose names: ', verboseNames);
+        console.debug('fetched foodstuff verbose names: ', verboseNames);
         this.verboseNames = verboseNames;
       },
       error: (error) => {
-        console.error('failed to fetch ingredient verbose names: ', error);
+        console.error('failed to fetch foodstuff verbose names: ', error);
       },
     });
   }
 
   fetchUnitChoices(): void {
-    this.ingredientService.fetchUnitChoices().subscribe({
+    this.foodstuffService.fetchUnitChoices().subscribe({
       next: (unitChoices) => {
-        console.debug('fetched ingredient unit choices: ', unitChoices);
+        console.debug('fetched foodstuff unit choices: ', unitChoices);
         this.unitChoices = unitChoices;
       },
       error: (error) => {
-        console.error('failed to fetch ingredient unit choices: ', error);
+        console.error('failed to fetch foodstuff unit choices: ', error);
       },
     });
   }
 
+  // return keys of object
+  // used in template as Object.keys() is not available
   getKeys(obj: Object): string[] {
-    // return keys of object
-    // used in template as Object.keys() is not available
     return Object.keys(obj);
   }
 }
