@@ -11,29 +11,29 @@ import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/foodstuff-pa
 import { FoodstuffDeleteDialogComponent } from '../../shared/dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
 
 @Component({
-  selector: 'app-ingredients-grid-row',
+  selector: 'app-foodstuffs-grid-row',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  templateUrl: './ingredients-grid-row.component.html',
-  styleUrl: './ingredients-grid-row.component.css',
+  templateUrl: './foodstuffs-grid-row.component.html',
+  styleUrl: './foodstuffs-grid-row.component.css',
 })
 // render foodstuff data
 // render foodstuff buttons
-export class IngredientsGridRowComponent {
-  @Input() ingredient: Foodstuff | undefined;
+export class FoodstuffsGridRowComponent {
+  @Input() foodstuff: Foodstuff | undefined;
   @Input() displayedFields: string[] = [];
 
-  dialog: MatDialog = inject(MatDialog);
+  dialog = inject(MatDialog);
 
   openEditIngredientDialog(): void {
     this.dialog.open(FoodstuffPatchDialogComponent, {
-      data: { id: this.ingredient?.id },
+      data: { id: this.foodstuff?.id },
     });
   }
 
   openDeleteIngredientDialog(): void {
     this.dialog.open(FoodstuffDeleteDialogComponent, {
-      data: { id: this.ingredient?.id },
+      data: { id: this.foodstuff?.id },
     });
   }
 }

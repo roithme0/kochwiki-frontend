@@ -8,7 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { IngredientsGridControlsComponent } from '../ingredients-grid-controls/ingredients-grid-controls.component';
 import { IngredientsGridHeaderComponent } from '../ingredients-grid-header/ingredients-grid-header.component';
-import { IngredientsGridRowComponent } from '../ingredients-grid-row/ingredients-grid-row.component';
+import { FoodstuffsGridRowComponent } from '../foodstuffs-grid-row/foodstuffs-grid-row.component';
 
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
@@ -24,7 +24,7 @@ import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid
     CommonModule,
     IngredientsGridControlsComponent,
     IngredientsGridHeaderComponent,
-    IngredientsGridRowComponent,
+    FoodstuffsGridRowComponent,
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
