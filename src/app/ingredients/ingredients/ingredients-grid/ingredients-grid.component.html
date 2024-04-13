@@ -8,7 +8,7 @@ errorLoadingDisplayedIngredients() == false) {
   <app-ingredients-grid-controls [ingredients]="displayedIngredients" />
 
   <div class="grid" [style.--fields]="displayedFields().length">
-    <app-ingredients-grid-header [displayedFields]="displayedFields" />
+    <app-foodstuffs-grid-header [displayedFields]="displayedFields" />
 
     @for (ingredient of displayedIngredients(); track ingredient){
     <app-foodstuffs-grid-row

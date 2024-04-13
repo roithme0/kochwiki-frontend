@@ -5,33 +5,33 @@ import { FoodstuffService } from '../../shared/services/foodstuff.service';
 import { VerboseNames } from '../../shared/interfaces/foodstuff-meta-data';
 
 @Component({
-  selector: 'app-ingredients-grid-header',
+  selector: 'app-foodstuffs-grid-header',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './ingredients-grid-header.component.html',
-  styleUrl: './ingredients-grid-header.component.css',
+  templateUrl: './foodstuffs-grid-header.component.html',
+  styleUrl: './foodstuffs-grid-header.component.css',
 })
 // fetch foodstuff verbose names
 // render foodstuff verbose names
-export class IngredientsGridHeaderComponent {
+export class FoodstuffsGridHeaderComponent {
   @Input() displayedFields: Signal<string[]> | undefined;
 
   verboseNames: VerboseNames | null = null;
 
-  ingredientService = inject(FoodstuffService);
+  foodstuffService = inject(FoodstuffService);
 
   ngOnInit(): void {
     this.fetchVerboseNames();
   }
 
   fetchVerboseNames(): void {
-    this.ingredientService.fetchVerboseNames().subscribe({
+    this.foodstuffService.fetchVerboseNames().subscribe({
       next: (verboseNames) => {
-        console.debug('fetched ingredient verbose names: ', verboseNames);
+        console.debug('fetched foodstuff verbose names: ', verboseNames);
         this.verboseNames = verboseNames;
       },
       error: (error) => {
-        console.error('failed to fetch ingredient verbose names: ', error);
+        console.error('failed to fetch foodstuff verbose names: ', error);
       },
     });
   }
