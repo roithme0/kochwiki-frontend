@@ -90,7 +90,7 @@ export class FoodstuffsGridDisplayedFoodstuffsService {
 
   private searchFoodstuffsByNameOrBrand(foodstuffs: Foodstuff[]): Foodstuff[] {
     const searchBy: string = this.searchBy();
-    console.debug('searching foodstuffs by: ' + searchBy);
+    console.debug('searching foodstuffs by: ', searchBy);
     if (searchBy === '') {
       return foodstuffs;
     }
@@ -104,7 +104,7 @@ export class FoodstuffsGridDisplayedFoodstuffsService {
 
   private filterFoodstuffsByUnit(foodstuffs: Foodstuff[]): Foodstuff[] {
     const filterBy: string = this.filterBy();
-    console.debug('filtering foodstuffs by: ' + filterBy);
+    console.debug('filtering foodstuffs by: ', filterBy);
     if (filterBy === 'all') {
       return foodstuffs;
     }
