@@ -43,6 +43,8 @@ export class RecipePreparationFormComponent {
   recipeForm!: FormGroup;
   preparationFormGroup!: FormGroup;
 
+  stepsSorted: Step[] = [];
+
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
   ngOnInit() {
@@ -56,7 +58,8 @@ export class RecipePreparationFormComponent {
       this.recipeForm.get('preparationFormGroup')?.patchValue({
         preptime: this.recipe.preptime,
       });
-      this.recipe.steps.forEach((step) => this.addStep(step));
+      this.stepsSorted = this.recipe.steps.sort((a, b) => a.index - b.index);
+      this.stepsSorted.forEach((step) => this.addStep(step));
     }
   }
 
