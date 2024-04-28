@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../shared/interfaces/recipe';
+import { Step } from '../../shared/interfaces/step';
 
 import { MatCardModule } from '@angular/material/card';
 
@@ -12,7 +13,13 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './steps-grid.component.html',
   styleUrl: './steps-grid.component.css',
 })
+// render steps as grid
 export class StepsGridComponent {
-  // render steps as grid
-  @Input() recipe: Recipe | undefined;
+  @Input() recipe!: Recipe;
+
+  stepsSorted: Step[] = [];
+
+  ngOnInit() {
+    this.stepsSorted = this.recipe.steps.sort((a, b) => a.index - b.index);
+  }
 }
