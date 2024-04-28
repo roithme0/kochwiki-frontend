@@ -16,9 +16,11 @@
   flex: 1;
 }
 
-/* .amount-field {
-  flex: 0 0 6rem;
-} */
+.amount-field {
+  @media (min-width: 500px) {
+    flex: 0 0 6rem;
+  }
+}
 
 /* remove arrows from input number field */
 input::-webkit-outer-spin-button,
