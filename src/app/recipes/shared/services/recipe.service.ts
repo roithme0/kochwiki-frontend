@@ -34,7 +34,7 @@ export class RecipeService {
   }
 
   patchRecipe(id: number, updates: Partial<Recipe>): Observable<Recipe> {
-    console.debug('PATCH: patching recipe ' + id, updates);
+    console.debug('PATCH: patching recipe ', id, updates);
     return this.http.patch<Recipe>(backendUrl + '/recipes/' + id, updates);
   }
 
@@ -44,7 +44,7 @@ export class RecipeService {
   }
 
   deleteRecipe(id: number): Observable<number> {
-    console.debug('DELETE: deleting recipe ' + id);
+    console.debug('DELETE: deleting recipe ', id);
     return this.http.delete<number>(backendUrl + '/recipes/' + id);
   }
 }

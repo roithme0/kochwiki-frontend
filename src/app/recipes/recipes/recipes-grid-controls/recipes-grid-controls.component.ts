@@ -55,7 +55,7 @@ export class RecipesGridControlsComponent {
     const origins: string[] = this.recipes().map(
       (recipe) => recipe.originName || ''
     );
-    return origins.filter((origin) => origin != '')
+    return origins.filter((origin) => origin != '');
   });
   filteredNames: Signal<Set<string>> = computed(() => {
     // filter names based on search input (case-insensitive)
@@ -78,13 +78,13 @@ export class RecipesGridControlsComponent {
 
   constructor() {
     // emit search value
-    this.searchControl.valueChanges.subscribe((value) =>
-      this.recipeGridControlsService.searchBy = value
+    this.searchControl.valueChanges.subscribe(
+      (value) => (this.recipeGridControlsService.searchBy = value)
     );
   }
 
   emitControlValue(): void {
-    console.log('search: ', this.searchControl.value);
+    console.info('search: ', this.searchControl.value);
     this.recipeGridControlsService.searchBy = this.searchControl.value;
   }
 }
