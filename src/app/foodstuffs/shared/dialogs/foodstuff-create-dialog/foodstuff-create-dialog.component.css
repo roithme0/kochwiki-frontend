@@ -9,5 +9,5 @@ h2 {
 }
 
 mat-dialog-content.mat-dialog-content {
-  padding: 0;
+  padding: 0 0 0.5rem 0;
 }
