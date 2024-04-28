@@ -16,11 +16,6 @@
 
 .ingredient-wrapper {
   display: flex;
-  gap: 0.5rem;
-}
-
-.description-field {
-  flex: 1;
 }
 
 .ingredients-array-buttons-wrapper {
@@ -45,4 +40,15 @@
   button {
     flex: 1;
   }
+}
+
+/* remove arrows from input number field */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* remove arrows from input number field */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
