@@ -68,8 +68,8 @@ export class RecipePreparationFormComponent {
     // add either empty or existing step to form
     this.steps.push(
       this.fb.group({
-        index: [1, Validators.required],
-        // index: [step?.index ?? null, Validators.required],
+        // index: [1, Validators.required],
+        index: [step?.index ?? null, Validators.required],
         description: [step?.description ?? '', Validators.required],
       })
     );

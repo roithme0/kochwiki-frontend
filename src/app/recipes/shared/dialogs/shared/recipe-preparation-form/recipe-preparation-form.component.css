@@ -18,6 +18,16 @@
   display: flex;
 }
 
+.index-and-description-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.index-field {
+  flex: 0 0 5rem;
+}
+
 .description-field {
   flex: 1;
 }
