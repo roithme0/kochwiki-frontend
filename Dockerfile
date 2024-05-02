@@ -20,6 +20,9 @@ FROM nginx:1.25
 # copy build output to replace the default nginx content
 COPY --from=build /usr/local/app/dist/angular/browser /usr/share/nginx/html
 
+# use config file
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
 # # create user to avoid running as root <> must use root for nginx
 # RUN useradd -m nginx
 # USER nginx
