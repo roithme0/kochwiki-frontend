@@ -1,2 +1,9 @@
+.angular/
+.github/
+.vscode/
+dist/
 node_modules/
-.angular
+.editorconfig
+.gitignore
+README.md
+tsconfig.spec.json
