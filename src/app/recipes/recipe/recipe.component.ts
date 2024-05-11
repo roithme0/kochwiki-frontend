@@ -30,10 +30,10 @@ import { RecipeDeleteDialogComponent } from '../shared/dialogs/recipe-delete-dia
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css',
 })
+// set header values
+// fetch recipe
+// render recipe details
 export class RecipeComponent {
-  // set header values
-  // fetch recipe
-  // render recipe details
   route: ActivatedRoute = inject(ActivatedRoute);
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
   recipeService: RecipeService = inject(RecipeService);
@@ -42,9 +42,9 @@ export class RecipeComponent {
   id: number | undefined;
   recipe: Recipe | null = null;
 
+  // fetch recipe id from route
+  // track recipe changes
   constructor() {
-    // fetch recipe id from route
-    // track recipe changes
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     console.debug('id: ', this.id);
 
@@ -57,9 +57,9 @@ export class RecipeComponent {
     });
   }
 
+  // set headline
+  // fetch recipe
   ngOnInit() {
-    // set headline
-    // fetch recipe
     this.pageHeaderService.back = 'recipes';
     this.pageHeaderService.showBack = true;
 
@@ -71,9 +71,9 @@ export class RecipeComponent {
     this.fetchRecipe(this.id);
   }
 
+  // fetch recipe by id
+  // set headline
   fetchRecipe(id: number): void {
-    // fetch recipe by id
-    // set headline
     this.recipeService.getRecipeById(id).subscribe({
       next: (recipe: Recipe) => {
         console.debug('fetched recipe: ', recipe);
