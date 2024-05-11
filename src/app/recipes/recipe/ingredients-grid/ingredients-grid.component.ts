@@ -6,11 +6,12 @@ import { Recipe } from '../../shared/interfaces/recipe';
 import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.service';
 
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-ingredients-grid',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatProgressBarModule],
   templateUrl: './ingredients-grid.component.html',
   styleUrl: './ingredients-grid.component.css',
 })
@@ -21,8 +22,18 @@ export class IngredientsGridComponent {
 
   @Input() recipe: Recipe | undefined;
 
+  isLoading: boolean = false;
+  hasError: boolean = false;
+
+  ngOnChanges() {
+    this.hasError = false;
+    this.fetchAssociatedFoodstuffs();
+  }
+
   // fetch foodstuffs associated with recipe
-  ngOnInit() {
+  fetchAssociatedFoodstuffs() {
+    this.isLoading = true;
+
     if (this.recipe === undefined) {
       console.error('no recipe provided');
       return;
@@ -36,8 +47,11 @@ export class IngredientsGridComponent {
         },
         error: (error) => {
           console.error('failed to fetch foodstuff: ', error);
+          this.hasError = true;
         },
       });
     }
+
+    this.isLoading = false;
   }
 }

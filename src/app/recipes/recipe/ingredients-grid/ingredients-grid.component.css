@@ -1,12 +1,10 @@
-header {
-  display: grid;
-  grid-template-columns: min-content 1fr;
-  align-items: center;
-  gap: 1rem;
-}
-
 .grid {
   display: grid;
   grid-template-columns: 1fr min-content min-content;
   gap: 1rem;
+  padding: 1.5rem 0;
+}
+
+.progress-bar-wrapper {
+  margin: 0 5px;
 }
