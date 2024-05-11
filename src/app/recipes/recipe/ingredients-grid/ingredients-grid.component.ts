@@ -20,7 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class IngredientsGridComponent {
   foodstuffService = inject(FoodstuffService);
 
-  @Input() recipe: Recipe | undefined;
+  @Input() recipe!: Recipe;
 
   isLoading: boolean = false;
   hasError: boolean = false;
@@ -33,11 +33,6 @@ export class IngredientsGridComponent {
   // fetch foodstuffs associated with recipe
   fetchAssociatedFoodstuffs() {
     this.isLoading = true;
-
-    if (this.recipe === undefined) {
-      console.error('no recipe provided');
-      return;
-    }
 
     for (let ingredient of this.recipe.ingredients) {
       this.foodstuffService.getFoodstuffById(ingredient.foodstuffId).subscribe({
