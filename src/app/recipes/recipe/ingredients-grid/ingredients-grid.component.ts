@@ -7,6 +7,7 @@ import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.
 
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-ingredients-grid',
@@ -34,19 +35,23 @@ export class IngredientsGridComponent {
   fetchAssociatedFoodstuffs() {
     this.isLoading = true;
 
-    for (let ingredient of this.recipe.ingredients) {
-      this.foodstuffService.getFoodstuffById(ingredient.foodstuffId).subscribe({
-        next: (foodstuff) => {
-          console.debug('fetched foodstuff: ', foodstuff);
-          ingredient.foodstuff = foodstuff;
-        },
-        error: (error) => {
-          console.error('failed to fetch foodstuff: ', error);
-          this.hasError = true;
-        },
-      });
-    }
+    const requests = this.recipe.ingredients.map((ingredient) =>
+      this.foodstuffService.getFoodstuffById(ingredient.foodstuffId)
+    );
 
-    this.isLoading = false;
+    forkJoin(requests).subscribe({
+      next: (foodstuffs) => {
+        console.debug('fetched foodstuffs: ', foodstuffs);
+        for (let i = 0; i < foodstuffs.length; i++) {
+          this.recipe.ingredients[i].foodstuff = foodstuffs[i];
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('failed to fetch foodstuffs: ', error);
+        this.hasError = true;
+        this.isLoading = false;
+      },
+    });
   }
 }
