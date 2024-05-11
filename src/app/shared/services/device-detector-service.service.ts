@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class DeviceDetectorServiceService {
-
-  constructor() { }
+export class DeviceDetectorService {
+  isMobile(): boolean {
+    const userAgent = window.navigator.userAgent;
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      userAgent
+    );
+  }
 }
