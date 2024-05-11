@@ -13,7 +13,9 @@
 }
 
 .foodstuff-field {
-  flex: 1;
+  @media (min-width: 500px) {
+    flex: 1;
+  }
 }
 
 .amount-field {
