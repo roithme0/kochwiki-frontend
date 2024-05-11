@@ -90,6 +90,9 @@ export class RecipeIngredientsFormComponent {
   }
 
   openCreateFoodstuffDialog(): void {
-    this.dialog.open(FoodstuffCreateDialogComponent);
+    this.dialog.open(FoodstuffCreateDialogComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+    });
   }
 }

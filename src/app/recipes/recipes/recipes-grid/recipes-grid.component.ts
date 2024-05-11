@@ -43,8 +43,10 @@ export class RecipesGridComponent {
 
   displayedRecipes: Signal<Recipe[]> =
     this.recipesGridDisplayedRecipesService.displayedRecipes;
-  loadingDisplayedRecipes: Signal<boolean> = this.recipesGridDisplayedRecipesService.loading;
-  errorLoadingDisplayedRecipes: Signal<boolean> = this.recipesGridDisplayedRecipesService.error;
+  loadingDisplayedRecipes: Signal<boolean> =
+    this.recipesGridDisplayedRecipesService.loading;
+  errorLoadingDisplayedRecipes: Signal<boolean> =
+    this.recipesGridDisplayedRecipesService.error;
   windowInnerWidth: Signal<number> =
     this.windowWidthService.getWindowInnerWidth();
 
@@ -61,6 +63,9 @@ export class RecipesGridComponent {
 
   openCreateRecipeDialog(): void {
     // open dialog to create new recipe
-    this.dialog.open(RecipeCreateDialogComponent);
+    this.dialog.open(RecipeCreateDialogComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+    });
   }
 }

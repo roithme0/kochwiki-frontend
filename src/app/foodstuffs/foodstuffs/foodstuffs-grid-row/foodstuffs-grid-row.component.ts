@@ -28,12 +28,16 @@ export class FoodstuffsGridRowComponent {
   openEditFoodstuffDialog(): void {
     this.dialog.open(FoodstuffPatchDialogComponent, {
       data: { id: this.foodstuff?.id },
+      maxWidth: '95vw',
+      maxHeight: '95vh',
     });
   }
 
   openDeleteFoodstuffDialog(): void {
     this.dialog.open(FoodstuffDeleteDialogComponent, {
       data: { id: this.foodstuff?.id },
+      maxWidth: '95vw',
+      maxHeight: '95vh',
     });
   }
 }

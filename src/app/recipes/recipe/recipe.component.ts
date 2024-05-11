@@ -90,12 +90,16 @@ export class RecipeComponent {
   openPatchRecipeDialog(): void {
     this.dialog.open(RecipePatchDialogComponent, {
       data: { id: this.recipe?.id },
+      maxWidth: '95vw',
+      maxHeight: '95vh',
     });
   }
 
   openDeleteRecipeDialog(): void {
     this.dialog.open(RecipeDeleteDialogComponent, {
       data: { id: this.recipe?.id },
+      maxWidth: '95vw',
+      maxHeight: '95vh',
     });
   }
 }
