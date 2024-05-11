@@ -49,10 +49,6 @@ export class RecipeComponent {
     console.debug('id: ', this.id);
 
     this.recipeService.recipes$.subscribe(() => {
-      if (this.id === undefined) {
-        console.error('no recipe id provided');
-        return;
-      }
       this.fetchRecipe(this.id);
     });
   }
@@ -63,17 +59,17 @@ export class RecipeComponent {
     this.pageHeaderService.back = 'recipes';
     this.pageHeaderService.showBack = true;
 
-    if (this.id === undefined) {
+    this.fetchRecipe(this.id);
+  }
+
+  // fetch recipe by id if id is provided
+  // set headline
+  fetchRecipe(id: number | undefined): void {
+    if (id === undefined) {
       console.error('no recipe id provided');
       return;
     }
 
-    this.fetchRecipe(this.id);
-  }
-
-  // fetch recipe by id
-  // set headline
-  fetchRecipe(id: number): void {
     this.recipeService.getRecipeById(id).subscribe({
       next: (recipe: Recipe) => {
         console.debug('fetched recipe: ', recipe);
