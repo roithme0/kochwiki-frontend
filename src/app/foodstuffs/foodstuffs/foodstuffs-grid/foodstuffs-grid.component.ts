@@ -36,6 +36,7 @@ import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid
 // render foodstuffs as grid
 export class FoodstuffsGridComponent {
   dialog = inject(MatDialog);
+
   displayedFoodstuffsService = inject(FoodstuffsGridDisplayedFoodstuffsService);
   displayedFieldsService = inject(FoodstuffsGridDisplayedFieldsService);
 
@@ -49,6 +50,9 @@ export class FoodstuffsGridComponent {
     this.displayedFieldsService.displayedFields;
 
   openCreateFoodstuffDialog(): void {
-    this.dialog.open(FoodstuffCreateDialogComponent);
+    this.dialog.open(FoodstuffCreateDialogComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+    });
   }
 }
