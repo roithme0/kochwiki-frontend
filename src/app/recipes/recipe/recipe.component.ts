@@ -34,10 +34,10 @@ import { RecipeDeleteDialogComponent } from '../shared/dialogs/recipe-delete-dia
 // fetch recipe
 // render recipe details
 export class RecipeComponent {
-  route: ActivatedRoute = inject(ActivatedRoute);
-  pageHeaderService: PageHeaderService = inject(PageHeaderService);
-  recipeService: RecipeService = inject(RecipeService);
-  dialog: MatDialog = inject(MatDialog);
+  route = inject(ActivatedRoute);
+  pageHeaderService = inject(PageHeaderService);
+  recipeService = inject(RecipeService);
+  dialog = inject(MatDialog);
 
   id: number | undefined;
   recipe: Recipe | null = null;
