@@ -1,21 +1,19 @@
 <mat-card>
-  <mat-card-content>
-    <header>
-      <h2>Zubereitung</h2>
-      @if(recipe.preptime){
-      <p>{{ recipe.preptime }} min</p>
-      }
-    </header>
+  <mat-card-header>
+    <mat-card-title>Zubereitung</mat-card-title>
+    @if(recipe.preptime){
+    <mat-card-subtitle>{{ recipe.preptime }} min</mat-card-subtitle>
+    }
+  </mat-card-header>
 
-    @if(stepsSorted.length > 0){
+  <mat-card-content>
     <div class="grid">
-      @for(step of stepsSorted; track step.index){
-      <p>{{ step.index }}</p>
-      <p>{{ step.description }}</p>
+      @if(stepsSorted.length > 0){ @for(step of stepsSorted; track step.index){
+      <span>{{ step.index }}</span>
+      <span>{{ step.description }}</span>
+      } }@else{
+      <span>Keine Schritte gefunden</span>
       }
     </div>
-    }@else{
-    <p>Keine Schritte gefunden</p>
-    }
   </mat-card-content>
 </mat-card>

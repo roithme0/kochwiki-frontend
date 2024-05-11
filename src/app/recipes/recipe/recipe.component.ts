@@ -30,50 +30,46 @@ import { RecipeDeleteDialogComponent } from '../shared/dialogs/recipe-delete-dia
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css',
 })
+// set header values
+// fetch recipe
+// render recipe details
 export class RecipeComponent {
-  // set header values
-  // fetch recipe
-  // render recipe details
-  route: ActivatedRoute = inject(ActivatedRoute);
-  pageHeaderService: PageHeaderService = inject(PageHeaderService);
-  recipeService: RecipeService = inject(RecipeService);
-  dialog: MatDialog = inject(MatDialog);
+  route = inject(ActivatedRoute);
+  pageHeaderService = inject(PageHeaderService);
+  recipeService = inject(RecipeService);
+  dialog = inject(MatDialog);
 
   id: number | undefined;
   recipe: Recipe | null = null;
 
+  // fetch recipe id from route
+  // track recipe changes
   constructor() {
-    // fetch recipe id from route
-    // track recipe changes
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     console.debug('id: ', this.id);
 
     this.recipeService.recipes$.subscribe(() => {
-      if (this.id === undefined) {
-        console.error('no recipe id provided');
-        return;
-      }
       this.fetchRecipe(this.id);
     });
   }
 
+  // set headline
+  // fetch recipe
   ngOnInit() {
-    // set headline
-    // fetch recipe
     this.pageHeaderService.back = 'recipes';
     this.pageHeaderService.showBack = true;
-
-    if (this.id === undefined) {
-      console.error('no recipe id provided');
-      return;
-    }
 
     this.fetchRecipe(this.id);
   }
 
-  fetchRecipe(id: number): void {
-    // fetch recipe by id
-    // set headline
+  // fetch recipe by id if id is provided
+  // set headline
+  fetchRecipe(id: number | undefined): void {
+    if (id === undefined) {
+      console.error('no recipe id provided');
+      return;
+    }
+
     this.recipeService.getRecipeById(id).subscribe({
       next: (recipe: Recipe) => {
         console.debug('fetched recipe: ', recipe);

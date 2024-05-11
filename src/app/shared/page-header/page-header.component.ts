@@ -22,8 +22,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   templateUrl: './page-header.component.html',
   styleUrl: './page-header.component.css',
 })
+// render page header
 export class PageHeaderComponent {
-  // render page header
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
 
   headline: Signal<string> = this.pageHeaderService.headline;

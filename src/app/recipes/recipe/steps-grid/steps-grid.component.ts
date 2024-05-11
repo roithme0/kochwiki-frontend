@@ -19,7 +19,7 @@ export class StepsGridComponent {
 
   stepsSorted: Step[] = [];
 
-  ngOnInit() {
+  ngOnChanges() {
     this.stepsSorted = this.recipe.steps.sort((a, b) => a.index - b.index);
   }
 }

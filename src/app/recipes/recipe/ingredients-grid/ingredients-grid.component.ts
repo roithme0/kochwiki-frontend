@@ -6,11 +6,13 @@ import { Recipe } from '../../shared/interfaces/recipe';
 import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.service';
 
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-ingredients-grid',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatProgressBarModule],
   templateUrl: './ingredients-grid.component.html',
   styleUrl: './ingredients-grid.component.css',
 })
@@ -19,25 +21,37 @@ import { MatCardModule } from '@angular/material/card';
 export class IngredientsGridComponent {
   foodstuffService = inject(FoodstuffService);
 
-  @Input() recipe: Recipe | undefined;
+  @Input() recipe!: Recipe;
+
+  isLoading: boolean = false;
+  hasError: boolean = false;
+
+  ngOnChanges() {
+    this.hasError = false;
+    this.fetchAssociatedFoodstuffs();
+  }
 
   // fetch foodstuffs associated with recipe
-  ngOnInit() {
-    if (this.recipe === undefined) {
-      console.error('no recipe provided');
-      return;
-    }
+  fetchAssociatedFoodstuffs() {
+    this.isLoading = true;
 
-    for (let ingredient of this.recipe.ingredients) {
-      this.foodstuffService.getFoodstuffById(ingredient.foodstuffId).subscribe({
-        next: (foodstuff) => {
-          console.debug('fetched foodstuff: ', foodstuff);
-          ingredient.foodstuff = foodstuff;
-        },
-        error: (error) => {
-          console.error('failed to fetch foodstuff: ', error);
-        },
-      });
-    }
+    const requests = this.recipe.ingredients.map((ingredient) =>
+      this.foodstuffService.getFoodstuffById(ingredient.foodstuffId)
+    );
+
+    forkJoin(requests).subscribe({
+      next: (foodstuffs) => {
+        console.debug('fetched foodstuffs: ', foodstuffs);
+        for (let i = 0; i < foodstuffs.length; i++) {
+          this.recipe.ingredients[i].foodstuff = foodstuffs[i];
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('failed to fetch foodstuffs: ', error);
+        this.hasError = true;
+        this.isLoading = false;
+      },
+    });
   }
 }
