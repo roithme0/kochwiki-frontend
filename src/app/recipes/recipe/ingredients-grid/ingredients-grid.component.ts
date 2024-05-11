@@ -39,6 +39,11 @@ export class IngredientsGridComponent {
       this.foodstuffService.getFoodstuffById(ingredient.foodstuffId)
     );
 
+    if (requests.length === 0) {
+      this.isLoading = false;
+      return;
+    }
+
     forkJoin(requests).subscribe({
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
