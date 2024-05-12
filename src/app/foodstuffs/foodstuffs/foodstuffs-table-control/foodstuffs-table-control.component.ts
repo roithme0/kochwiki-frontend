@@ -23,7 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-foodstuffs-grid-controls',
+  selector: 'app-foodstuffs-table-control',
   standalone: true,
   imports: [
     CommonModule,
@@ -35,12 +35,12 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatButtonModule,
   ],
-  templateUrl: './foodstuffs-grid-controls.component.html',
-  styleUrl: './foodstuffs-grid-controls.component.css',
+  templateUrl: './foodstuffs-table-control.component.html',
+  styleUrl: './foodstuffs-table-control.component.css',
 })
 // track & emit grid control inputs
 // render grid controls
-export class FoodstuffsGridControlsComponent {
+export class FoodstuffsTableControlComponent {
   @Input() foodstuffs: Signal<Foodstuff[]> = signal([]);
 
   searchControl: FormControl = new FormControl('');

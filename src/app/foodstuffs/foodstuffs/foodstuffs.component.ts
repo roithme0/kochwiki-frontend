@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FoodstuffsGridControlsComponent } from './foodstuffs-grid-controls/foodstuffs-grid-controls.component';
+import { FoodstuffsTableControlComponent } from './foodstuffs-table-control/foodstuffs-table-control.component';
 import { FoodstuffsTableComponent } from './foodstuffs-table/foodstuffs-table.component';
 
 import { PageHeaderService } from '../../shared/services/page-header.service';
@@ -11,7 +11,7 @@ import { PageHeaderService } from '../../shared/services/page-header.service';
   standalone: true,
   imports: [
     CommonModule,
-    FoodstuffsGridControlsComponent,
+    FoodstuffsTableControlComponent,
     FoodstuffsTableComponent,
   ],
   templateUrl: './foodstuffs.component.html',
