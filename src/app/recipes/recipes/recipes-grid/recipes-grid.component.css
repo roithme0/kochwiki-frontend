@@ -23,10 +23,3 @@
   grid-template-columns: repeat(var(--columns), 1fr);
   gap: 0.5rem;
 }
-
-.button-wrapper {
-  flex: 1;
-  display: grid;
-  justify-content: center;
-  align-items: end;
-}

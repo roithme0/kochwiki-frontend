@@ -32,9 +32,9 @@ import { WindowWidthService } from '../../../shared/services/window-width.servic
   templateUrl: './recipes-grid.component.html',
   styleUrl: './recipes-grid.component.css',
 })
+// render grid-controls component
+// render recipes in grid
 export class RecipesGridComponent {
-  // render grid-controls component
-  // render recipes in grid
   recipesGridDisplayedRecipesService: RecipesGridDisplayedRecipesService =
     inject(RecipesGridDisplayedRecipesService);
   windowWidthService: WindowWidthService = inject(WindowWidthService);
@@ -60,14 +60,4 @@ export class RecipesGridComponent {
       return 4;
     }
   });
-
-  // open dialog to create new recipe
-  openCreateRecipeDialog(): void {
-    this.dialog.open(RecipeCreateDialogComponent, {
-      maxWidth: '95vw',
-      maxHeight: '95vh',
-      autoFocus: false,
-      disableClose: true,
-    });
-  }
 }
