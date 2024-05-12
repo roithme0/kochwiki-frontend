@@ -13,9 +13,9 @@
         <span>{{ ingredient.amount }}</span>
         <span>{{ ingredient.foodstuff.unitVerbose }}</span>
         } @if (recipe.ingredients.length == 0) {
-        <span>Keine Zutaten vorhanden</span>
+        <span class="no-ingredients">Keine Zutaten vorhanden</span>
         } } @if(isLoading == false && hasError == true){
-        <p>Ein Fehler ist aufgetreten</p>
+        <span class="error">Ein Fehler ist aufgetreten</span>
         }
       </div>
     </mat-card-content>
