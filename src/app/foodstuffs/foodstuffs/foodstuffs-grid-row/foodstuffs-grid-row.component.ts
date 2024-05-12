@@ -31,6 +31,7 @@ export class FoodstuffsGridRowComponent {
       maxWidth: '95vw',
       maxHeight: '95vh',
       autoFocus: false,
+      disableClose: true,
     });
   }
 

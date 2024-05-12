@@ -89,6 +89,7 @@ export class RecipeComponent {
       maxWidth: '95vw',
       maxHeight: '95vh',
       autoFocus: false,
+      disableClose: true,
     });
   }
 

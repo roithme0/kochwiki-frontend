@@ -67,6 +67,7 @@ export class RecipesGridComponent {
       maxWidth: '95vw',
       maxHeight: '95vh',
       autoFocus: false,
+      disableClose: true,
     });
   }
 }
