@@ -41,8 +41,6 @@ import { MatButtonModule } from '@angular/material/button';
 // track & emit grid control inputs
 // render grid controls
 export class FoodstuffsTableControlComponent {
-  @Input() foodstuffs: Signal<Foodstuff[]> = signal([]);
-
   searchControl: FormControl = new FormControl('');
   filterControl: FormControl = new FormControl('all');
 
@@ -74,10 +72,12 @@ export class FoodstuffsTableControlComponent {
     return new Set(filtered);
   });
 
-  unitChoices: UnitChoices | null = null;
-
   foodstuffsTableControlsService = inject(FoodstuffTableControlServiceService);
   foodstuffService = inject(FoodstuffService);
+
+  foodstuffs: Signal<Foodstuff[]> =
+    this.foodstuffsTableControlsService.foodstuffs;
+  unitChoices: UnitChoices | null = null;
 
   constructor() {
     this.searchControl.valueChanges.subscribe(

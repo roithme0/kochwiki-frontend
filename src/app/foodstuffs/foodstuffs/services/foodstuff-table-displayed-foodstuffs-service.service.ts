@@ -9,25 +9,25 @@ import {
 
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
-import { FoodstuffService } from '../../shared/services/foodstuff.service';
+import { FoodstuffTableHelperServiceService } from './foodstuff-table-helper-service.service';
 import { FoodstuffTableControlServiceService } from './foodstuff-table-control-service.service';
-
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FoodstuffTableDisplayedFoodstuffsServiceService {
-  private foodstuffService = inject(FoodstuffService);
+  private foodstuffTableHelperService = inject(
+    FoodstuffTableHelperServiceService
+  );
   private foodstuffsTableControlsService = inject(
     FoodstuffTableControlServiceService
   );
-  private snackBarService = inject(MatSnackBar);
 
-  private foodstuffs: WritableSignal<Foodstuff[]> = signal([]);
+  private _foodstuffs: Signal<Foodstuff[]> =
+    this.foodstuffTableHelperService.foodstuffs;
   // apply search & filter functions to foodstuffs
   private _displayedFoodstuffs: Signal<Foodstuff[]> = computed(() => {
-    var displayedFoodstuffs = this.foodstuffs();
+    var displayedFoodstuffs = this._foodstuffs();
     displayedFoodstuffs =
       this.searchFoodstuffsByNameOrBrand(displayedFoodstuffs);
     displayedFoodstuffs = this.filterFoodstuffsByUnit(displayedFoodstuffs);
@@ -39,54 +39,16 @@ export class FoodstuffTableDisplayedFoodstuffsServiceService {
   private filterBy: Signal<string> =
     this.foodstuffsTableControlsService.filterBy;
 
-  private _loading: WritableSignal<boolean> = signal(true);
-  private _error: WritableSignal<boolean> = signal(false);
-
-  constructor() {
-    this.foodstuffService.foodstuffs$.subscribe(() => {
-      this.fetchFoodstuffs();
-    });
-
-    this.fetchFoodstuffs();
-  }
-
   get displayedFoodstuffs(): Signal<Foodstuff[]> {
     return this._displayedFoodstuffs;
   }
 
   get loading(): Signal<boolean> {
-    return this._loading;
+    return this.foodstuffTableHelperService.loading;
   }
 
   get error(): Signal<boolean> {
-    return this._error;
-  }
-
-  // fetch all foodstuffs
-  private async fetchFoodstuffs() {
-    this._loading.set(true);
-    this.foodstuffService.getAllFoodstuffs().subscribe({
-      next: (foodstuffs) => {
-        console.debug('fetched foodstuffs: ', foodstuffs);
-        this.foodstuffs.set(foodstuffs);
-        this._error.set(false);
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuffs: ', error);
-        this.snackBarService.open(
-          'Lebensmittel konnten nicht geladen werden',
-          '',
-          {
-            duration: 5000,
-          }
-        );
-        this._error.set(true);
-        this._loading.set(false);
-      },
-      complete: () => {
-        this._loading.set(false);
-      },
-    });
+    return this.foodstuffTableHelperService.error;
   }
 
   private searchFoodstuffsByNameOrBrand(foodstuffs: Foodstuff[]): Foodstuff[] {
