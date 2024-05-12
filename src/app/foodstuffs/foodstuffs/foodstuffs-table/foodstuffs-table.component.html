@@ -38,7 +38,7 @@
     </ng-container>
     }}
 
-    <tr mat-header-row *matHeaderRowDef="displayedFields()"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedFields(); sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedFields()"></tr>
   </table>
   }@else {
