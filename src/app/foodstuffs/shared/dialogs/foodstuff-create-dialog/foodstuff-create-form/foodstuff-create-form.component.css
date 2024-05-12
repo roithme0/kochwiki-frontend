@@ -18,6 +18,12 @@ form {
   display: flex;
   flex-wrap: wrap;
   gap: 0 0.5rem;
+
+  @media (max-width: 500px) {
+    mat-form-field {
+      flex: 0 0 100%;
+    }
+  }
 }
 
 /* remove arrows from input number field */
