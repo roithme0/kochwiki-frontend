@@ -1,22 +1,29 @@
+<!-- loading -->
 @if(loadingDisplayedRecipes() == true){
 <div class="spinner-wrapper">
   <mat-spinner></mat-spinner>
 </div>
-} @if(loadingDisplayedRecipes() == false && errorLoadingDisplayedRecipes() ==
-false) {
-<section class="grid-wrapper">
-  <app-recipes-grid-controls [recipes]="displayedRecipes" />
-
-  <div class="grid" [style.--columns]="displayedColumns()">
-    @for(recipe of displayedRecipes(); track recipe.id){
-    <app-recipes-grid-element
-      [recipe]="recipe"
-      (click)="router.navigate(['recipes', recipe.id])"
-    />
-    }
-  </div>
-  @if(displayedRecipes().length == 0){
-  <p>Keine passenden Rezepte gefunden</p>
-  }
-</section>
 }
+
+<!-- error -->
+@if(loadingDisplayedRecipes() == false && errorLoadingDisplayedRecipes() ==
+true) {
+<p>Ein Fehler ist aufgetreten</p>
+}
+
+<!-- loaded -->
+@if(loadingDisplayedRecipes() == false && errorLoadingDisplayedRecipes() ==
+false) {
+<div class="grid" [style.--columns]="displayedColumns()">
+  @for(recipe of displayedRecipes(); track recipe.id){
+  <app-recipes-grid-element
+    [recipe]="recipe"
+    (click)="router.navigate(['recipes', recipe.id])"
+  />
+  }
+</div>
+
+<!-- no recipes -->
+@if(displayedRecipes().length == 0){
+<p>Keine passenden Rezepte gefunden</p>
+} }
