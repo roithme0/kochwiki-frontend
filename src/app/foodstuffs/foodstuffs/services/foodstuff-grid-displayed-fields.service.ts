@@ -23,6 +23,7 @@ export class FoodstuffsGridDisplayedFieldsService {
     if (this.windowInnerWidth() > 1200) {
       displayedFields.push('unitVerbose');
     }
+    displayedFields.push('actions');
     return displayedFields;
   });
 
