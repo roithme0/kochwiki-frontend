@@ -9,7 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import { FoodstuffsGridControlsService } from '../services/foodstuff-grid-controls.service';
+import { FoodstuffTableControlServiceService } from '../services/foodstuff-table-control-service.service';
 import { FoodstuffService } from '../../shared/services/foodstuff.service';
 
 import { UnitChoices } from '../../shared/interfaces/foodstuff-meta-data';
@@ -23,7 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-foodstuffs-grid-controls',
+  selector: 'app-foodstuffs-table-control',
   standalone: true,
   imports: [
     CommonModule,
@@ -35,14 +35,12 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatButtonModule,
   ],
-  templateUrl: './foodstuffs-grid-controls.component.html',
-  styleUrl: './foodstuffs-grid-controls.component.css',
+  templateUrl: './foodstuffs-table-control.component.html',
+  styleUrl: './foodstuffs-table-control.component.css',
 })
 // track & emit grid control inputs
 // render grid controls
-export class FoodstuffsGridControlsComponent {
-  @Input() foodstuffs: Signal<Foodstuff[]> = signal([]);
-
+export class FoodstuffsTableControlComponent {
   searchControl: FormControl = new FormControl('');
   filterControl: FormControl = new FormControl('all');
 
@@ -74,17 +72,19 @@ export class FoodstuffsGridControlsComponent {
     return new Set(filtered);
   });
 
-  unitChoices: UnitChoices | null = null;
-
-  foodstuffsGridControlsService = inject(FoodstuffsGridControlsService);
+  foodstuffsTableControlsService = inject(FoodstuffTableControlServiceService);
   foodstuffService = inject(FoodstuffService);
+
+  foodstuffs: Signal<Foodstuff[]> =
+    this.foodstuffsTableControlsService.foodstuffs;
+  unitChoices: UnitChoices | null = null;
 
   constructor() {
     this.searchControl.valueChanges.subscribe(
-      (value) => (this.foodstuffsGridControlsService.searchBy = value)
+      (value) => (this.foodstuffsTableControlsService.searchBy = value)
     );
     this.filterControl.valueChanges.subscribe(
-      (value) => (this.foodstuffsGridControlsService.filterBy = value)
+      (value) => (this.foodstuffsTableControlsService.filterBy = value)
     );
   }
 

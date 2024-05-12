@@ -9,4 +9,16 @@ main {
   /* stretch hole page */
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+app-recipes-grid-control,
+app-recipes-grid-create-recipe {
+  flex: 0;
+}
+
+app-recipes-grid {
+  flex: 1;
+  overflow-y: auto;
 }

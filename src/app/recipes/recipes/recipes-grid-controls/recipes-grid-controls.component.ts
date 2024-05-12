@@ -35,14 +35,12 @@ import { RecipesGridControlsService } from '../shared/recipes-grid-controls.serv
   templateUrl: './recipes-grid-controls.component.html',
   styleUrl: './recipes-grid-controls.component.css',
 })
+// generate a list of names and origins of all displayed recipes
+// render recipe grid controls
 export class RecipesGridControlsComponent {
-  // generate a list of names and origins of all displayed recipes
-  // render recipe grid controls
-  recipeGridControlsService: RecipesGridControlsService = inject(
-    RecipesGridControlsService
-  );
+  recipesGridControlsService = inject(RecipesGridControlsService);
 
-  @Input() recipes: Signal<Recipe[]> = signal([]);
+  recipes: Signal<Recipe[]> = this.recipesGridControlsService.recipes;
 
   searchControl: FormControl = new FormControl('');
 
@@ -79,12 +77,12 @@ export class RecipesGridControlsComponent {
   constructor() {
     // emit search value
     this.searchControl.valueChanges.subscribe(
-      (value) => (this.recipeGridControlsService.searchBy = value)
+      (value) => (this.recipesGridControlsService.searchBy = value)
     );
   }
 
   emitControlValue(): void {
     console.info('search: ', this.searchControl.value);
-    this.recipeGridControlsService.searchBy = this.searchControl.value;
+    this.recipesGridControlsService.searchBy = this.searchControl.value;
   }
 }

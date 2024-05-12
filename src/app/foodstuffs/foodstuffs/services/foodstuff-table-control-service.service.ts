@@ -1,9 +1,21 @@
-import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
+import {
+  Injectable,
+  Signal,
+  WritableSignal,
+  inject,
+  signal,
+} from '@angular/core';
+
+import { Foodstuff } from '../../shared/interfaces/foodstuff';
+
+import { FoodstuffTableHelperServiceService } from './foodstuff-table-helper-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FoodstuffsGridControlsService {
+export class FoodstuffTableControlServiceService {
+  foodstuffTableHelperService = inject(FoodstuffTableHelperServiceService);
+
   private _searchBy: WritableSignal<string> = signal('');
   private _filterBy: WritableSignal<string> = signal('all');
 
@@ -25,5 +37,9 @@ export class FoodstuffsGridControlsService {
 
   get filterBy(): Signal<string> {
     return this._filterBy;
+  }
+
+  get foodstuffs(): Signal<Foodstuff[]> {
+    return this.foodstuffTableHelperService.foodstuffs;
   }
 }

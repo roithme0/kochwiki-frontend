@@ -1,14 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FoodstuffsGridComponent } from './foodstuffs-grid/foodstuffs-grid.component';
+import { FoodstuffsTableControlComponent } from './foodstuffs-table-control/foodstuffs-table-control.component';
+import { FoodstuffsTableComponent } from './foodstuffs-table/foodstuffs-table.component';
+import { FoodstuffsTableCreateFoodstuffComponent } from './foodstuffs-table-create-foodstuff/foodstuffs-table-create-foodstuff.component';
 
 import { PageHeaderService } from '../../shared/services/page-header.service';
 
 @Component({
   selector: 'app-foodstuffs',
   standalone: true,
-  imports: [CommonModule, FoodstuffsGridComponent],
+  imports: [
+    CommonModule,
+    FoodstuffsTableControlComponent,
+    FoodstuffsTableComponent,
+    FoodstuffsTableCreateFoodstuffComponent,
+  ],
   templateUrl: './foodstuffs.component.html',
   styleUrl: './foodstuffs.component.css',
 })
