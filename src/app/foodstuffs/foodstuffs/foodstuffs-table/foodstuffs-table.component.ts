@@ -9,13 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 import { VerboseNames } from '../../shared/interfaces/foodstuff-meta-data';
 
-import { FoodstuffsGridDisplayedFoodstuffsService } from '../services/foodstuff-grid-displayed-foodstuffs.service';
-import { FoodstuffsGridDisplayedFieldsService } from '../services/foodstuff-grid-displayed-fields.service';
+import { FoodstuffTableDisplayedFieldsServiceService } from '../services/foodstuff-table-displayed-fields-service.service';
+import { FoodstuffTableDisplayedFoodstuffsServiceService } from '../services/foodstuff-table-displayed-foodstuffs-service.service';
 import { FoodstuffService } from '../../shared/services/foodstuff.service';
 
 import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
 import { FoodstuffDeleteDialogComponent } from '../../shared/dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
-import { FoodstuffCreateDialogComponent } from '../../shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 
 @Component({
   selector: 'app-foodstuffs-table',
@@ -25,8 +24,10 @@ import { FoodstuffCreateDialogComponent } from '../../shared/dialogs/foodstuff-c
   styleUrl: './foodstuffs-table.component.css',
 })
 export class FoodstuffsTableComponent {
-  displayedFoodstuffsService = inject(FoodstuffsGridDisplayedFoodstuffsService);
-  displayedFieldsService = inject(FoodstuffsGridDisplayedFieldsService);
+  displayedFieldsService = inject(FoodstuffTableDisplayedFieldsServiceService);
+  displayedFoodstuffsService = inject(
+    FoodstuffTableDisplayedFoodstuffsServiceService
+  );
   foodstuffService = inject(FoodstuffService);
   dialog = inject(MatDialog);
 

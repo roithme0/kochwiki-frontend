@@ -10,7 +10,7 @@ import {
 import { Foodstuff } from '../../shared/interfaces/foodstuff';
 
 import { FoodstuffService } from '../../shared/services/foodstuff.service';
-import { FoodstuffsGridControlsService } from './foodstuff-grid-controls.service';
+import { FoodstuffTableControlServiceService } from './foodstuff-table-control-service.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -19,7 +19,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class FoodstuffTableDisplayedFoodstuffsServiceService {
   private foodstuffService = inject(FoodstuffService);
-  private foodstuffsGridControlsService = inject(FoodstuffsGridControlsService);
+  private foodstuffsTableControlsService = inject(
+    FoodstuffTableControlServiceService
+  );
   private snackBarService = inject(MatSnackBar);
 
   private foodstuffs: WritableSignal<Foodstuff[]> = signal([]);
@@ -33,9 +35,9 @@ export class FoodstuffTableDisplayedFoodstuffsServiceService {
   });
 
   private searchBy: Signal<string> =
-    this.foodstuffsGridControlsService.searchBy;
+    this.foodstuffsTableControlsService.searchBy;
   private filterBy: Signal<string> =
-    this.foodstuffsGridControlsService.filterBy;
+    this.foodstuffsTableControlsService.filterBy;
 
   private _loading: WritableSignal<boolean> = signal(true);
   private _error: WritableSignal<boolean> = signal(false);
