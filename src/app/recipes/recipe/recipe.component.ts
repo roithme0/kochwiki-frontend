@@ -88,6 +88,7 @@ export class RecipeComponent {
       data: { id: this.recipe?.id },
       maxWidth: '95vw',
       maxHeight: '95vh',
+      autoFocus: false,
     });
   }
 
@@ -96,6 +97,7 @@ export class RecipeComponent {
       data: { id: this.recipe?.id },
       maxWidth: '95vw',
       maxHeight: '95vh',
+      autoFocus: false,
     });
   }
 }
