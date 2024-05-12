@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Rezept erstellen</h2>
+<app-dialog-header title="Rezept erstellen" [showCloseButon]="true" />
+
 <mat-dialog-content class="mat-dialog-content">
   <app-recipe-create-form (success)="dialogRef.close()" />
 </mat-dialog-content>

@@ -4,9 +4,8 @@
   flex-direction: column;
 }
 
-.buttons-wrapper {
-  display: flex;
-  gap: 0.5rem;
+mat-dialog-actions {
+  padding: 0 !important;
 }
 
 button {
