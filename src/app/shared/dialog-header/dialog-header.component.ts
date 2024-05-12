@@ -14,4 +14,5 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class DialogHeaderComponent {
   @Input() title!: string;
+  @Input() showCloseButon!: boolean;
 }
