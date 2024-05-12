@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-page-header',
   standalone: true,
@@ -25,6 +27,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 // render page header
 export class PageHeaderComponent {
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
+
+  environmentName: string = environment.name;
 
   headline: Signal<string> = this.pageHeaderService.headline;
   back: Signal<string> = this.pageHeaderService.back;
