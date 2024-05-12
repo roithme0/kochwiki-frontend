@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { FoodstuffPatchFormComponent } from './foodstuff-patch-form/foodstuff-patch-form.component';
+import { DialogHeaderComponent } from '../../../../shared/dialog-header/dialog-header.component';
 
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatDialogContent } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -15,7 +16,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     CommonModule,
     ReactiveFormsModule,
     FoodstuffPatchFormComponent,
-    MatDialogContent,
+    DialogHeaderComponent,
+    MatDialogModule,
   ],
   templateUrl: './foodstuff-patch-dialog.component.html',
   styleUrl: './foodstuff-patch-dialog.component.css',
