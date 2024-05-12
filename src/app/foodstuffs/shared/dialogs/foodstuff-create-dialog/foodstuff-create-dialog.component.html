@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Lebensmittel erstellen</h2>
+<app-dialog-header title="Lebensmittel erstellen" [showCloseButon]="true" />
+
 <mat-dialog-content class="mat-dialog-content">
   <app-foodstuff-create-form (success)="dialogRef.close()" />
 </mat-dialog-content>
