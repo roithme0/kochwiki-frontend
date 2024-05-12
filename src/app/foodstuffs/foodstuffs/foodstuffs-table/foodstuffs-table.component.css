@@ -4,3 +4,7 @@
   align-items: end;
   justify-content: center;
 }
+
+.mat-column-actions {
+  max-width: fit-content;
+}

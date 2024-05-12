@@ -7,27 +7,17 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let foodstuff">
-      <div class="buttons-wrapper">
-        <button mat-icon-button (click)="openEditFoodstuffDialog(foodstuff)">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Bearbeiten"
-            fontIcon="edit"
-          ></mat-icon>
-        </button>
+      <button mat-icon-button (click)="openEditFoodstuffDialog(foodstuff)">
+        <mat-icon aria-hidden="false" aria-label="Bearbeiten" fontIcon="edit" />
+      </button>
 
-        <button
-          mat-icon-button
-          color="warn"
-          (click)="openDeleteFoodstuffDialog(foodstuff)"
-        >
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Löschen"
-            fontIcon="delete"
-          ></mat-icon>
-        </button>
-      </div>
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="openDeleteFoodstuffDialog(foodstuff)"
+      >
+        <mat-icon aria-hidden="false" aria-label="Löschen" fontIcon="delete" />
+      </button>
     </td>
   </ng-container>
 
@@ -48,10 +38,6 @@
 
 <div class="button-wrapper">
   <button mat-icon-button (click)="openCreateFoodstuffDialog()">
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Hinzufügen"
-      fontIcon="add"
-    ></mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Hinzufügen" fontIcon="add" />
   </button>
 </div>
