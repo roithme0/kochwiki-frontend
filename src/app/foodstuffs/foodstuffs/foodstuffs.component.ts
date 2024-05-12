@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FoodstuffsTableControlComponent } from './foodstuffs-table-control/foodstuffs-table-control.component';
 import { FoodstuffsTableComponent } from './foodstuffs-table/foodstuffs-table.component';
+import { FoodstuffsTableCreateFoodstuffComponent } from './foodstuffs-table-create-foodstuff/foodstuffs-table-create-foodstuff.component';
 
 import { PageHeaderService } from '../../shared/services/page-header.service';
 
@@ -13,6 +14,7 @@ import { PageHeaderService } from '../../shared/services/page-header.service';
     CommonModule,
     FoodstuffsTableControlComponent,
     FoodstuffsTableComponent,
+    FoodstuffsTableCreateFoodstuffComponent,
   ],
   templateUrl: './foodstuffs.component.html',
   styleUrl: './foodstuffs.component.css',
