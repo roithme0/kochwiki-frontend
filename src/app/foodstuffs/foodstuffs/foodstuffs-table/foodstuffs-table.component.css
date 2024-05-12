@@ -7,3 +7,7 @@
 .mat-column-actions {
   max-width: fit-content;
 }
+
+.buttons-wrapper {
+  display: flex;
+}
