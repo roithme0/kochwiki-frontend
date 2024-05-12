@@ -15,6 +15,7 @@ import { FoodstuffService } from '../../shared/services/foodstuff.service';
 
 import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
 import { FoodstuffDeleteDialogComponent } from '../../shared/dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
+import { FoodstuffCreateDialogComponent } from '../../shared/dialogs/foodstuff-create-dialog/foodstuff-create-dialog.component';
 
 @Component({
   selector: 'app-foodstuffs-table',
@@ -72,6 +73,15 @@ export class FoodstuffsTableComponent {
       maxWidth: '95vw',
       maxHeight: '95vh',
       autoFocus: false,
+    });
+  }
+
+  openCreateFoodstuffDialog(): void {
+    this.dialog.open(FoodstuffCreateDialogComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      autoFocus: false,
+      disableClose: true,
     });
   }
 }
