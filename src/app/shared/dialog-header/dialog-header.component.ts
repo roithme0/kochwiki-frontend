@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -12,4 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './dialog-header.component.html',
   styleUrl: './dialog-header.component.css',
 })
-export class DialogHeaderComponent {}
+export class DialogHeaderComponent {
+  @Input() title!: string;
+}
