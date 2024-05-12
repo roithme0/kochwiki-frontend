@@ -61,11 +61,13 @@ export class RecipesGridComponent {
     }
   });
 
+  // open dialog to create new recipe
   openCreateRecipeDialog(): void {
-    // open dialog to create new recipe
     this.dialog.open(RecipeCreateDialogComponent, {
       maxWidth: '95vw',
       maxHeight: '95vh',
+      autoFocus: false,
+      disableClose: true,
     });
   }
 }

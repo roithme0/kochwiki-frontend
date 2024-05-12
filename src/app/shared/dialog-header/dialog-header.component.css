@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+h2 {
+  flex: 1;
+  margin: 0.25rem 0;
+  font-size: var(--mdc-dialog-subhead-size, 1rem);
+  font-weight: 500;
+}
+
+mat-dialog-actions {
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+
+button {
+  flex: 0 0;
+}

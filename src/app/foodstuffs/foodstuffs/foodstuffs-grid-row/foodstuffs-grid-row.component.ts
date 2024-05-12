@@ -30,6 +30,8 @@ export class FoodstuffsGridRowComponent {
       data: { id: this.foodstuff?.id },
       maxWidth: '95vw',
       maxHeight: '95vh',
+      autoFocus: false,
+      disableClose: true,
     });
   }
 
@@ -38,6 +40,7 @@ export class FoodstuffsGridRowComponent {
       data: { id: this.foodstuff?.id },
       maxWidth: '95vw',
       maxHeight: '95vh',
+      autoFocus: false,
     });
   }
 }

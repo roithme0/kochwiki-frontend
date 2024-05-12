@@ -6,18 +6,26 @@ import { RecipeService } from '../../../shared/services/recipe.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+
+import { DialogHeaderComponent } from '../../../../shared/dialog-header/dialog-header.component';
 
 @Component({
   selector: 'app-recipe-delete-dialog',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    DialogHeaderComponent,
+  ],
   templateUrl: './recipe-delete-dialog.component.html',
   styleUrl: './recipe-delete-dialog.component.css',
 })
+// get recipe id from mat dialog data
+// render buttons to delete a recipe
 export class RecipeDeleteDialogComponent {
-  // get recipe id from mat dialog data
-  // render buttons to delete a recipe
   dialogRef: MatDialogRef<RecipeDeleteDialogComponent> = inject(MatDialogRef);
   recipeService: RecipeService = inject(RecipeService);
   router: Router = inject(Router);
@@ -30,9 +38,9 @@ export class RecipeDeleteDialogComponent {
     this.id = data.id;
   }
 
+  // delete recipe
+  // close dialog on success
   deleteRecipe(): void {
-    // delete recipe
-    // close dialog on success
     if (this.id === undefined) {
       console.error('no recipe id provided');
       return;

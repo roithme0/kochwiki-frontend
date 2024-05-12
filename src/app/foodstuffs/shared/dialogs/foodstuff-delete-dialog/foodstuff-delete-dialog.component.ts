@@ -7,12 +7,20 @@ import { FoodstuffService } from '../../services/foodstuff.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+
+import { DialogHeaderComponent } from '../../../../shared/dialog-header/dialog-header.component';
 
 @Component({
   selector: 'app-foodstuff-delete-dialog',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    DialogHeaderComponent,
+  ],
   templateUrl: './foodstuff-delete-dialog.component.html',
   styleUrl: './foodstuff-delete-dialog.component.css',
 })

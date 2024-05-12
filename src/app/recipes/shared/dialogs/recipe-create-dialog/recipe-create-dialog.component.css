@@ -1,9 +1,7 @@
-h2 {
+app-dialog-header {
   --material-padding: 24px;
-
   padding: var(--material-padding);
   padding-bottom: 0;
-  margin: 0;
 }
 
 mat-dialog-content.mat-dialog-content {

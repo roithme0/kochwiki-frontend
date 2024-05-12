@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Lebensmittel bearbeiten</h2>
+<app-dialog-header title="Lebensmittel bearbeiten" [showCloseButon]="true" />
+
 <mat-dialog-content class="mat-dialog-content">
   <app-foodstuff-patch-form [id]="data.id" (success)="dialogRef.close()" />
 </mat-dialog-content>

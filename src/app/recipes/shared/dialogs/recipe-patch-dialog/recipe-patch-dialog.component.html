@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Rezept bearbeiten</h2>
+<app-dialog-header title="Rezept bearbeiten" [showCloseButon]="true" />
+
 <mat-dialog-content class="mat-dialog-content">
   <app-recipe-patch-form [id]="data.id" (success)="dialogRef.close()" />
 </mat-dialog-content>

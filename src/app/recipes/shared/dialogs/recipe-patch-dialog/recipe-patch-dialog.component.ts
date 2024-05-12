@@ -2,15 +2,21 @@ import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecipePatchFormComponent } from './recipe-patch-form/recipe-patch-form.component';
+import { DialogHeaderComponent } from '../../../../shared/dialog-header/dialog-header.component';
 
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatDialogContent } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-recipe-patch-dialog',
   standalone: true,
-  imports: [CommonModule, RecipePatchFormComponent, MatDialogContent],
+  imports: [
+    CommonModule,
+    RecipePatchFormComponent,
+    DialogHeaderComponent,
+    MatDialogModule,
+  ],
   templateUrl: './recipe-patch-dialog.component.html',
   styleUrl: './recipe-patch-dialog.component.css',
 })
