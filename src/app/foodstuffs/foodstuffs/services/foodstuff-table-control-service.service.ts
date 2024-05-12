@@ -3,7 +3,7 @@ import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class FoodstuffsGridControlsService {
+export class FoodstuffTableControlServiceService {
   private _searchBy: WritableSignal<string> = signal('');
   private _filterBy: WritableSignal<string> = signal('all');
 

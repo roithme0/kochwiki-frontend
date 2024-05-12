@@ -17,8 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root',
 })
-// provide displayed foodstuffs for the foodstuffs grid
-export class FoodstuffsGridDisplayedFoodstuffsService {
+export class FoodstuffTableDisplayedFoodstuffsServiceService {
   private foodstuffService = inject(FoodstuffService);
   private foodstuffsGridControlsService = inject(FoodstuffsGridControlsService);
   private snackBarService = inject(MatSnackBar);
