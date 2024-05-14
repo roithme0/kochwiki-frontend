@@ -13,7 +13,7 @@ true) {
 
 <!-- loaded -->
 @if(loadingDisplayedRecipes() == false && errorLoadingDisplayedRecipes() ==
-false) {
+false) { @if(displayedRecipes().length > 0){
 <div class="grid" [style.--columns]="displayedColumns()">
   @for(recipe of displayedRecipes(); track recipe.id){
   <app-recipes-grid-element
@@ -22,6 +22,7 @@ false) {
   />
   }
 </div>
+}
 
 <!-- no recipes -->
 @if(displayedRecipes().length == 0){
