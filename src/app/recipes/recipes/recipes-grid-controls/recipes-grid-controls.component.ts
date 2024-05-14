@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   Signal,
+  WritableSignal,
   computed,
   inject,
   signal,
@@ -42,47 +43,47 @@ export class RecipesGridControlsComponent {
 
   recipes: Signal<Recipe[]> = this.recipesGridControlsService.recipes;
 
-  searchControl: FormControl = new FormControl('');
+  searchValue: WritableSignal<string> = signal('');
 
+  // generate a list of names of all displayed recipes
   names: Signal<string[]> = computed(() => {
-    // generate a list of names of all displayed recipes
     return this.recipes().map((recipe) => recipe.name);
   });
+  // generate a list of origins of all displayed recipes
   origins: Signal<string[]> = computed(() => {
-    // generate a list of origins of all displayed recipes
     const origins: string[] = this.recipes().map(
       (recipe) => recipe.originName || ''
     );
     return origins.filter((origin) => origin != '');
   });
+  // filter names based on search input (case-insensitive)
   filteredNames: Signal<Set<string>> = computed(() => {
-    // filter names based on search input (case-insensitive)
-    const searchValue = this.searchControl.value || '';
     return new Set(
       this.names().filter((name) =>
-        name.toLowerCase().includes(searchValue.toLowerCase())
+        name.toLowerCase().includes(this.searchValue().toLowerCase())
       )
     );
   });
+  // filter origins based on search input (case-insensitive)
   filteredOrigins: Signal<Set<string>> = computed(() => {
-    // filter origins based on search input (case-insensitive)
-    const searchValue = this.searchControl.value || '';
     return new Set(
       this.origins().filter((origin) =>
-        origin.toLowerCase().includes(searchValue.toLowerCase())
+        origin.toLowerCase().includes(this.searchValue().toLowerCase())
       )
     );
   });
 
-  constructor() {
-    // emit search value
-    this.searchControl.valueChanges.subscribe(
-      (value) => (this.recipesGridControlsService.searchBy = value)
-    );
-  }
+  // constructor() {
+  //   // should work but does not
+  //   effect(() => {
+  //     this.recipesGridControlsService.searchBy = this.searchValue();
+  //     console.log('searchValue effect fired');
+  //   });
+  // }
 
-  emitControlValue(): void {
-    console.info('search: ', this.searchControl.value);
-    this.recipesGridControlsService.searchBy = this.searchControl.value;
+  // workaround for effect not working
+  OnSeachValueChanged(newSearchValue: string): void {
+    this.searchValue.set(newSearchValue);
+    this.recipesGridControlsService.searchBy = this.searchValue();
   }
 }

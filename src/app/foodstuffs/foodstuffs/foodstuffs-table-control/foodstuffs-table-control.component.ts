@@ -2,7 +2,9 @@ import {
   Component,
   Input,
   Signal,
+  WritableSignal,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -41,8 +43,8 @@ import { MatButtonModule } from '@angular/material/button';
 // track & emit grid control inputs
 // render grid controls
 export class FoodstuffsTableControlComponent {
-  searchControl: FormControl = new FormControl('');
-  filterControl: FormControl = new FormControl('all');
+  searchValue: WritableSignal<string> = signal('');
+  filterValue: WritableSignal<string> = signal('all');
 
   // generate a list of names of all displayed foodstuffs
   names: Signal<string[]> = computed(() => {
@@ -57,17 +59,15 @@ export class FoodstuffsTableControlComponent {
   });
   // filter names based on search input (case-insensitive)
   filteredNames: Signal<Set<string>> = computed(() => {
-    const searchValue = this.searchControl.value || '';
     const filtered = this.names().filter((name) =>
-      name.toLowerCase().includes(searchValue.toLowerCase())
+      name.toLowerCase().includes(this.searchValue().toLowerCase())
     );
     return new Set(filtered);
   });
   // filter brands based on search input (case-insensitive)
   filteredBrands: Signal<Set<string>> = computed(() => {
-    const searchValue = this.searchControl.value || '';
     const filtered = this.brands().filter((brand) =>
-      brand.toLowerCase().includes(searchValue.toLowerCase())
+      brand.toLowerCase().includes(this.searchValue().toLowerCase())
     );
     return new Set(filtered);
   });
@@ -79,17 +79,33 @@ export class FoodstuffsTableControlComponent {
     this.foodstuffsTableControlsService.foodstuffs;
   unitChoices: UnitChoices | null = null;
 
-  constructor() {
-    this.searchControl.valueChanges.subscribe(
-      (value) => (this.foodstuffsTableControlsService.searchBy = value)
-    );
-    this.filterControl.valueChanges.subscribe(
-      (value) => (this.foodstuffsTableControlsService.filterBy = value)
-    );
-  }
+  // constructor() {
+  //   // should work but does not
+  //   effect(() => {
+  //     this.foodstuffsTableControlsService.searchBy = this.searchValue();
+  //     console.log('searchValue effect fired');
+  //   });
+  //   // should work but does not
+  //   effect(() => {
+  //     this.foodstuffsTableControlsService.filterBy = this.filterValue();
+  //     console.log('filterValue effect fired');
+  //   });
+  // }
 
   ngOnInit(): void {
     this.fetchUnitChoices();
+  }
+
+  // workaround for effect not working
+  OnSeachValueChanged(newSearchValue: string): void {
+    this.searchValue.set(newSearchValue);
+    this.foodstuffsTableControlsService.searchBy = this.searchValue();
+  }
+
+  // workaround for effect not working
+  OnFilterValueChanged(newFilterValue: string): void {
+    this.filterValue.set(newFilterValue);
+    this.foodstuffsTableControlsService.filterBy = this.filterValue();
   }
 
   fetchUnitChoices(): void {
