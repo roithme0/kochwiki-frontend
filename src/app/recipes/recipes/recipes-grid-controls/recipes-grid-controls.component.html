@@ -2,35 +2,37 @@
   <mat-form-field class="search-field">
     <mat-label>Suche</mat-label>
     <input
+      #searchValueField
+      [value]="searchValue()"
+      (input)="OnSeachValueChanged(searchValueField.value)"
+      (selectionchange)="OnSeachValueChanged(searchValueField.value)"
       placeholder="Name oder Ersteller*in suchen ..."
-      [formControl]="searchControl"
       matInput
       [matAutocomplete]="search"
     />
-    @if(searchControl.value){
+    @if(searchValue() != ''){
     <button
       matSuffix
       mat-icon-button
       aria-label="Clear"
-      (click)="searchControl.setValue('')"
+      (click)="searchValue.set('')"
     >
       <mat-icon color="warn">close</mat-icon>
     </button>
     }
     <mat-autocomplete #search="matAutocomplete">
       @if(filteredNames().size > 0){
-        <mat-optgroup label="Namen">
-          @for (name of filteredNames(); track name) {
-            <mat-option [value]="name">{{ name }}</mat-option>
-          }
-        </mat-optgroup>
-      }
-      @if(filteredOrigins().size > 0){
-        <mat-optgroup label="Ersteller*innen">
-          @for (origin of filteredOrigins(); track origin) {
-            <mat-option [value]="origin">{{ origin }}</mat-option>
-          }
-        </mat-optgroup>
+      <mat-optgroup label="Namen">
+        @for (name of filteredNames(); track name) {
+        <mat-option [value]="name">{{ name }}</mat-option>
+        }
+      </mat-optgroup>
+      } @if(filteredOrigins().size > 0){
+      <mat-optgroup label="Ersteller*innen">
+        @for (origin of filteredOrigins(); track origin) {
+        <mat-option [value]="origin">{{ origin }}</mat-option>
+        }
+      </mat-optgroup>
       }
     </mat-autocomplete>
   </mat-form-field>

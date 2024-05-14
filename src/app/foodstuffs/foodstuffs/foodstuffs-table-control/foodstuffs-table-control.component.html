@@ -2,17 +2,20 @@
   <mat-form-field class="search-field">
     <mat-label>Suche</mat-label>
     <input
+      #searchValueField
       placeholder="Name oder Marke suchen ..."
-      [formControl]="searchControl"
       matInput
+      [value]="searchValue()"
+      (input)="OnSeachValueChanged(searchValueField.value)"
+      (selectionchange)="OnSeachValueChanged(searchValueField.value)"
       [matAutocomplete]="search"
     />
-    @if(searchControl.value){
+    @if(searchValue() != ''){
     <button
       matSuffix
       mat-icon-button
       aria-label="Löschen"
-      (click)="searchControl.setValue('')"
+      (click)="searchValue.set('')"
     >
       <mat-icon color="warn">close</mat-icon>
     </button>
@@ -37,7 +40,9 @@
   <mat-form-field class="filter-field">
     <mat-label>Filter</mat-label>
     <mat-select
-      [formControl]="filterControl"
+      #filterValueField
+      (selectionChange)="OnFilterValueChanged(filterValueField.value)"
+      [value]="filterValue()"
       placeholder="Einheit auswählen ..."
       single
     >
