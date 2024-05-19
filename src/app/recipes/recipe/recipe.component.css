@@ -12,19 +12,28 @@ article {
   width: 100%;
 }
 
+main {
+  position: relative;
+}
+
 article {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow-y: auto;
 }
 
+.spacer {
+  flex: 0 0 5rem;
+}
 img {
   flex: 0 0 40%;
 }
 
 .buttons-wrapper {
-  flex: 1;
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
   display: flex;
-  justify-content: center;
-  align-items: end;
+  gap: 0.5rem;
 }
