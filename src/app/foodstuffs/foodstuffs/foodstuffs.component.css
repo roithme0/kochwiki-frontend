@@ -11,14 +11,26 @@ main {
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
-app-foodstuffs-table-control,
-app-foodstuffs-table-create-foodstuff {
+app-foodstuffs-table-control {
   flex: 0;
 }
 
-app-foodstuffs-table {
+.table-wrapper {
   flex: 1;
   overflow-y: auto;
+}
+
+app-foodstuffs-table::after {
+  content: "";
+  display: block;
+  height: 5rem;
+}
+
+app-foodstuffs-table-create-foodstuff {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
 }
