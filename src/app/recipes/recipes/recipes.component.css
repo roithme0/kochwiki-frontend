@@ -11,14 +11,26 @@ main {
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
-app-recipes-grid-control,
-app-recipes-grid-create-recipe {
+app-recipes-grid-control {
   flex: 0;
 }
 
-app-recipes-grid {
+.grid-wrapper {
   flex: 1;
   overflow-y: auto;
+}
+
+app-recipes-grid::after {
+  content: "";
+  display: block;
+  height: 5rem;
+}
+
+app-recipes-grid-create-recipe {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
 }
