@@ -1,6 +1,6 @@
 export interface LegendElement {
   displayName: string;
   color: string;
-  valueAbsolute: number;
-  valuePercentage: number;
+  valueAbsolute: number | null | undefined;
+  valuePercentage: number | null;
 }

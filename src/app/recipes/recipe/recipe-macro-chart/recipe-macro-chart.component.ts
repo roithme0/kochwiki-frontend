@@ -35,28 +35,40 @@ export class RecipeMacroChartComponent {
     carbs: {
       displayName: 'Kohlenhydrate',
       color: 'rgb(19,154,155)',
-      valueAbsolute: 0,
-      valuePercentage: 0,
+      valueAbsolute: null,
+      valuePercentage: null,
     },
     protein: {
       displayName: 'Protein',
       color: 'rgb(155, 255, 117)',
-      valueAbsolute: 0,
-      valuePercentage: 0,
+      valueAbsolute: null,
+      valuePercentage: null,
     },
     fat: {
       displayName: 'Fett',
       color: 'rgb(255,97,97)',
-      valueAbsolute: 0,
-      valuePercentage: 0,
+      valueAbsolute: null,
+      valuePercentage: null,
     },
   };
 
   ngOnChanges() {
-    if (this.recipe == undefined) {
-      return;
-    }
-    console.log('ONCHANGE');
+    this.legend['carbs'].valueAbsolute = this.recipe.carbs;
+    this.legend['protein'].valueAbsolute = this.recipe.protein;
+    this.legend['fat'].valueAbsolute = this.recipe.fat;
+
+    this.legend['carbs'].valuePercentage = this.calculateValuePercentage(
+      this.recipe,
+      this.recipe.carbs
+    );
+    this.legend['protein'].valuePercentage = this.calculateValuePercentage(
+      this.recipe,
+      this.recipe.protein
+    );
+    this.legend['fat'].valuePercentage = this.calculateValuePercentage(
+      this.recipe,
+      this.recipe.fat
+    );
 
     this.chart = new Chart('canvas', {
       type: 'doughnut',
@@ -77,5 +89,22 @@ export class RecipeMacroChartComponent {
         ],
       },
     });
+  }
+
+  private calculateValuePercentage(
+    recipe: Recipe,
+    macroValue: number | null | undefined
+  ): number | null {
+    if (
+      recipe.carbs == null ||
+      recipe.protein == null ||
+      recipe.fat == null ||
+      macroValue == null
+    ) {
+      return null;
+    }
+
+    const macroSum: number = recipe.carbs + recipe.protein + recipe.fat;
+    return (macroValue / macroSum) * 100;
   }
 }
