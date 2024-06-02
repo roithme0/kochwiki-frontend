@@ -1,8 +1,18 @@
-.progress-bar-wrapper {
-  margin: 0 5px;
+.canvas-wrapper {
+  display: grid;
+  place-items: center;
 }
 
-.no-ingredients,
-.error {
-  grid-column: span 3;
+canvas {
+  max-width: 20rem;
+  max-height: 20rem;
+}
+
+.spacer {
+  height: 2rem;
+}
+
+.incomplete-message {
+  margin: 0;
+  padding: 1.5rem 0 0;
 }

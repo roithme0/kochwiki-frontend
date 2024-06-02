@@ -1,59 +1,54 @@
-import { Component, Input, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  Signal,
+  ViewChild,
+  computed,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../shared/interfaces/recipe';
 
-import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.service';
-
 import { MatCardModule } from '@angular/material/card';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { forkJoin } from 'rxjs';
+
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-recipe-macro-chart',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatProgressBarModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './recipe-macro-chart.component.html',
   styleUrl: './recipe-macro-chart.component.css',
 })
 export class RecipeMacroChartComponent {
-  foodstuffService = inject(FoodstuffService);
+  title = 'ng-chart';
+  chart: any = [];
 
   @Input() recipe!: Recipe;
 
-  isLoading: boolean = false;
-  hasError: boolean = false;
-
   ngOnChanges() {
-    this.hasError = false;
-    this.fetchAssociatedFoodstuffs();
-  }
-
-  // fetch foodstuffs associated with recipe
-  fetchAssociatedFoodstuffs() {
-    this.isLoading = true;
-
-    const requests = this.recipe.ingredients.map((ingredient) =>
-      this.foodstuffService.getFoodstuffById(ingredient.foodstuffId)
-    );
-
-    if (requests.length === 0) {
-      this.isLoading = false;
+    if (this.recipe == undefined) {
       return;
     }
+    console.log('ONCHANGE');
 
-    forkJoin(requests).subscribe({
-      next: (foodstuffs) => {
-        console.debug('fetched foodstuffs: ', foodstuffs);
-        for (let i = 0; i < foodstuffs.length; i++) {
-          this.recipe.ingredients[i].foodstuff = foodstuffs[i];
-        }
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuffs: ', error);
-        this.hasError = true;
-        this.isLoading = false;
+    this.chart = new Chart('canvas', {
+      type: 'doughnut',
+      data: {
+        labels: ['Kohlenhydrate', 'Proteine', 'Fett'],
+        datasets: [
+          {
+            data: [this.recipe.carbs, this.recipe.protein, this.recipe.fat],
+            backgroundColor: [
+              'rgb(19,154,155)',
+              'rgb(155, 255, 117)',
+              'rgb(255,97,97)',
+            ],
+            borderWidth: 0,
+          },
+        ],
       },
     });
   }
