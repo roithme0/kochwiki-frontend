@@ -9,6 +9,10 @@ export interface Recipe {
   originUrl: string | null;
   // original: File | null;
   servings: number;
+  kcal?: number | null;
+  carbs?: number | null;
+  protein?: number | null;
+  fat?: number | null;
   ingredients: Ingredient[];
   preptime: number | null;
   steps: Step[];
