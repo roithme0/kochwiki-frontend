@@ -44,40 +44,44 @@ export class RecipeMacroChartComponent {
   );
 
   legend: { [id: string]: Signal<LegendElement> } = {
-    carbs: computed(() => {
-      return {
-        displayName: 'Kohlenhydrate',
-        color: 'rgb(19,154,155)',
-        valueAbsolute: this.recipe.carbs,
-        valuePercentage: this.calculateValuePercentage(
-          this.recipe,
-          this.recipe.carbs
-        ),
-      };
+    carbs: signal({
+      displayName: 'Kohlenhydrate',
+      color: 'rgb(19,154,155)',
+      valueAbsolute: null,
+      valuePercentage: null,
     }),
-    protein: computed(() => {
-      return {
-        displayName: 'Protein',
-        color: 'rgb(155, 255, 117)',
-        valueAbsolute: this.recipe.protein,
-        valuePercentage: this.calculateValuePercentage(
-          this.recipe,
-          this.recipe.protein
-        ),
-      };
+    protein: signal({
+      displayName: 'Protein',
+      color: 'rgb(155, 255, 117)',
+      valueAbsolute: null,
+      valuePercentage: null,
     }),
-    fat: computed(() => {
-      return {
-        displayName: 'Fett',
-        color: 'rgb(255,97,97)',
-        valueAbsolute: this.recipe.fat,
-        valuePercentage: this.calculateValuePercentage(
-          this.recipe,
-          this.recipe.fat
-        ),
-      };
+    fat: signal({
+      displayName: 'Fett',
+      color: 'rgb(255,97,97)',
+      valueAbsolute: null,
+      valuePercentage: null,
     }),
   };
+
+  ngOnChanges() {
+    this.legend['carbs']().valueAbsolute = this.recipe.carbs;
+    this.legend['protein']().valueAbsolute = this.recipe.protein;
+    this.legend['fat']().valueAbsolute = this.recipe.fat;
+
+    this.legend['carbs']().valuePercentage = this.calculateValuePercentage(
+      this.recipe,
+      this.recipe.carbs
+    );
+    this.legend['protein']().valuePercentage = this.calculateValuePercentage(
+      this.recipe,
+      this.recipe.protein
+    );
+    this.legend['fat']().valuePercentage = this.calculateValuePercentage(
+      this.recipe,
+      this.recipe.fat
+    );
+  }
 
   private calculateValuePercentage(
     recipe: Recipe,
