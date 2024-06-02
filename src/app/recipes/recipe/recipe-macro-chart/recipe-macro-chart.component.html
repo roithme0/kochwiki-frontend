@@ -2,16 +2,21 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>Nährwerte</mat-card-title>
-      @if(recipe.kcal != null){
-      <mat-card-subtitle>{{ recipe.kcal }} kcal</mat-card-subtitle>
-      }
+      <mat-card-subtitle>pro Portion</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <!-- chart -->
       @if(recipe.carbs != null && recipe.protein != null && recipe.fat != null){
-      <div class="canvas-wrapper">
-        <canvas id="canvas">{{ chart }}</canvas>
+      <div class="chart-wrapper">
+        <div class="canvas-wrapper">
+          <canvas id="canvas">{{ chart }}</canvas>
+          @if(recipe.kcal != null){
+          <div class="kcal-wrapper">
+            <p class="kcal">{{ recipe.kcal }} kcal</p>
+          </div>
+          }
+        </div>
         <div class="spacer"></div>
         <div class="legend">
           <app-legend-element [legendElement]="legend['carbs']" />
