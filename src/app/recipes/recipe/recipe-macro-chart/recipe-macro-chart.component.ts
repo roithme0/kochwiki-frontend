@@ -36,8 +36,10 @@ export class RecipeMacroChartComponent {
 
     this.chart = new Chart('canvas', {
       type: 'doughnut',
+      options: {
+        cutout: '70%',
+      },
       data: {
-        labels: ['Kohlenhydrate', 'Proteine', 'Fett'],
         datasets: [
           {
             data: [this.recipe.carbs, this.recipe.protein, this.recipe.fat],
