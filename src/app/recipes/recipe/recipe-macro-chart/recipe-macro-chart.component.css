@@ -4,8 +4,8 @@
 }
 
 canvas {
-  max-width: 20rem;
-  max-height: 20rem;
+  max-width: 30rem;
+  max-height: 30rem;
 }
 
 .spacer {
@@ -14,7 +14,7 @@ canvas {
 
 .legend {
   width: 100%;
-  max-width: 20rem;
+  max-width: 30rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

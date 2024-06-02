@@ -1,14 +1,26 @@
-:host {
+.legend-content {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
 }
 
 .color-indicator {
   --color: transparent;
   flex: 0 0 0.5rem;
+  height: 1.5rem;
   background-color: var(--color);
+  border-radius: 0.1rem;
 }
 
-.display-name {
+p {
   margin: 0;
+}
+
+.spacer {
+  flex: 1 0 0;
+}
+
+.percentage-content {
+  padding: 0.5rem;
 }
