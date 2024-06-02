@@ -12,6 +12,14 @@ canvas {
   height: 0.5rem;
 }
 
+.legend {
+  width: 100%;
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .incomplete-message {
   margin: 0;
   padding: 1.5rem 0 0;

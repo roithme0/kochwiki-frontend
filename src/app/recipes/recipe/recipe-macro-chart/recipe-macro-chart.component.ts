@@ -15,10 +15,13 @@ import { MatCardModule } from '@angular/material/card';
 
 import Chart from 'chart.js/auto';
 
+import { LegendElementComponent } from './legend-element/legend-element.component';
+import { LegendElement } from '../../../shared/interfaces/legend-element';
+
 @Component({
   selector: 'app-recipe-macro-chart',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, LegendElementComponent],
   templateUrl: './recipe-macro-chart.component.html',
   styleUrl: './recipe-macro-chart.component.css',
 })
@@ -27,6 +30,27 @@ export class RecipeMacroChartComponent {
   chart: any = [];
 
   @Input() recipe!: Recipe;
+
+  legend: { [id: string]: LegendElement } = {
+    carbs: {
+      displayName: 'Kohlenhydrate',
+      color: 'rgb(19,154,155)',
+      valueAbsolute: 0,
+      valuePercentage: 0,
+    },
+    protein: {
+      displayName: 'Protein',
+      color: 'rgb(155, 255, 117)',
+      valueAbsolute: 0,
+      valuePercentage: 0,
+    },
+    fat: {
+      displayName: 'Fett',
+      color: 'rgb(255,97,97)',
+      valueAbsolute: 0,
+      valuePercentage: 0,
+    },
+  };
 
   ngOnChanges() {
     if (this.recipe == undefined) {
@@ -44,9 +68,9 @@ export class RecipeMacroChartComponent {
           {
             data: [this.recipe.carbs, this.recipe.protein, this.recipe.fat],
             backgroundColor: [
-              'rgb(19,154,155)',
-              'rgb(155, 255, 117)',
-              'rgb(255,97,97)',
+              this.legend['carbs'].color,
+              this.legend['protein'].color,
+              this.legend['fat'].color,
             ],
             borderWidth: 0,
           },

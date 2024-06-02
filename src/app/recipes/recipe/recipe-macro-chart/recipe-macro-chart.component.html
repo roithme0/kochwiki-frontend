@@ -13,6 +13,11 @@
       <div class="canvas-wrapper">
         <canvas id="canvas">{{ chart }}</canvas>
         <div class="spacer"></div>
+        <div class="legend">
+          <app-legend-element [legendElement]="legend['carbs']" />
+          <app-legend-element [legendElement]="legend['protein']" />
+          <app-legend-element [legendElement]="legend['fat']" />
+        </div>
       </div>
       }
 
