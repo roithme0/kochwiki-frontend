@@ -10,8 +10,9 @@
       @if(recipe.carbs != null && recipe.protein != null && recipe.fat != null){
       <div class="chart-wrapper">
         <div class="canvas-wrapper">
-          <canvas id="canvas">{{ chart }}</canvas>
-          @if(recipe.kcal != null){
+          @if(chart != null){
+          <canvas id="canvas">{{ chart() }}</canvas>
+          } @if(recipe.kcal != null){
           <div class="kcal-wrapper">
             <p class="kcal">{{ recipe.kcal }} kcal</p>
           </div>
@@ -19,9 +20,9 @@
         </div>
         <div class="spacer"></div>
         <div class="legend">
-          <app-legend-element [legendElement]="legend['carbs']" />
-          <app-legend-element [legendElement]="legend['protein']" />
-          <app-legend-element [legendElement]="legend['fat']" />
+          <app-legend-element [legendElement]="legend['carbs']()" />
+          <app-legend-element [legendElement]="legend['protein']()" />
+          <app-legend-element [legendElement]="legend['fat']()" />
         </div>
       </div>
       }
