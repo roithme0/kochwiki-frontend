@@ -2,7 +2,7 @@ import { Component, Input, Signal, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
-import { LegendElement } from '../../../interfaces/legend-element';
+import { ChartLegendElement } from '../../../interfaces/chart-legend-element';
 
 import { MatCardModule } from '@angular/material/card';
 
@@ -43,7 +43,7 @@ export class RecipeMacroChartComponent {
       })
   );
 
-  legend: { [id: string]: Signal<LegendElement> } = {
+  legend: { [id: string]: Signal<ChartLegendElement> } = {
     carbs: signal({
       displayName: 'Kohlenhydrate',
       color: 'rgb(19,154,155)',

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LegendElement } from '../../interfaces/legend-element';
+import { ChartLegendElement } from '../../interfaces/chart-legend-element';
 
 import { MatCardModule } from '@angular/material/card';
 
@@ -13,5 +13,5 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './chart-legend-element.component.css',
 })
 export class ChartLegendElementComponent {
-  @Input() legendElement!: LegendElement;
+  @Input() legendElement!: ChartLegendElement;
 }
