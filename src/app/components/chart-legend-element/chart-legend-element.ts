@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChartLegendElement } from '../../interfaces/chart-legend-element';
@@ -13,5 +13,5 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './chart-legend-element.component.css',
 })
 export class ChartLegendElementComponent {
-  @Input() legendElement!: ChartLegendElement;
+  legendElement = input.required<ChartLegendElement>();
 }

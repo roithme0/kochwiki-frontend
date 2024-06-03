@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Signal, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Step } from '../../interfaces/step';
@@ -15,13 +15,9 @@ import { MatCardModule } from '@angular/material/card';
 })
 // render steps as grid
 export class StepsGridComponent {
-  @Input() recipe!: Recipe;
+  recipe = input.required<Recipe>();
 
-  stepsSorted: Step[] = [];
-
-  ngOnChanges() {
-    this.stepsSorted = this.recipe.steps.sort(
-      (a: Step, b: Step) => a.index - b.index
-    );
-  }
+  stepsSorted: Signal<Step[]> = computed(() =>
+    this.recipe().steps.sort((a: Step, b: Step) => a.index - b.index)
+  );
 }

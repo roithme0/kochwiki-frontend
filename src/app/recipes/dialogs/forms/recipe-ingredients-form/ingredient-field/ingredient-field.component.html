@@ -9,10 +9,10 @@
       <mat-select
         [formControl]="foodstuffIdControl"
         single
-        (selectionChange)="onSelectionChange($event)"
+        (selectionChange)="selectedFoodstuffId.set(foodstuffIdControl.value)"
       >
         <mat-option disabled selected></mat-option>
-        @for(foodstuff of foodstuffs; track foodstuff.id) {
+        @for(foodstuff of foodstuffs(); track foodstuff.id) {
         <mat-option [value]="foodstuff.id">{{ foodstuff.name }}</mat-option
         >}
       </mat-select>

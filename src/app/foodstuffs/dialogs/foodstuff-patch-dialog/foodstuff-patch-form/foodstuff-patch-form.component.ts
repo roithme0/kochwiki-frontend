@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -37,8 +37,8 @@ export class FoodstuffPatchFormComponent {
   foodstuffService = inject(FoodstuffService);
   fb = inject(FormBuilder);
 
-  @Input() id: number | undefined;
-  @Output() success: EventEmitter<void> = new EventEmitter();
+  id = input.required<number>();
+  success = output<void>();
 
   verboseNames: VerboseNames | null = null;
   unitChoices: UnitChoices | null = null;
@@ -56,13 +56,7 @@ export class FoodstuffPatchFormComponent {
   ngOnInit(): void {
     this.fetchVerboseNames();
     this.fetchUnitChoices();
-
-    if (this.id === undefined) {
-      console.error('no foodstuff id provided');
-      return;
-    }
-
-    this.fetchFoodstuffById(this.id);
+    this.fetchFoodstuffById(this.id());
   }
 
   // submit form to patch foodstuff
@@ -71,12 +65,7 @@ export class FoodstuffPatchFormComponent {
     console.debug('submitting patch foodstuff form: ', formData);
     const updates: Partial<Foodstuff> = formData as Foodstuff;
 
-    if (this.id === undefined) {
-      console.error('no foodstuff id provided');
-      return;
-    }
-
-    this.foodstuffService.patchFoodstuff(this.id, updates).subscribe({
+    this.foodstuffService.patchFoodstuff(this.id(), updates).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff patched: ', foodstuff);
         this.foodstuffService.notifyFoodstuffsChanged();

@@ -1,4 +1,4 @@
-import { Component, Input, Signal, computed, signal } from '@angular/core';
+import { Component, Signal, computed, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
@@ -18,7 +18,43 @@ import { ChartLegendElementComponent } from '../../../components/chart-legend-el
   styleUrl: './recipe-macro-chart.component.css',
 })
 export class RecipeMacroChartComponent {
-  @Input() recipe!: Recipe;
+  recipe = input.required<Recipe>();
+
+  legend: { [id: string]: Signal<ChartLegendElement> } = {
+    carbs: computed(() => {
+      return {
+        displayName: 'Kohlenhydrate',
+        color: 'rgb(19,154,155)',
+        valueAbsolute: this.recipe().carbs,
+        valuePercentage: this.calculateValuePercentage(
+          this.recipe(),
+          this.recipe().carbs
+        ),
+      };
+    }),
+    protein: computed(() => {
+      return {
+        displayName: 'Protein',
+        color: 'rgb(155, 255, 117)',
+        valueAbsolute: this.recipe().protein,
+        valuePercentage: this.calculateValuePercentage(
+          this.recipe(),
+          this.recipe().protein
+        ),
+      };
+    }),
+    fat: computed(() => {
+      return {
+        displayName: 'Fett',
+        color: 'rgb(255,97,97)',
+        valueAbsolute: this.recipe().fat,
+        valuePercentage: this.calculateValuePercentage(
+          this.recipe(),
+          this.recipe().carbs
+        ),
+      };
+    }),
+  };
 
   chart: Signal<any> = computed(
     () =>
@@ -30,7 +66,11 @@ export class RecipeMacroChartComponent {
         data: {
           datasets: [
             {
-              data: [this.recipe.carbs, this.recipe.protein, this.recipe.fat],
+              data: [
+                this.recipe().carbs,
+                this.recipe().protein,
+                this.recipe().fat,
+              ],
               backgroundColor: [
                 this.legend['carbs']().color,
                 this.legend['protein']().color,
@@ -42,46 +82,6 @@ export class RecipeMacroChartComponent {
         },
       })
   );
-
-  legend: { [id: string]: Signal<ChartLegendElement> } = {
-    carbs: signal({
-      displayName: 'Kohlenhydrate',
-      color: 'rgb(19,154,155)',
-      valueAbsolute: null,
-      valuePercentage: null,
-    }),
-    protein: signal({
-      displayName: 'Protein',
-      color: 'rgb(155, 255, 117)',
-      valueAbsolute: null,
-      valuePercentage: null,
-    }),
-    fat: signal({
-      displayName: 'Fett',
-      color: 'rgb(255,97,97)',
-      valueAbsolute: null,
-      valuePercentage: null,
-    }),
-  };
-
-  ngOnChanges() {
-    this.legend['carbs']().valueAbsolute = this.recipe.carbs;
-    this.legend['protein']().valueAbsolute = this.recipe.protein;
-    this.legend['fat']().valueAbsolute = this.recipe.fat;
-
-    this.legend['carbs']().valuePercentage = this.calculateValuePercentage(
-      this.recipe,
-      this.recipe.carbs
-    );
-    this.legend['protein']().valuePercentage = this.calculateValuePercentage(
-      this.recipe,
-      this.recipe.protein
-    );
-    this.legend['fat']().valuePercentage = this.calculateValuePercentage(
-      this.recipe,
-      this.recipe.fat
-    );
-  }
 
   private calculateValuePercentage(
     recipe: Recipe,

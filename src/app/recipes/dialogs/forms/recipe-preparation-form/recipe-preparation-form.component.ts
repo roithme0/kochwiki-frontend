@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, ViewChild, inject } from '@angular/core';
+import { Component, NgZone, ViewChild, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormArray,
@@ -34,7 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './recipe-preparation-form.component.css',
 })
 export class RecipePreparationFormComponent {
-  @Input() recipe?: Recipe;
+  recipe = input<Recipe>();
 
   recipeFormDirective = inject(FormGroupDirective);
   fb: FormBuilder = inject(FormBuilder);
@@ -54,11 +54,12 @@ export class RecipePreparationFormComponent {
     ) as FormGroup;
 
     // set form values
-    if (this.recipe) {
+    const recipe: Recipe | undefined = this.recipe();
+    if (recipe !== undefined) {
       this.recipeForm.get('preparationFormGroup')?.patchValue({
-        preptime: this.recipe.preptime,
+        preptime: recipe.preptime,
       });
-      this.stepsSorted = this.recipe.steps.sort((a, b) => a.index - b.index);
+      this.stepsSorted = recipe.steps.sort((a, b) => a.index - b.index);
       this.stepsSorted.forEach((step) => this.addStep(step));
     }
   }
@@ -67,8 +68,8 @@ export class RecipePreparationFormComponent {
     return this.recipeForm.get('preparationFormGroup.steps') as FormArray;
   }
 
+  // add either empty or existing step to form
   addStep(step?: Step): void {
-    // add either empty or existing step to form
     this.steps.push(
       this.fb.group({
         // index: [1, Validators.required],

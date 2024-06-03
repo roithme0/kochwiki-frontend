@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
@@ -22,7 +22,7 @@ import { forkJoin } from 'rxjs';
 export class IngredientsGridComponent {
   foodstuffService = inject(FoodstuffService);
 
-  @Input() recipe!: Recipe;
+  recipe = input.required<Recipe>();
 
   isLoading: boolean = false;
   hasError: boolean = false;
@@ -36,7 +36,7 @@ export class IngredientsGridComponent {
   fetchAssociatedFoodstuffs() {
     this.isLoading = true;
 
-    const requests = this.recipe.ingredients.map((ingredient) =>
+    const requests = this.recipe().ingredients.map((ingredient) =>
       this.foodstuffService.getFoodstuffById(ingredient.foodstuffId)
     );
 
@@ -49,7 +49,7 @@ export class IngredientsGridComponent {
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
         for (let i = 0; i < foodstuffs.length; i++) {
-          this.recipe.ingredients[i].foodstuff = foodstuffs[i];
+          this.recipe().ingredients[i].foodstuff = foodstuffs[i];
         }
         this.isLoading = false;
       },

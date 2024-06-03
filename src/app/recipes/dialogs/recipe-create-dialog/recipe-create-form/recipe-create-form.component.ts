@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -64,7 +64,7 @@ export class RecipeCreateFormComponent {
   recipeService = inject(RecipeService);
   foodstuffService = inject(FoodstuffService);
 
-  @Output() success: EventEmitter<void> = new EventEmitter();
+  success = output<void>();
 
   foodstuffs!: Foodstuff[];
 

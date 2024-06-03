@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormGroup,
@@ -24,7 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './recipe-meta-form.component.css',
 })
 export class RecipeMetaFormComponent {
-  @Input() recipe?: Recipe;
+  recipe = input<Recipe>();
 
   recipeForm!: FormGroup;
   metaFormGroup!: FormGroup;
@@ -36,11 +36,12 @@ export class RecipeMetaFormComponent {
     this.metaFormGroup = this.recipeForm.get('metaFormGroup') as FormGroup;
 
     // set form values
-    if (this.recipe) {
+    const recipe: Recipe | undefined = this.recipe();
+    if (recipe !== undefined) {
       this.recipeForm.get('metaFormGroup')?.setValue({
-        name: this.recipe.name,
-        originName: this.recipe.originName,
-        originUrl: this.recipe.originUrl,
+        name: recipe.name,
+        originName: recipe.originName,
+        originUrl: recipe.originUrl,
       });
     }
   }
