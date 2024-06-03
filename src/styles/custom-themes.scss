@@ -11,51 +11,21 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$purple-palette: (
-  50: #f3e5f5,
-  100: #e1bee7,
-  200: #ce93d8,
-  300: #ba68c8,
-  400: #ab47bc,
-  500: #9c27b0,
-  600: #8e24aa,
-  700: #7b1fa2,
-  800: #6a1b9a,
-  900: #4a148c,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: white,
-    400: white,
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-  ),
-);
 
-$primary: mat.define-palette($purple-palette, 500);
-$accent: mat.define-palette($purple-palette, 200, 100, 400);
-$warn: mat.define-palette(mat.$red-palette);
-
-$dark-theme: mat.define-dark-theme(
+$dark-theme: mat.define-theme(
   (
     color: (
-      primary: $primary,
-      accent: $accent,
-      warn: $warn,
+      theme-type: dark,
+      primary: mat.$rose-palette,
     ),
   )
 );
 
-$light-theme: mat.define-light-theme(
+$light-theme: mat.define-theme(
   (
     color: (
-      primary: $primary,
-      accent: $accent,
-      warn: $warn,
+      theme-type: light,
+      primary: mat.$rose-palette,
     ),
   )
 );
@@ -63,8 +33,10 @@ $light-theme: mat.define-light-theme(
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($light-theme);
+html {
+  @include mat.all-component-themes($light-theme);
 
-@media (prefers-color-scheme: dark) {
-  @include mat.all-component-colors($dark-theme);
+  @media (prefers-color-scheme: dark) {
+    @include mat.all-component-colors($dark-theme);
+  }
 }
