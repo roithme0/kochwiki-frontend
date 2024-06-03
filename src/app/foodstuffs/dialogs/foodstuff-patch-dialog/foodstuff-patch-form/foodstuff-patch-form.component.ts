@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -46,7 +38,7 @@ export class FoodstuffPatchFormComponent {
   fb = inject(FormBuilder);
 
   id = input.required<number>();
-  @Output() success: EventEmitter<void> = new EventEmitter();
+  success = output<void>();
 
   verboseNames: VerboseNames | null = null;
   unitChoices: UnitChoices | null = null;

@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  inject,
-  input,
-} from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecipeService } from '../../../services/recipe.service';
@@ -51,7 +44,7 @@ import { MatDividerModule } from '@angular/material/divider';
 // render form with values to edit recipe
 export class RecipePatchFormComponent {
   id = input.required<number>();
-  @Output() success: EventEmitter<void> = new EventEmitter();
+  success = output<void>();
 
   fb = inject(FormBuilder);
   recipeService = inject(RecipeService);

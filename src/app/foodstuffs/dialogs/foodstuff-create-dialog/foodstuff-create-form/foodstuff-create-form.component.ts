@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +33,7 @@ import { MatSelectModule } from '@angular/material/select';
 // fetch foodstuff meta data
 // render form to create foodstuff
 export class FoodstuffCreateFormComponent {
-  @Output() success: EventEmitter<void> = new EventEmitter();
+  success = output<void>();
 
   verboseNames: VerboseNames | null = null;
   unitChoices: UnitChoices | null = null;

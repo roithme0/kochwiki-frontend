@@ -1,4 +1,4 @@
-import { Component, Inject, EventEmitter, Output, inject } from '@angular/core';
+import { Component, Inject, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -30,7 +30,7 @@ export class RecipeDeleteDialogComponent {
   recipeService: RecipeService = inject(RecipeService);
   router: Router = inject(Router);
 
-  @Output() success: EventEmitter<void> = new EventEmitter();
+  success = output<void>();
 
   id: number | undefined;
 
