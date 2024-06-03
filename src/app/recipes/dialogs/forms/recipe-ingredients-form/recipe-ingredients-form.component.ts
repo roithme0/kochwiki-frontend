@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormArray,
@@ -42,8 +42,8 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './recipe-ingredients-form.component.css',
 })
 export class RecipeIngredientsFormComponent {
-  @Input() foodstuffs!: Foodstuff[];
-  @Input() recipe?: Recipe;
+  foodstuffs = input.required<Foodstuff[]>();
+  recipe = input<Recipe>();
 
   recipeFormDirective = inject(FormGroupDirective);
   fb: FormBuilder = inject(FormBuilder);
@@ -59,11 +59,12 @@ export class RecipeIngredientsFormComponent {
     ) as FormGroup;
 
     // set form values
-    if (this.recipe) {
+    const recipe: Recipe | undefined = this.recipe();
+    if (recipe != undefined) {
       this.recipeForm.get('ingredientsFormGroup')?.patchValue({
-        servings: this.recipe.servings,
+        servings: recipe.servings,
       });
-      this.recipe.ingredients.forEach((ingredient) =>
+      recipe.ingredients.forEach((ingredient: Ingredient) =>
         this.addIngredient(ingredient)
       );
     }

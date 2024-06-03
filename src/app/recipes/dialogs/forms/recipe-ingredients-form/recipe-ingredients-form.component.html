@@ -1,9 +1,11 @@
 <div class="ingredients-mat-step" [formGroup]="ingredientsFormGroup">
+  <!-- servings -->
   <mat-form-field appearance="fill">
     <mat-label>Portionen</mat-label>
     <input matInput type="number" formControlName="servings" />
   </mat-form-field>
 
+  <!-- ingredients -->
   <div class="ingredients-wrapper" formArrayName="ingredients">
     @for(ingredient of ingredients.controls; track ingredient){
     <div class="ingredient-wrapper" formGroupName="{{ $index }}">
@@ -15,11 +17,12 @@
         ></mat-icon>
       </button>
 
-      <app-ingredient-field [foodstuffs]="foodstuffs" [index]="$index" />
+      <app-ingredient-field [foodstuffs]="foodstuffs()" [index]="$index" />
     </div>
     }
   </div>
 
+  <!-- add ingredient -->
   <div class="ingredients-array-buttons-wrapper">
     <button
       mat-stroked-button
@@ -29,6 +32,8 @@
     >
       Hinzufügen
     </button>
+
+    <!-- create foodstuff -->
     <button
       mat-stroked-button
       color="accent"

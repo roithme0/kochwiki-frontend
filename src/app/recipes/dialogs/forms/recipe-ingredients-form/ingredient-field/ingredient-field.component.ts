@@ -1,8 +1,10 @@
 import {
   Component,
-  Input,
+  Signal,
   WritableSignal,
+  computed,
   inject,
+  input,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,7 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 import { Foodstuff } from '../../../../../foodstuffs/interfaces/foodstuff';
 
@@ -37,8 +39,8 @@ import { Foodstuff } from '../../../../../foodstuffs/interfaces/foodstuff';
   styleUrl: './ingredient-field.component.css',
 })
 export class IngredientFieldComponent {
-  @Input() foodstuffs!: Foodstuff[];
-  @Input() index!: number;
+  foodstuffs = input.required<Foodstuff[]>();
+  index = input.required<number>();
 
   ingredientsFormGroupDirective = inject(FormGroupDirective);
 
@@ -46,45 +48,29 @@ export class IngredientFieldComponent {
   foodstuffIdControl!: FormControl;
   ingredientControl!: FormControl;
 
-  panelTitle: WritableSignal<string> = signal('Lebensmittel wählen ...');
+  selectedFoodstuffId: WritableSignal<number | undefined> = signal(undefined);
+  selectedFoodstuff: Signal<Foodstuff | undefined> = computed(() => {
+    const selectedFoodstuffId: number | undefined = this.selectedFoodstuffId();
+    return this.foodstuffs().find(
+      (foodstuff) => foodstuff.id === selectedFoodstuffId
+    );
+  });
+  panelTitle: Signal<string> = computed(() => {
+    const selectedFoodstuff: Foodstuff | undefined = this.selectedFoodstuff();
+    if (selectedFoodstuff === undefined) {
+      return 'Lebensmittel wählen ...';
+    }
+    return selectedFoodstuff.name;
+  });
 
   // get form controls
   ngOnInit() {
     this.ingredientsFormGroup = this.ingredientsFormGroupDirective.control;
     this.foodstuffIdControl = this.ingredientsFormGroup.get(
-      `ingredients.${this.index}.foodstuffId`
+      `ingredients.${this.index()}.foodstuffId`
     ) as FormControl;
     this.ingredientControl = this.ingredientsFormGroup.get(
-      `ingredients.${this.index}.amount`
+      `ingredients.${this.index()}.amount`
     ) as FormControl;
-
-    // set panel title if foodstuff is already selected
-    const selectedFoodstuffId: number | null = this.foodstuffIdControl.value;
-    this.updatePanelTitle(selectedFoodstuffId);
-  }
-
-  // call expansion panel title update on foodstuff selection change
-  onSelectionChange(event: MatSelectChange) {
-    this.updatePanelTitle(event.value);
-  }
-
-  // update expansion panel title
-  updatePanelTitle(foodstuffId: number | null) {
-    if (foodstuffId === null) {
-      console.debug('No foodstuff id provided');
-      this.panelTitle.set('Lebensmittel wählen ...');
-      return;
-    }
-
-    const selectedFoodstuff: Foodstuff | undefined = this.foodstuffs.find(
-      (foodstuff) => foodstuff.id == foodstuffId
-    );
-    if (selectedFoodstuff === undefined) {
-      console.debug('Foodstuff not found');
-      this.panelTitle.set('Fehler');
-      return;
-    }
-
-    this.panelTitle.set(selectedFoodstuff.name);
   }
 }
