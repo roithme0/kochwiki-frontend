@@ -1,8 +1,18 @@
+<!-- loading -->
 @if (isLoadingFetchRecipe || isLoadingFetchAllFoodstuffs) {
 <mat-spinner />
-} @else { @if(hasErrorFetchRecipe || hasErrorFetchAllFoodstuffs) {
+}
+
+<!-- loaded -->
+@else {
+
+<!-- error -->
+@if(hasErrorFetchRecipe || hasErrorFetchAllFoodstuffs) {
 <div>hasErrorFetchRecipe or hasErrorFetchAllFoodstuffs</div>
-} @else {
+}
+
+<!-- no error -->
+@else {
 <form [formGroup]="recipeForm" action="PATCH" class="form">
   <mat-stepper #stepper>
     <mat-step errorMessage="">

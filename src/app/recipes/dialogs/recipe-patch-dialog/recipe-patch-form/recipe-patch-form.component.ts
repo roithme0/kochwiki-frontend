@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  inject,
+  input,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecipeService } from '../../../services/recipe.service';
@@ -43,7 +50,7 @@ import { MatDividerModule } from '@angular/material/divider';
 // fetch foodstuff associated with recipe
 // render form with values to edit recipe
 export class RecipePatchFormComponent {
-  @Input() id: number | undefined;
+  id = input.required<number>();
   @Output() success: EventEmitter<void> = new EventEmitter();
 
   fb = inject(FormBuilder);
@@ -108,12 +115,7 @@ export class RecipePatchFormComponent {
 
   // fetch recipe wich is to be edited
   fetchRecipe(): void {
-    if (this.id === undefined) {
-      console.error('no recipe id provided');
-      return;
-    }
-
-    this.recipeService.getRecipeById(this.id).subscribe({
+    this.recipeService.getRecipeById(this.id()).subscribe({
       next: (recipe) => {
         console.debug('fetched recipe: ', recipe);
         this.recipe = recipe;
@@ -138,13 +140,7 @@ export class RecipePatchFormComponent {
       ...formValue.ingredientsFormGroup,
       ...formValue.preparationFormGroup,
     } as Recipe;
-
-    if (this.id === undefined) {
-      console.error('no recipe id provided');
-      return;
-    }
-
-    this.recipeService.patchRecipe(this.id, recipe).subscribe({
+    this.recipeService.patchRecipe(this.id(), recipe).subscribe({
       next: (recipe) => {
         console.info('recipe patched: ', recipe);
         this.success.emit();

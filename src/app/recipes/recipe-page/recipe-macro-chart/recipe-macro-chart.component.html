@@ -7,14 +7,15 @@
 
     <mat-card-content>
       <!-- chart -->
-      @if(recipe.carbs != null && recipe.protein != null && recipe.fat != null){
+      @if(recipe().carbs != null && recipe().protein != null && recipe().fat !=
+      null){
       <div class="chart-wrapper">
         <div class="canvas-wrapper">
           @if(chart != null){
           <canvas id="canvas">{{ chart() }}</canvas>
-          } @if(recipe.kcal != null){
+          } @if(recipe().kcal != null){
           <div class="kcal-wrapper">
-            <p class="kcal">{{ recipe.kcal }} kcal</p>
+            <p class="kcal">{{ recipe().kcal }} kcal</p>
           </div>
           }
         </div>
@@ -28,7 +29,8 @@
       }
 
       <!-- no chart -->
-      @if(recipe.carbs == null || recipe.protein == null || recipe.fat == null){
+      @if(recipe().carbs == null || recipe().protein == null || recipe().fat ==
+      null){
       <p class="incomplete-message">
         Nährwertangaben der einzelnen Zutaten unvollständig.
       </p>

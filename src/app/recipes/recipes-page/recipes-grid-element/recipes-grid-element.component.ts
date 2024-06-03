@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
@@ -14,5 +14,5 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './recipes-grid-element.component.css',
 })
 export class RecipesGridElementComponent {
-  @Input() recipe: Recipe | undefined; // type 'undefined' to allow for optional chaining in template
+  recipe = input.required<Recipe>();
 }
