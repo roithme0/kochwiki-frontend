@@ -6,15 +6,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Foodstuff } from '../../shared/interfaces/foodstuff';
-import { VerboseNames } from '../../shared/interfaces/foodstuff-meta-data';
+import { Foodstuff } from '../../interfaces/foodstuff';
+import { VerboseNames } from '../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffTableDisplayedFieldsServiceService } from '../services/foodstuff-table-displayed-fields-service.service';
 import { FoodstuffTableDisplayedFoodstuffsServiceService } from '../services/foodstuff-table-displayed-foodstuffs-service.service';
-import { FoodstuffService } from '../../shared/services/foodstuff.service';
+import { FoodstuffService } from '../../services/foodstuff.service';
 
-import { FoodstuffPatchDialogComponent } from '../../shared/dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
-import { FoodstuffDeleteDialogComponent } from '../../shared/dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
+import { FoodstuffPatchDialogComponent } from '../../dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
+import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
 
 @Component({
   selector: 'app-foodstuffs-table',

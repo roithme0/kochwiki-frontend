@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Recipe } from '../../shared/interfaces/recipe';
-import { Step } from '../../shared/interfaces/step';
+import { Step } from '../../interfaces/step';
+import { Recipe } from '../../interfaces/recipe';
 
 import { MatCardModule } from '@angular/material/card';
 
@@ -20,6 +20,8 @@ export class StepsGridComponent {
   stepsSorted: Step[] = [];
 
   ngOnChanges() {
-    this.stepsSorted = this.recipe.steps.sort((a, b) => a.index - b.index);
+    this.stepsSorted = this.recipe.steps.sort(
+      (a: Step, b: Step) => a.index - b.index
+    );
   }
 }

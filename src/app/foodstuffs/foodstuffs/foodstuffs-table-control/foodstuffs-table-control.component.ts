@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { FoodstuffTableControlServiceService } from '../services/foodstuff-table-control-service.service';
-import { FoodstuffService } from '../../shared/services/foodstuff.service';
+import { FoodstuffService } from '../../services/foodstuff.service';
 
-import { UnitChoices } from '../../shared/interfaces/foodstuff-meta-data';
-import { Foodstuff } from '../../shared/interfaces/foodstuff';
+import { Foodstuff } from '../../interfaces/foodstuff';
+import { UnitChoices } from '../../interfaces/foodstuff-meta-data';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';

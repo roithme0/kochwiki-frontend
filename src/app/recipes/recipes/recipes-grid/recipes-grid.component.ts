@@ -9,13 +9,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { RecipesGridControlsComponent } from '../recipes-grid-controls/recipes-grid-controls.component';
 import { RecipesGridElementComponent } from '../recipes-grid-element/recipes-grid-element.component';
+import { RecipeCreateDialogComponent } from '../../dialogs/recipe-create-dialog/recipe-create-dialog.component';
 
-import { RecipeCreateDialogComponent } from '../../shared/dialogs/recipe-create-dialog/recipe-create-dialog.component';
+import { Recipe } from '../../interfaces/recipe';
 
-import { Recipe } from '../../shared/interfaces/recipe';
-
-import { RecipesGridDisplayedRecipesService } from '../shared/recipes-grid-displayed-recipes.service';
-import { WindowWidthService } from '../../../shared/services/window-width.service';
+import { RecipesGridDisplayedRecipesService } from '../services/recipes-grid-displayed-recipes.service';
+import { WindowWidthService } from '../../../services/window-width.service';
 
 @Component({
   selector: 'app-recipes-grid',

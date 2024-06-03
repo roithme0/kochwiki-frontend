@@ -6,17 +6,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-import { Recipe } from '../shared/interfaces/recipe';
+import { Recipe } from '../interfaces/recipe';
 
-import { RecipeService } from '../shared/services/recipe.service';
-import { PageHeaderService } from '../../shared/services/page-header.service';
+import { RecipeService } from '../services/recipe.service';
+import { PageHeaderService } from '../../services/page-header.service';
 
 import { IngredientsGridComponent } from './ingredients-grid/ingredients-grid.component';
 import { StepsGridComponent } from './steps-grid/steps-grid.component';
 import { RecipeMacroChartComponent } from './recipe-macro-chart/recipe-macro-chart.component';
-
-import { RecipePatchDialogComponent } from '../shared/dialogs/recipe-patch-dialog/recipe-patch-dialog.component';
-import { RecipeDeleteDialogComponent } from '../shared/dialogs/recipe-delete-dialog/recipe-delete-dialog.component';
+import { RecipePatchDialogComponent } from '../dialogs/recipe-patch-dialog/recipe-patch-dialog.component';
+import { RecipeDeleteDialogComponent } from '../dialogs/recipe-delete-dialog/recipe-delete-dialog.component';
 
 @Component({
   selector: 'app-recipe',

@@ -6,9 +6,9 @@ import {
   inject,
 } from '@angular/core';
 
-import { Foodstuff } from '../../shared/interfaces/foodstuff';
+import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { FoodstuffService } from '../../shared/services/foodstuff.service';
+import { FoodstuffService } from '../../services/foodstuff.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 

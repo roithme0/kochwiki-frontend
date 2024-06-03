@@ -1,19 +1,19 @@
 import { Component, Input, Signal, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Recipe } from '../../shared/interfaces/recipe';
-import { LegendElement } from '../../../shared/interfaces/legend-element';
+import { Recipe } from '../../interfaces/recipe';
+import { LegendElement } from '../../../interfaces/legend-element';
 
 import { MatCardModule } from '@angular/material/card';
 
 import Chart from 'chart.js/auto';
 
-import { LegendElementComponent } from './legend-element/legend-element.component';
+import { ChartLegendElementComponent } from '../../../components/chart-legend-element/chart-legend-element';
 
 @Component({
   selector: 'app-recipe-macro-chart',
   standalone: true,
-  imports: [CommonModule, MatCardModule, LegendElementComponent],
+  imports: [CommonModule, MatCardModule, ChartLegendElementComponent],
   templateUrl: './recipe-macro-chart.component.html',
   styleUrl: './recipe-macro-chart.component.css',
 })

@@ -1,6 +1,6 @@
 import { Injectable, inject, Signal, computed } from '@angular/core';
 
-import { WindowWidthService } from '../../../shared/services/window-width.service';
+import { WindowWidthService } from '../../../services/window-width.service';
 
 @Injectable({
   providedIn: 'root',

@@ -4,7 +4,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 
-import { PageHeaderService } from '../shared/services/page-header.service';
+import { PageHeaderService } from '../services/page-header.service';
 
 @Component({
   selector: 'app-home',

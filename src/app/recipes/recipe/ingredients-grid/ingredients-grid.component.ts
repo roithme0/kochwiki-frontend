@@ -1,12 +1,13 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Recipe } from '../../shared/interfaces/recipe';
+import { Recipe } from '../../interfaces/recipe';
 
-import { FoodstuffService } from '../../../foodstuffs/shared/services/foodstuff.service';
+import { FoodstuffService } from '../../../foodstuffs/services/foodstuff.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 import { forkJoin } from 'rxjs';
 
 @Component({

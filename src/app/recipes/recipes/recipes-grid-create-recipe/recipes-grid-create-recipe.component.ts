@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 
-import { RecipeCreateDialogComponent } from '../../shared/dialogs/recipe-create-dialog/recipe-create-dialog.component';
+import { RecipeCreateDialogComponent } from '../../dialogs/recipe-create-dialog/recipe-create-dialog.component';
 
 @Component({
   selector: 'app-recipes-grid-create-recipe',

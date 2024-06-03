@@ -5,7 +5,7 @@ import { FoodstuffsTableControlComponent } from './foodstuffs-table-control/food
 import { FoodstuffsTableComponent } from './foodstuffs-table/foodstuffs-table.component';
 import { FoodstuffsTableCreateFoodstuffComponent } from './foodstuffs-table-create-foodstuff/foodstuffs-table-create-foodstuff.component';
 
-import { PageHeaderService } from '../../shared/services/page-header.service';
+import { PageHeaderService } from '../../services/page-header.service';
 
 @Component({
   selector: 'app-foodstuffs',

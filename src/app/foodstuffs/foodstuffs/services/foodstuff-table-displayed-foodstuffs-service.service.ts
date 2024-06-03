@@ -7,7 +7,7 @@ import {
   inject,
 } from '@angular/core';
 
-import { Foodstuff } from '../../shared/interfaces/foodstuff';
+import { Foodstuff } from '../../interfaces/foodstuff';
 
 import { FoodstuffTableHelperServiceService } from './foodstuff-table-helper-service.service';
 import { FoodstuffTableControlServiceService } from './foodstuff-table-control-service.service';
