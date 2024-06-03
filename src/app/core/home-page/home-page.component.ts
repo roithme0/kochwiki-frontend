@@ -4,22 +4,22 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 
-import { PageHeaderService } from '../services/page-header.service';
+import { PageHeaderService } from '../../services/page-header.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-home-page',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, MatButtonModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.css',
 })
-export class HomeComponent {
-  // set header values
-  // render navigation
+// set header values
+// render navigation
+export class HomePageComponent {
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
 
+  // set header values
   ngOnInit() {
-    // set header values
     this.pageHeaderService.headline = 'Home';
     this.pageHeaderService.back = '';
     this.pageHeaderService.showBack = false;

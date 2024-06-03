@@ -8,7 +8,7 @@ import { FoodstuffsTableCreateFoodstuffComponent } from './foodstuffs-table-crea
 import { PageHeaderService } from '../../services/page-header.service';
 
 @Component({
-  selector: 'app-foodstuffs',
+  selector: 'app-foodstuffs-page',
   standalone: true,
   imports: [
     CommonModule,
@@ -16,12 +16,12 @@ import { PageHeaderService } from '../../services/page-header.service';
     FoodstuffsTableComponent,
     FoodstuffsTableCreateFoodstuffComponent,
   ],
-  templateUrl: './foodstuffs.component.html',
-  styleUrl: './foodstuffs.component.css',
+  templateUrl: './foodstuffs-page.component.html',
+  styleUrl: './foodstuffs-page.component.css',
 })
 // set header values
 // render foodtuffs-grid component
-export class FoodstuffsComponent {
+export class FoodstuffsPageComponent {
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
 
   ngOnInit() {

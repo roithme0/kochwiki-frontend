@@ -1,25 +1,25 @@
 import { Routes } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { FoodstuffsComponent } from './foodstuffs/foodstuffs/foodstuffs.component';
-import { RecipesComponent } from './recipes/recipes/recipes.component';
-import { RecipeComponent } from './recipes/recipe/recipe.component';
+import { HomePageComponent } from './core/home-page/home-page.component';
+import { FoodstuffsPageComponent } from './foodstuffs/foodstuffs-page/foodstuffs-page.component';
+import { RecipesPageComponent } from './recipes/recipes-page/recipes-page.component';
+import { RecipePageComponent } from './recipes/recipe-page/recipe-page.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, title: 'Home' },
+  { path: '', component: HomePageComponent, title: 'Home' },
   {
     path: 'foodstuffs',
-    component: FoodstuffsComponent,
+    component: FoodstuffsPageComponent,
     title: 'Lebensmittel',
   },
   {
     path: 'recipes',
-    component: RecipesComponent,
+    component: RecipesPageComponent,
     title: 'Rezepte',
   },
   {
     path: 'recipes/:id',
-    component: RecipeComponent,
+    component: RecipePageComponent,
     title: 'Rezept',
   },
 ];

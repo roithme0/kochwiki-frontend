@@ -18,7 +18,7 @@ import { RecipePatchDialogComponent } from '../dialogs/recipe-patch-dialog/recip
 import { RecipeDeleteDialogComponent } from '../dialogs/recipe-delete-dialog/recipe-delete-dialog.component';
 
 @Component({
-  selector: 'app-recipe',
+  selector: 'app-recipe-page',
   standalone: true,
   imports: [
     CommonModule,
@@ -28,13 +28,13 @@ import { RecipeDeleteDialogComponent } from '../dialogs/recipe-delete-dialog/rec
     MatIconModule,
     MatButtonModule,
   ],
-  templateUrl: './recipe.component.html',
-  styleUrl: './recipe.component.css',
+  templateUrl: './recipe-page.component.html',
+  styleUrl: './recipe-page.component.css',
 })
 // set header values
 // fetch recipe
 // render recipe details
-export class RecipeComponent {
+export class RecipePageComponent {
   route = inject(ActivatedRoute);
   pageHeaderService = inject(PageHeaderService);
   recipeService = inject(RecipeService);

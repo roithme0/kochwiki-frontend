@@ -8,7 +8,7 @@ import { RecipesGridComponent } from './recipes-grid/recipes-grid.component';
 import { RecipesGridCreateRecipeComponent } from './recipes-grid-create-recipe/recipes-grid-create-recipe.component';
 
 @Component({
-  selector: 'app-recipes',
+  selector: 'app-recipes-page',
   standalone: true,
   imports: [
     CommonModule,
@@ -16,12 +16,12 @@ import { RecipesGridCreateRecipeComponent } from './recipes-grid-create-recipe/r
     RecipesGridComponent,
     RecipesGridCreateRecipeComponent,
   ],
-  templateUrl: './recipes.component.html',
-  styleUrl: './recipes.component.css',
+  templateUrl: './recipes-page.component.html',
+  styleUrl: './recipes-page.component.css',
 })
 // set header values
 // render the recipes-grid component
-export class RecipesComponent {
+export class RecipesPageComponent {
   pageHeaderService: PageHeaderService = inject(PageHeaderService);
 
   ngOnInit() {
