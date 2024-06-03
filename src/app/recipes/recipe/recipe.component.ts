@@ -13,6 +13,7 @@ import { PageHeaderService } from '../../shared/services/page-header.service';
 
 import { IngredientsGridComponent } from './ingredients-grid/ingredients-grid.component';
 import { StepsGridComponent } from './steps-grid/steps-grid.component';
+import { RecipeMacroChartComponent } from './recipe-macro-chart/recipe-macro-chart.component';
 
 import { RecipePatchDialogComponent } from '../shared/dialogs/recipe-patch-dialog/recipe-patch-dialog.component';
 import { RecipeDeleteDialogComponent } from '../shared/dialogs/recipe-delete-dialog/recipe-delete-dialog.component';
@@ -24,6 +25,7 @@ import { RecipeDeleteDialogComponent } from '../shared/dialogs/recipe-delete-dia
     CommonModule,
     IngredientsGridComponent,
     StepsGridComponent,
+    RecipeMacroChartComponent,
     MatIconModule,
     MatButtonModule,
   ],

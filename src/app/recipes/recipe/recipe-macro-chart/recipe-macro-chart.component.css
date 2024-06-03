@@ -1,0 +1,42 @@
+.chart-wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.canvas-wrapper {
+  position: relative;
+}
+
+canvas {
+  max-width: 30rem;
+  max-height: 30rem;
+}
+
+.kcal-wrapper {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.kcal {
+  margin: 0;
+}
+
+.spacer {
+  height: 0.5rem;
+}
+
+.legend {
+  width: 100%;
+  max-width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.incomplete-message {
+  margin: 0;
+  padding: 1.5rem 0 0;
+}
