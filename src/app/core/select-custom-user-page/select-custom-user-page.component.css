@@ -13,8 +13,16 @@ nav {
   flex-wrap: wrap;
 }
 
-mat-card:hover {
-  cursor: pointer;
+mat-card {
+  &:focus,
+  &:hover {
+    cursor: pointer;
+
+    img {
+      transform: scale(1.1);
+      transition: transform 0.2s ease-in-out;
+    }
+  }
 }
 
 img {
