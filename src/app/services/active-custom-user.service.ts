@@ -43,4 +43,12 @@ export class ActiveCustomUserService {
   get activeCustomUser(): Signal<CustomUser | null> {
     return this._activeCustomUser;
   }
+
+  public logout(): void {
+    this._activeCustomUser.set(null);
+    this.cookieService.delete('activeCustomUser');
+    this.snackBarService.open('Abgemeldet', '', {
+      duration: 5000,
+    });
+  }
 }

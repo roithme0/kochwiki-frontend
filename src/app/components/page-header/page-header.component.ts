@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, RouterLink } from '@angular/router';
 
 import { PageHeaderService } from '../../services/page-header.service';
+import { ActiveCustomUserService } from '../../services/active-custom-user.service';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +28,7 @@ import { environment } from '../../../environments/environment';
 // render page header
 export class PageHeaderComponent {
   pageHeaderService = inject(PageHeaderService);
+  activeCustomUserService = inject(ActiveCustomUserService);
 
   environmentName: string = environment.name;
 
