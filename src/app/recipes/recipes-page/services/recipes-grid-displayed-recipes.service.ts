@@ -12,9 +12,7 @@ import { RecipesGridControlsService } from './recipes-grid-controls.service';
 // filter recipes by search input
 export class RecipesGridDisplayedRecipesService {
   private recipesGridHelperService = inject(RecipesGridHelperServiceService);
-  private recipesGridControlsService: RecipesGridControlsService = inject(
-    RecipesGridControlsService
-  );
+  private recipesGridControlsService = inject(RecipesGridControlsService);
 
   private _recipes: Signal<Recipe[]> = this.recipesGridHelperService.recipes;
   // apply search input to recipes
