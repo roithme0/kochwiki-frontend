@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { FoodstuffService } from '../../services/foodstuff.service';
+import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -30,12 +30,12 @@ import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-
 export class FoodstuffDeleteDialogComponent {
   dialogRef: MatDialogRef<FoodstuffDeleteDialogComponent> =
     inject(MatDialogRef);
-  foodstuffService = inject(FoodstuffService);
+  foodstuffBackendService = inject(FoodstuffBackendService);
 
   foodstuff: Foodstuff | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {
-    this.foodstuffService.getFoodstuffById(data.id).subscribe({
+    this.foodstuffBackendService.getFoodstuffById(data.id).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff fetched: ', foodstuff);
         this.foodstuff = foodstuff;
@@ -48,16 +48,18 @@ export class FoodstuffDeleteDialogComponent {
 
   deleteFoodstuff(): void {
     this.foodstuff?.id
-      ? this.foodstuffService.deleteFoodstuff(this.foodstuff.id).subscribe({
-          next: (id) => {
-            console.info('foodstuff deleted: ', id);
-            this.foodstuffService.notifyFoodstuffsChanged();
-            this.dialogRef.close();
-          },
-          error: (error) => {
-            console.error('failed to delete foodstuff: ', error);
-          },
-        })
+      ? this.foodstuffBackendService
+          .deleteFoodstuff(this.foodstuff.id)
+          .subscribe({
+            next: (id) => {
+              console.info('foodstuff deleted: ', id);
+              this.foodstuffBackendService.notifyFoodstuffsChanged();
+              this.dialogRef.close();
+            },
+            error: (error) => {
+              console.error('failed to delete foodstuff: ', error);
+            },
+          })
       : null;
   }
 }

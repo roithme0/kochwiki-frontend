@@ -7,7 +7,7 @@ import { Foodstuff } from '../../../interfaces/foodstuff';
 import { VerboseNames } from '../../../interfaces/foodstuff-meta-data';
 import { UnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
-import { FoodstuffService } from '../../../services/foodstuff.service';
+import { FoodstuffBackendService } from '../../../services/foodstuff-backend.service';
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,7 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
 // fetch foodstuff by id
 // render form to edit foodstuff
 export class FoodstuffPatchFormComponent {
-  foodstuffService = inject(FoodstuffService);
+  foodstuffBackendService = inject(FoodstuffBackendService);
   fb = inject(FormBuilder);
 
   id = input.required<number>();
@@ -65,10 +65,10 @@ export class FoodstuffPatchFormComponent {
     console.debug('submitting patch foodstuff form: ', formData);
     const updates: Partial<Foodstuff> = formData as Foodstuff;
 
-    this.foodstuffService.patchFoodstuff(this.id(), updates).subscribe({
+    this.foodstuffBackendService.patchFoodstuff(this.id(), updates).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff patched: ', foodstuff);
-        this.foodstuffService.notifyFoodstuffsChanged();
+        this.foodstuffBackendService.notifyFoodstuffsChanged();
         this.success.emit();
       },
       error: (error) => {
@@ -78,7 +78,7 @@ export class FoodstuffPatchFormComponent {
   }
 
   fetchFoodstuffById(id: number): void {
-    this.foodstuffService.getFoodstuffById(id).subscribe({
+    this.foodstuffBackendService.getFoodstuffById(id).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff fetched: ', foodstuff);
         this.foodstuffForm.patchValue(foodstuff);
@@ -90,7 +90,7 @@ export class FoodstuffPatchFormComponent {
   }
 
   fetchVerboseNames(): void {
-    this.foodstuffService.fetchVerboseNames().subscribe({
+    this.foodstuffBackendService.fetchVerboseNames().subscribe({
       next: (verboseNames) => {
         console.debug('fetched foodstuff verbose names: ', verboseNames);
         this.verboseNames = verboseNames;
@@ -102,7 +102,7 @@ export class FoodstuffPatchFormComponent {
   }
 
   fetchUnitChoices(): void {
-    this.foodstuffService.fetchUnitChoices().subscribe({
+    this.foodstuffBackendService.fetchUnitChoices().subscribe({
       next: (unitChoices) => {
         console.debug('fetched foodstuff unit choices: ', unitChoices);
         this.unitChoices = unitChoices;

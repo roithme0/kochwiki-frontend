@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
 
-import { FoodstuffService } from '../../../foodstuffs/services/foodstuff.service';
+import { FoodstuffBackendService } from '../../../foodstuffs/services/foodstuff-backend.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -20,7 +20,7 @@ import { forkJoin } from 'rxjs';
 // fetch foodstuffs associated with recipe
 // render ingredients as grid
 export class IngredientsGridComponent {
-  foodstuffService = inject(FoodstuffService);
+  foodstuffBackendService = inject(FoodstuffBackendService);
 
   recipe = input.required<Recipe>();
 
@@ -37,7 +37,7 @@ export class IngredientsGridComponent {
     this.isLoading = true;
 
     const requests = this.recipe().ingredients.map((ingredient) =>
-      this.foodstuffService.getFoodstuffById(ingredient.foodstuffId)
+      this.foodstuffBackendService.getFoodstuffById(ingredient.foodstuffId)
     );
 
     if (requests.length === 0) {

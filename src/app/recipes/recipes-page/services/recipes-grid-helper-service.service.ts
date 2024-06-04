@@ -9,7 +9,7 @@ import {
 
 import { Recipe } from '../../interfaces/recipe';
 
-import { RecipeService } from '../../services/recipe.service';
+import { RecipeBackendService } from '../../services/recipe-backend.service';
 import { RecipesGridControlsService } from './recipes-grid-controls.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,8 +18,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class RecipesGridHelperServiceService {
-  private recipeService: RecipeService = inject(RecipeService);
-  private snackBarService: MatSnackBar = inject(MatSnackBar);
+  private recipeBackendService = inject(RecipeBackendService);
+  private snackBarService = inject(MatSnackBar);
 
   private _recipes: WritableSignal<Recipe[]> = signal([]);
   private _loading: WritableSignal<boolean> = signal(true);
@@ -27,7 +27,7 @@ export class RecipesGridHelperServiceService {
 
   // track changes to recipes
   constructor() {
-    this.recipeService.recipes$.subscribe(() => {
+    this.recipeBackendService.recipes$.subscribe(() => {
       this.fetchRecipes();
     });
 
@@ -49,7 +49,7 @@ export class RecipesGridHelperServiceService {
   // fetch all recipes
   private async fetchRecipes() {
     this._loading.set(true);
-    this.recipeService.getAllRecipes().subscribe({
+    this.recipeBackendService.getAllRecipes().subscribe({
       next: (recipes) => {
         console.debug('fetched recipes: ', recipes);
         this._recipes.set(recipes);

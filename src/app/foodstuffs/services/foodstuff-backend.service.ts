@@ -13,8 +13,7 @@ const backendUrl: string = environment.backendUrl;
 @Injectable({
   providedIn: 'root',
 })
-// backend communication for foodstuffs
-export class FoodstuffService {
+export class FoodstuffBackendService {
   private http = inject(HttpClient);
 
   private foodstuffsSubject = new Subject<void>();

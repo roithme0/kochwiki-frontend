@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { Recipe } from '../interfaces/recipe';
 
-import { RecipeService } from '../services/recipe.service';
+import { RecipeBackendService } from '../services/recipe-backend.service';
 import { PageHeaderService } from '../../services/page-header.service';
 
 import { IngredientsGridComponent } from './ingredients-grid/ingredients-grid.component';
@@ -37,7 +37,7 @@ import { RecipeDeleteDialogComponent } from '../dialogs/recipe-delete-dialog/rec
 export class RecipePageComponent {
   route = inject(ActivatedRoute);
   pageHeaderService = inject(PageHeaderService);
-  recipeService = inject(RecipeService);
+  recipeBackendService = inject(RecipeBackendService);
   dialog = inject(MatDialog);
 
   id: number | undefined;
@@ -49,7 +49,7 @@ export class RecipePageComponent {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     console.debug('id: ', this.id);
 
-    this.recipeService.recipes$.subscribe(() => {
+    this.recipeBackendService.recipes$.subscribe(() => {
       this.fetchRecipe(this.id);
     });
   }
@@ -71,7 +71,7 @@ export class RecipePageComponent {
       return;
     }
 
-    this.recipeService.getRecipeById(id).subscribe({
+    this.recipeBackendService.getRecipeById(id).subscribe({
       next: (recipe: Recipe) => {
         console.debug('fetched recipe: ', recipe);
         this.recipe = recipe;
