@@ -62,7 +62,7 @@ export class RecipeMacroChartComponent {
         valueAbsolute: this.recipe().fat,
         valuePercentage: this.calculateValuePercentage(
           this.recipe(),
-          this.recipe().carbs
+          this.recipe().fat
         ),
       };
     }),

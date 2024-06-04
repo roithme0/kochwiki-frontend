@@ -108,6 +108,9 @@
             "production": {
               "buildTarget": "angular:build:production"
             },
+            "staging": {
+              "buildTarget": "angular:build:staging"
+            },
             "development": {
               "buildTarget": "angular:build:development"
             }
