@@ -1,6 +1,8 @@
 import {
   Component,
+  ElementRef,
   Signal,
+  ViewChild,
   computed,
   effect,
   input,
@@ -26,6 +28,9 @@ import { ChartLegendElementComponent } from '../../../components/chart-legend-el
 })
 export class RecipeMacroChartComponent {
   recipe = input.required<Recipe>();
+
+  @ViewChild('canvas')
+  canvas: ElementRef<HTMLCanvasElement> | undefined;
 
   legend: { [id: string]: Signal<ChartLegendElement> } = {
     carbs: computed(() => {
@@ -67,33 +72,51 @@ export class RecipeMacroChartComponent {
 
   constructor() {
     effect(() => {
+      console.log('RERENDERING', this.recipe(), this.legend['carbs']());
+
       if (this.chart != null) {
         this.chart.destroy();
       }
 
-      this.chart = new Chart('canvas', {
-        type: 'doughnut',
-        options: {
-          cutout: '70%',
-        },
-        data: {
-          datasets: [
-            {
-              data: [
-                this.recipe().carbs,
-                this.recipe().protein,
-                this.recipe().fat,
-              ],
-              backgroundColor: [
-                this.legend['carbs']().color,
-                this.legend['protein']().color,
-                this.legend['fat']().color,
-              ],
-              borderWidth: 0,
-            },
-          ],
-        },
-      });
+      if (
+        this.recipe().carbs == null ||
+        this.recipe().protein == null ||
+        this.recipe().fat == null
+      ) {
+        return;
+      }
+
+      if (this.canvas == undefined) {
+        return;
+      }
+
+      this.createChart(this.canvas.nativeElement);
+    });
+  }
+
+  private createChart(canvas: HTMLCanvasElement): void {
+    this.chart = new Chart(canvas, {
+      type: 'doughnut',
+      options: {
+        cutout: '70%',
+      },
+      data: {
+        datasets: [
+          {
+            data: [
+              this.recipe().carbs,
+              this.recipe().protein,
+              this.recipe().fat,
+            ],
+            backgroundColor: [
+              this.legend['carbs']().color,
+              this.legend['protein']().color,
+              this.legend['fat']().color,
+            ],
+            borderWidth: 0,
+          },
+        ],
+      },
     });
   }
 
