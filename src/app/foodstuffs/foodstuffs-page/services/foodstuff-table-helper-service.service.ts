@@ -8,7 +8,7 @@ import {
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { FoodstuffService } from '../../services/foodstuff.service';
+import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 // reduces backend calls
 export class FoodstuffTableHelperServiceService {
-  private foodstuffService = inject(FoodstuffService);
+  private foodstuffBackendService = inject(FoodstuffBackendService);
   private snackBarService = inject(MatSnackBar);
 
   private _foodstuffs: WritableSignal<Foodstuff[]> = signal([]);
@@ -26,7 +26,7 @@ export class FoodstuffTableHelperServiceService {
   private _error: WritableSignal<boolean> = signal(false);
 
   constructor() {
-    this.foodstuffService.foodstuffs$.subscribe(() => {
+    this.foodstuffBackendService.foodstuffs$.subscribe(() => {
       this.fetchFoodstuffs();
     });
 
@@ -48,7 +48,7 @@ export class FoodstuffTableHelperServiceService {
   // fetch all foodstuffs
   private async fetchFoodstuffs() {
     this._loading.set(true);
-    this.foodstuffService.getAllFoodstuffs().subscribe({
+    this.foodstuffBackendService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
         this._foodstuffs.set(foodstuffs);

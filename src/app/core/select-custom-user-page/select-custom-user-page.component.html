@@ -1,0 +1,15 @@
+<main>
+  <nav>
+    @for(customUser of customUsers; track customUser.id){
+    <mat-card>
+      <mat-card-content
+        (click)="activeCustomUserService.activeCustomUser = customUser"
+      >
+        <img src="../../assets/icons/hide_image.svg" />
+
+        <mat-card-title>{{ customUser.username }}</mat-card-title>
+      </mat-card-content>
+    </mat-card>
+    }
+  </nav>
+</main>

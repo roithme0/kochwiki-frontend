@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { FoodstuffTableControlServiceService } from '../services/foodstuff-table-control-service.service';
-import { FoodstuffService } from '../../services/foodstuff.service';
+import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 import { UnitChoices } from '../../interfaces/foodstuff-meta-data';
@@ -73,7 +73,7 @@ export class FoodstuffsTableControlComponent {
   });
 
   foodstuffsTableControlsService = inject(FoodstuffTableControlServiceService);
-  foodstuffService = inject(FoodstuffService);
+  foodstuffBackendService = inject(FoodstuffBackendService);
 
   foodstuffs: Signal<Foodstuff[]> =
     this.foodstuffsTableControlsService.foodstuffs;
@@ -109,7 +109,7 @@ export class FoodstuffsTableControlComponent {
   }
 
   fetchUnitChoices(): void {
-    this.foodstuffService.fetchUnitChoices().subscribe({
+    this.foodstuffBackendService.fetchUnitChoices().subscribe({
       next: (unitChoices) => {
         console.debug('fetched foodstuff unit choices: ', unitChoices);
         this.unitChoices = unitChoices;

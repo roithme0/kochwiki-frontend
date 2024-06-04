@@ -12,9 +12,8 @@ const backendUrl: string = environment.backendUrl;
 @Injectable({
   providedIn: 'root',
 })
-export class RecipeService {
-  // backend communication associated with recipes
-  private http: HttpClient = inject(HttpClient);
+export class RecipeBackendService {
+  private http = inject(HttpClient);
 
   private recipesSubject = new Subject<void>();
   recipes$ = this.recipesSubject.asObservable();

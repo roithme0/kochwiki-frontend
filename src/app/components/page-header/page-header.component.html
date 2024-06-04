@@ -1,9 +1,11 @@
 <mat-toolbar>
+  <!-- home -->
   <a routerLink="" routerLinkActive="active">
     <button mat-icon-button color="accent">
       <mat-icon aria-hidden="false" aria-label="Home" fontIcon="home" />
     </button>
   </a>
+
   <span>{{ headline() }}</span>
 
   <!-- environment -->
@@ -12,6 +14,8 @@
   }
 
   <span class="spacer"></span>
+
+  <!-- back arrow -->
   @if(showBack() == true){
   <a [routerLink]="back()" routerLinkActive="active">
     <button mat-icon-button color="accent">
@@ -19,4 +23,13 @@
     </button>
   </a>
   }
+
+  <!-- logout -->
+  <button
+    mat-icon-button
+    color="accent"
+    (click)="activeCustomUserService.logout()"
+  >
+    <mat-icon aria-hidden="false" aria-label="Logout" fontIcon="logout" />
+  </button>
 </mat-toolbar>

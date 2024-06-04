@@ -11,7 +11,7 @@ import { VerboseNames } from '../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffTableDisplayedFieldsServiceService } from '../services/foodstuff-table-displayed-fields-service.service';
 import { FoodstuffTableDisplayedFoodstuffsServiceService } from '../services/foodstuff-table-displayed-foodstuffs-service.service';
-import { FoodstuffService } from '../../services/foodstuff.service';
+import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 
 import { FoodstuffPatchDialogComponent } from '../../dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
 import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
@@ -28,7 +28,7 @@ export class FoodstuffsTableComponent {
   displayedFoodstuffsService = inject(
     FoodstuffTableDisplayedFoodstuffsServiceService
   );
-  foodstuffService = inject(FoodstuffService);
+  foodstuffBackendService = inject(FoodstuffBackendService);
   dialog = inject(MatDialog);
 
   verboseNames: VerboseNames | null = null;
@@ -47,7 +47,7 @@ export class FoodstuffsTableComponent {
   }
 
   fetchVerboseNames(): void {
-    this.foodstuffService.fetchVerboseNames().subscribe({
+    this.foodstuffBackendService.fetchVerboseNames().subscribe({
       next: (verboseNames) => {
         console.debug('fetched foodstuff verbose names: ', verboseNames);
         this.verboseNames = verboseNames;

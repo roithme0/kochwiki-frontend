@@ -7,8 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { RecipeService } from '../../../services/recipe.service';
-import { FoodstuffService } from '../../../../foodstuffs/services/foodstuff.service';
+import { FoodstuffBackendService } from '../../../../foodstuffs/services/foodstuff-backend.service';
+import { RecipeBackendService } from '../../../services/recipe-backend.service';
 
 import { Foodstuff } from '../../../../foodstuffs/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
@@ -61,8 +61,8 @@ import { MatDividerModule } from '@angular/material/divider';
 // render form to create recipe
 export class RecipeCreateFormComponent {
   fb = inject(FormBuilder);
-  recipeService = inject(RecipeService);
-  foodstuffService = inject(FoodstuffService);
+  foodstuffBackendService = inject(FoodstuffBackendService);
+  recipeBackendService = inject(RecipeBackendService);
 
   success = output<void>();
 
@@ -90,7 +90,7 @@ export class RecipeCreateFormComponent {
   });
 
   constructor() {
-    this.foodstuffService.foodstuffs$.subscribe(() => {
+    this.foodstuffBackendService.foodstuffs$.subscribe(() => {
       this.fetchFoodstuffs();
     });
   }
@@ -100,7 +100,7 @@ export class RecipeCreateFormComponent {
   }
 
   fetchFoodstuffs(): void {
-    this.foodstuffService.getAllFoodstuffs().subscribe({
+    this.foodstuffBackendService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
         this.foodstuffs = foodstuffs;
@@ -142,11 +142,11 @@ export class RecipeCreateFormComponent {
   //     }
   //   });
 
-  //   this.recipeService.postRecipe(formData).subscribe({
+  //   this.recipeBackendService.postRecipe(formData).subscribe({
   //     next: (recipe) => {
   //       console.debug('recipe created: ', recipe);
   //       this.success.emit();
-  //       this.recipeService.notifyRecipesChanged();
+  //       this.recipeBackendService.notifyRecipesChanged();
   //     },
   //     error: (error) => {
   //       console.error('failed to create recipe: ', error);
@@ -162,11 +162,11 @@ export class RecipeCreateFormComponent {
       ...formValue.ingredientsFormGroup,
       ...formValue.preparationFormGroup,
     } as Recipe;
-    this.recipeService.postRecipe(recipe).subscribe({
+    this.recipeBackendService.postRecipe(recipe).subscribe({
       next: (recipe) => {
         console.info('recipe created: ', recipe);
         this.success.emit();
-        this.recipeService.notifyRecipesChanged();
+        this.recipeBackendService.notifyRecipesChanged();
       },
       error: (error) => {
         console.error('failed to create recipe: ', error);

@@ -1,8 +1,8 @@
 import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RecipeService } from '../../../services/recipe.service';
-import { FoodstuffService } from '../../../../foodstuffs/services/foodstuff.service';
+import { FoodstuffBackendService } from '../../../../foodstuffs/services/foodstuff-backend.service';
+import { RecipeBackendService } from '../../../services/recipe-backend.service';
 
 import { Foodstuff } from '../../../../foodstuffs/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
@@ -47,8 +47,8 @@ export class RecipePatchFormComponent {
   success = output<void>();
 
   fb = inject(FormBuilder);
-  recipeService = inject(RecipeService);
-  foodstuffService = inject(FoodstuffService);
+  foodstuffBackendService = inject(FoodstuffBackendService);
+  recipeBackendService = inject(RecipeBackendService);
 
   foodstuffs!: Foodstuff[];
   recipe!: Recipe;
@@ -77,7 +77,7 @@ export class RecipePatchFormComponent {
   });
 
   constructor() {
-    this.foodstuffService.foodstuffs$.subscribe(() => {
+    this.foodstuffBackendService.foodstuffs$.subscribe(() => {
       this.fetchAllFoodstuffs();
     });
   }
@@ -89,7 +89,7 @@ export class RecipePatchFormComponent {
 
   // fetch all foodstuffs for adding ingredients to recipe
   fetchAllFoodstuffs(): void {
-    this.foodstuffService.getAllFoodstuffs().subscribe({
+    this.foodstuffBackendService.getAllFoodstuffs().subscribe({
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
         this.foodstuffs = foodstuffs;
@@ -108,7 +108,7 @@ export class RecipePatchFormComponent {
 
   // fetch recipe wich is to be edited
   fetchRecipe(): void {
-    this.recipeService.getRecipeById(this.id()).subscribe({
+    this.recipeBackendService.getRecipeById(this.id()).subscribe({
       next: (recipe) => {
         console.debug('fetched recipe: ', recipe);
         this.recipe = recipe;
@@ -133,11 +133,11 @@ export class RecipePatchFormComponent {
       ...formValue.ingredientsFormGroup,
       ...formValue.preparationFormGroup,
     } as Recipe;
-    this.recipeService.patchRecipe(this.id(), recipe).subscribe({
+    this.recipeBackendService.patchRecipe(this.id(), recipe).subscribe({
       next: (recipe) => {
         console.info('recipe patched: ', recipe);
         this.success.emit();
-        this.recipeService.notifyRecipesChanged();
+        this.recipeBackendService.notifyRecipesChanged();
       },
       error: (error) => {
         console.error('failed to patch recipe: ', error);

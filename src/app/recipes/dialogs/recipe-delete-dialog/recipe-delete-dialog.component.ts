@@ -2,7 +2,7 @@ import { Component, Inject, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { RecipeService } from '../../services/recipe.service';
+import { RecipeBackendService } from '../../services/recipe-backend.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -26,9 +26,9 @@ import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-
 // get recipe id from mat dialog data
 // render buttons to delete a recipe
 export class RecipeDeleteDialogComponent {
-  dialogRef: MatDialogRef<RecipeDeleteDialogComponent> = inject(MatDialogRef);
-  recipeService: RecipeService = inject(RecipeService);
-  router: Router = inject(Router);
+  dialogRef = inject(MatDialogRef);
+  recipeBackendService = inject(RecipeBackendService);
+  router = inject(Router);
 
   success = output<void>();
 
@@ -46,7 +46,7 @@ export class RecipeDeleteDialogComponent {
       return;
     }
 
-    this.recipeService.deleteRecipe(this.id).subscribe({
+    this.recipeBackendService.deleteRecipe(this.id).subscribe({
       next: (id) => {
         console.info('recipe deleted: ', id);
         this.success.emit();
