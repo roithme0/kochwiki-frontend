@@ -12,7 +12,7 @@
       <div class="chart-wrapper">
         <div class="canvas-wrapper">
           @if(chart != null){
-          <canvas id="canvas">{{ chart() }}</canvas>
+          <canvas id="canvas">{{ chart }}</canvas>
           } @if(recipe().kcal != null){
           <div class="kcal-wrapper">
             <p class="kcal">{{ recipe().kcal }} kcal</p>

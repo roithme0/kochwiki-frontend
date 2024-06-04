@@ -1,4 +1,11 @@
-import { Component, Signal, computed, input, signal } from '@angular/core';
+import {
+  Component,
+  Signal,
+  computed,
+  effect,
+  input,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
@@ -56,9 +63,15 @@ export class RecipeMacroChartComponent {
     }),
   };
 
-  chart: Signal<any> = computed(
-    () =>
-      new Chart('canvas', {
+  chart: any = null;
+
+  constructor() {
+    effect(() => {
+      if (this.chart != null) {
+        this.chart.destroy();
+      }
+
+      this.chart = new Chart('canvas', {
         type: 'doughnut',
         options: {
           cutout: '70%',
@@ -80,8 +93,9 @@ export class RecipeMacroChartComponent {
             },
           ],
         },
-      })
-  );
+      });
+    });
+  }
 
   private calculateValuePercentage(
     recipe: Recipe,

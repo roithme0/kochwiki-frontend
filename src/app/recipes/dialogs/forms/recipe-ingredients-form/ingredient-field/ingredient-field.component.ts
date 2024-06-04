@@ -72,5 +72,7 @@ export class IngredientFieldComponent {
     this.ingredientControl = this.ingredientsFormGroup.get(
       `ingredients.${this.index()}.amount`
     ) as FormControl;
+
+    this.selectedFoodstuffId.set(this.foodstuffIdControl.value);
   }
 }
