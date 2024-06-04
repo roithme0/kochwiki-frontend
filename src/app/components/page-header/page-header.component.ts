@@ -26,7 +26,7 @@ import { environment } from '../../../environments/environment';
 })
 // render page header
 export class PageHeaderComponent {
-  pageHeaderService: PageHeaderService = inject(PageHeaderService);
+  pageHeaderService = inject(PageHeaderService);
 
   environmentName: string = environment.name;
 
