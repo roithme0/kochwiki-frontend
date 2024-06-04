@@ -16,7 +16,7 @@ import { PageHeaderService } from '../../services/page-header.service';
 // set header values
 // render navigation
 export class HomePageComponent {
-  pageHeaderService: PageHeaderService = inject(PageHeaderService);
+  pageHeaderService = inject(PageHeaderService);
 
   // set header values
   ngOnInit() {

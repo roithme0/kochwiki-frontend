@@ -1,2 +1,10 @@
+<!-- not logged in -->
+@if(activeCustomUserService.activeCustomUser() == null){
+<app-select-custom-user-page />
+}
+
+<!-- logged in -->
+@else{
 <app-page-header />
 <router-outlet />
+}

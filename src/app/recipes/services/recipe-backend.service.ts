@@ -13,7 +13,7 @@ const backendUrl: string = environment.backendUrl;
   providedIn: 'root',
 })
 export class RecipeBackendService {
-  private http: HttpClient = inject(HttpClient);
+  private http = inject(HttpClient);
 
   private recipesSubject = new Subject<void>();
   recipes$ = this.recipesSubject.asObservable();
