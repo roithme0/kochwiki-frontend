@@ -1,4 +1,11 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  WritableSignal,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
@@ -17,31 +24,44 @@ import { forkJoin } from 'rxjs';
   templateUrl: './ingredients-grid.component.html',
   styleUrl: './ingredients-grid.component.css',
 })
-// fetch foodstuffs associated with recipe
-// render ingredients as grid
 export class IngredientsGridComponent {
-  foodstuffBackendService = inject(FoodstuffBackendService);
+  //#region inputs and outputs
 
   recipe = input.required<Recipe>();
 
-  isLoading: boolean = false;
-  hasError: boolean = false;
+  //#endregion
 
-  ngOnChanges() {
-    this.hasError = false;
-    this.fetchAssociatedFoodstuffs();
+  //#region services
+
+  foodstuffBackendService = inject(FoodstuffBackendService);
+
+  //#endregion services
+
+  //#region fields
+
+  isLoading: WritableSignal<boolean> = signal(false);
+  hasError: WritableSignal<boolean> = signal(false);
+
+  //#endregion
+
+  constructor() {
+    effect(() => {
+      this.fetchAssociatedFoodstuffs(this.recipe());
+    });
   }
 
-  // fetch foodstuffs associated with recipe
-  fetchAssociatedFoodstuffs() {
-    this.isLoading = true;
+  //#region utilities
+
+  fetchAssociatedFoodstuffs(recipe: Recipe) {
+    this.hasError.set(false);
+    this.isLoading.set(true);
 
     const requests = this.recipe().ingredients.map((ingredient) =>
       this.foodstuffBackendService.getFoodstuffById(ingredient.foodstuffId)
     );
 
     if (requests.length === 0) {
-      this.isLoading = false;
+      this.isLoading.set(false);
       return;
     }
 
@@ -51,13 +71,15 @@ export class IngredientsGridComponent {
         for (let i = 0; i < foodstuffs.length; i++) {
           this.recipe().ingredients[i].foodstuff = foodstuffs[i];
         }
-        this.isLoading = false;
+        this.isLoading.set(false);
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
-        this.hasError = true;
-        this.isLoading = false;
+        this.hasError.set(true);
+        this.isLoading.set(false);
       },
     });
   }
+
+  //#endregion
 }
