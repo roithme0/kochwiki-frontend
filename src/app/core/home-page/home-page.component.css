@@ -1,10 +1,11 @@
 nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
 a {
-  height: fit-content;
+  max-width: 35%;
   padding: 5%;
   border-radius: 10%;
 
