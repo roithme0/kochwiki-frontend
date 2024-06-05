@@ -1,0 +1,36 @@
+:host {
+  /* stretch hole page */
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  /* stretch hole page */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+app-shopping-list-table-control {
+  flex: 0;
+}
+
+.table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+}
+
+app-shopping-list-table::after {
+  content: "";
+  display: block;
+  height: 5rem;
+}
+
+app-shopping-list-table-create-foodstuff {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
