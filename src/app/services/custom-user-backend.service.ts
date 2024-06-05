@@ -31,4 +31,9 @@ export class CustomUserBackendService {
     console.debug('GET: fetching customUsers by username', username);
     return this.http.get<CustomUser>(backendUrl + '/users/' + username);
   }
+
+  postCustomUser(customUser: Partial<CustomUser>): Observable<CustomUser> {
+    console.debug('POST: creating customUser', customUser);
+    return this.http.post<CustomUser>(backendUrl + '/users', customUser);
+  }
 }

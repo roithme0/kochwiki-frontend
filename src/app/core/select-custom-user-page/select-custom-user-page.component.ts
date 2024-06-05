@@ -31,6 +31,12 @@ export class SelectCustomUserPageComponent {
 
   customUsers: CustomUser[] = [];
 
+  constructor() {
+    this.customUserBackendService.customUsers$.subscribe(() => {
+      this.fetchCustomUsers();
+    });
+  }
+
   ngOnInit() {
     this.pageHeaderService.headline = 'Home';
     this.pageHeaderService.back = '';

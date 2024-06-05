@@ -4,10 +4,6 @@
   flex-direction: column;
 }
 
-h2 {
-  margin: 0 0 1rem 0;
-}
-
-mat-dialog-content.mat-dialog-content {
-  padding: 0 0 0.5rem 0;
+mat-dialog-content {
+  padding: 0 0 0.5rem 0 !important;
 }
