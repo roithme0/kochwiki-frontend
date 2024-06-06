@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { RecipeBackendService } from '../../services/recipe-backend.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -23,12 +24,11 @@ import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-
   templateUrl: './recipe-delete-dialog.component.html',
   styleUrl: './recipe-delete-dialog.component.css',
 })
-// get recipe id from mat dialog data
-// render buttons to delete a recipe
 export class RecipeDeleteDialogComponent {
   dialogRef = inject(MatDialogRef);
   recipeBackendService = inject(RecipeBackendService);
   router = inject(Router);
+  snackBarService = inject(SnackBarService);
 
   success = output<void>();
 
@@ -38,8 +38,6 @@ export class RecipeDeleteDialogComponent {
     this.id = data.id;
   }
 
-  // delete recipe
-  // close dialog on success
   deleteRecipe(): void {
     if (this.id === undefined) {
       console.error('no recipe id provided');
@@ -51,6 +49,7 @@ export class RecipeDeleteDialogComponent {
         console.info('recipe deleted: ', id);
         this.success.emit();
         this.dialogRef.close();
+        this.snackBarService.open('Rezept gelöscht');
         this.router.navigate(['recipes']);
       },
       error: (error) => {

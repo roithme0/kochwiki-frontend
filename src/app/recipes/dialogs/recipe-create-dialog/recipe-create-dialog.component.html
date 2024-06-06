@@ -1,5 +1,5 @@
 <app-dialog-header title="Rezept erstellen" [showCloseButon]="true" />
 
 <mat-dialog-content class="mat-dialog-content">
-  <app-recipe-create-form (success)="dialogRef.close()" />
+  <app-recipe-create-form (success)="OnSuccess()" />
 </mat-dialog-content>

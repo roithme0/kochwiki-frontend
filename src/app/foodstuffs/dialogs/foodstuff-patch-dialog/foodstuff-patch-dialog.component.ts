@@ -34,6 +34,6 @@ export class FoodstuffPatchDialogComponent {
 
   OnSuccess() {
     this.dialogRef.close();
-    this.snackBarService.open('Änderungen gespeichert');
+    this.snackBarService.open('Zutat aktualisiert');
   }
 }

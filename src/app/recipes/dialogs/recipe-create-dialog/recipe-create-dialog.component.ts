@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SnackBarService } from '../../../services/snack-bar.service';
+
 import { RecipeCreateFormComponent } from './recipe-create-form/recipe-create-form.component';
 import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-header.component';
 
@@ -19,6 +21,11 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrl: './recipe-create-dialog.component.css',
 })
 export class RecipeCreateDialogComponent {
-  // render form to create a recipe
-  dialogRef: MatDialogRef<RecipeCreateDialogComponent> = inject(MatDialogRef);
+  dialogRef = inject(MatDialogRef);
+  snackBarService = inject(SnackBarService);
+
+  OnSuccess() {
+    this.dialogRef.close();
+    this.snackBarService.open('Rezept erstellt');
+  }
 }

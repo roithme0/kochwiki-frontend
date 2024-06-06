@@ -1,6 +1,8 @@
 import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SnackBarService } from '../../../services/snack-bar.service';
+
 import { RecipePatchFormComponent } from './recipe-patch-form/recipe-patch-form.component';
 import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-header.component';
 
@@ -21,7 +23,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './recipe-patch-dialog.component.css',
 })
 export class RecipePatchDialogComponent {
-  dialogRef: MatDialogRef<RecipePatchDialogComponent> = inject(MatDialogRef);
+  dialogRef = inject(MatDialogRef);
+  snackBarService = inject(SnackBarService);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {}
+
+  OnSuccess() {
+    this.dialogRef.close();
+    this.snackBarService.open('Rezept aktualisiert');
+  }
 }
