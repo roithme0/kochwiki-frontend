@@ -15,23 +15,11 @@
         <span>{{ ingredient.unitVerbose }}</span>
 
         <!-- add to shopping cart -->
-        @if(true){
-        <button mat-icon-button>
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Einkaufsliste hinzufügen"
-            fontIcon="add_shopping_cart"
-          />
-        </button>
-        }@else {
-        <button mat-icon-button>
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Von Einkaufsliste entfernen"
-            fontIcon="remove_shopping_cart"
-          />
-        </button>
-        } }
+        <app-ingredients-grid-shopping-list-button
+          [ingredient]="ingredient"
+          [servings]="recipe().servings"
+        />
+        }
 
         <!-- no ingredients -->
         @if (recipe().ingredients.length == 0) {

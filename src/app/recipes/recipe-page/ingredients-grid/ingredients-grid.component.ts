@@ -10,12 +10,12 @@ import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
 
+import { IngredientsGridShoppingListButtonComponent } from '../ingredients-grid-shopping-list-button/ingredients-grid-shopping-list-button.component';
+
 import { FoodstuffBackendService } from '../../../foodstuffs/services/foodstuff-backend.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 import { forkJoin } from 'rxjs';
 
@@ -26,8 +26,7 @@ import { forkJoin } from 'rxjs';
     CommonModule,
     MatCardModule,
     MatProgressBarModule,
-    MatButtonModule,
-    MatIconModule,
+    IngredientsGridShoppingListButtonComponent,
   ],
   templateUrl: './ingredients-grid.component.html',
   styleUrl: './ingredients-grid.component.css',
@@ -53,14 +52,17 @@ export class IngredientsGridComponent {
   //#endregion
 
   constructor() {
-    effect(() => {
-      this.fetchAssociatedFoodstuffs(this.recipe());
-    });
+    effect(
+      () => {
+        this.fetchAssociatedFoodstuffs();
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   //#region utilities
 
-  fetchAssociatedFoodstuffs(recipe: Recipe) {
+  fetchAssociatedFoodstuffs() {
     this.hasError.set(false);
     this.isLoading.set(true);
 

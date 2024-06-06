@@ -1,0 +1,17 @@
+@if(true){
+<button mat-icon-button (click)="OnAddToShoppingList()">
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Einkaufsliste hinzufügen"
+    fontIcon="add_shopping_cart"
+  />
+</button>
+}@else {
+<button mat-icon-button>
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Von Einkaufsliste entfernen"
+    fontIcon="remove_shopping_cart"
+  />
+</button>
+}
