@@ -38,7 +38,7 @@ export class ShoppingListBackendService {
     ingredient: Ingredient,
     servings: number
   ): Observable<ShoppingList> {
-    console.info('POST: adding ingredient to shoppingList ...');
+    console.info('PATCH: adding ingredient to shoppingList ...');
 
     const activeCustomUser: CustomUser | null = this.activeCustomUser();
     if (activeCustomUser === null) {
@@ -47,12 +47,30 @@ export class ShoppingListBackendService {
     }
 
     return this.http.patch<ShoppingList>(
-      backendUrl +
-        '/shoppingLists/' +
-        activeCustomUser.id +
-        '/addIngredient/' +
-        ingredient.id,
-      ingredient.amount * servings
+      backendUrl + '/shoppingLists/addIngredient',
+      {
+        customUserId: activeCustomUser.id,
+        ingredientId: ingredient.id,
+        amount: ingredient.amount * servings,
+      }
+    );
+  }
+
+  public removeIngredient(ingredient: Ingredient): Observable<ShoppingList> {
+    console.info('PATCH: removing ingredient from shoppingList ...');
+
+    const activeCustomUser: CustomUser | null = this.activeCustomUser();
+    if (activeCustomUser === null) {
+      console.error('No active custom user found.');
+      return new Observable<ShoppingList>();
+    }
+
+    return this.http.patch<ShoppingList>(
+      backendUrl + '/shoppingLists/removeIngredient',
+      {
+        customUserId: activeCustomUser.id,
+        ingredientId: ingredient.id,
+      }
     );
   }
 }

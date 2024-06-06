@@ -32,4 +32,17 @@ export class IngredientsGridShoppingListButtonComponent {
         },
       });
   }
+
+  OnRemoveFromShoppingList() {
+    this.shoppingListBackendService
+      .removeIngredient(this.ingredient())
+      .subscribe({
+        next: (shoppingList) => {
+          console.info('Ingredient removed from shopping list.');
+        },
+        error: (error) => {
+          console.error('Error removing ingredient from shopping list:', error);
+        },
+      });
+  }
 }
