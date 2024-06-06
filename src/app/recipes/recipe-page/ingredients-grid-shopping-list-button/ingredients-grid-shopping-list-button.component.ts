@@ -1,16 +1,28 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  Signal,
+  WritableSignal,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { ActiveCustomUserService } from '../../../services/active-custom-user.service';
 import { ShoppingListBackendService } from '../../../shopping-list/services/shopping-list-backend.service';
 
 import { Ingredient } from '../../interfaces/ingredient';
+import { CustomUser } from '../../../interfaces/custom-user';
+import { ShoppingListItemIngredient } from '../../../shopping-list/interfaces/shopping-list-item-ingredient';
+import { ShoppingList } from '../../../shopping-list/interfaces/shopping-list';
 
 @Component({
   selector: 'app-ingredients-grid-shopping-list-button',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule],
   templateUrl: './ingredients-grid-shopping-list-button.component.html',
   styleUrl: './ingredients-grid-shopping-list-button.component.css',
 })
@@ -18,31 +30,81 @@ export class IngredientsGridShoppingListButtonComponent {
   ingredient = input.required<Ingredient>();
   servings = input.required<number>();
 
+  activeCustomUserService = inject(ActiveCustomUserService);
   shoppingListBackendService = inject(ShoppingListBackendService);
 
+  activeCustomUser: Signal<CustomUser | null> =
+    this.activeCustomUserService.activeCustomUser;
+
+  isAddedToShoppingList: WritableSignal<boolean> = signal(false);
+  isLoading: WritableSignal<boolean> = signal(false);
+  hasError: WritableSignal<boolean> = signal(false);
+
+  ngOnInit() {
+    this.setIsAddedToShoppingList();
+  }
+
   OnAddToShoppingList() {
+    this.hasError.set(false);
+    this.isLoading.set(true);
+
     this.shoppingListBackendService
       .addIngredient(this.ingredient(), this.servings())
       .subscribe({
-        next: (shoppingList) => {
+        next: (shoppingList: ShoppingList) => {
           console.info('Ingredient added to shopping list.');
+          this.isAddedToShoppingList.set(true);
+          this.isLoading.set(false);
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error adding ingredient to shopping list:', error);
+          this.hasError.set(true);
+          this.isLoading.set(false);
         },
       });
   }
 
   OnRemoveFromShoppingList() {
+    this.hasError.set(false);
+    this.isLoading.set(true);
+
     this.shoppingListBackendService
       .removeIngredient(this.ingredient())
       .subscribe({
-        next: (shoppingList) => {
+        next: (shoppingList: ShoppingList) => {
           console.info('Ingredient removed from shopping list.');
+          this.isAddedToShoppingList.set(false);
+          this.isLoading.set(false);
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error removing ingredient from shopping list:', error);
+          this.hasError.set(true);
+          this.isLoading.set(false);
         },
       });
+  }
+
+  setIsAddedToShoppingList(): void {
+    const activeCustomUser: CustomUser | null = this.activeCustomUser();
+
+    // should never be null
+    if (activeCustomUser === null) {
+      return;
+    }
+
+    var shoppingListItemIngredient: ShoppingListItemIngredient | undefined;
+    this.ingredient().shoppingListItemIngredients.forEach((item) => {
+      item.shoppingLists.forEach((shoppingList) => {
+        if (shoppingList.customUserId === activeCustomUser.id) {
+          shoppingListItemIngredient = item;
+        }
+      });
+    });
+
+    if (shoppingListItemIngredient === undefined) {
+      this.isAddedToShoppingList.set(false);
+      return;
+    }
+    this.isAddedToShoppingList.set(true);
   }
 }
