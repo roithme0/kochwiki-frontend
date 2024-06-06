@@ -10,6 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ActiveCustomUserService } from '../../../services/active-custom-user.service';
 import { ShoppingListBackendService } from '../../../shopping-list/services/shopping-list-backend.service';
@@ -27,11 +28,22 @@ import { ShoppingList } from '../../../shopping-list/interfaces/shopping-list';
   styleUrl: './ingredients-grid-shopping-list-button.component.css',
 })
 export class IngredientsGridShoppingListButtonComponent {
+  //#region inputs and outputs
+
   ingredient = input.required<Ingredient>();
   servings = input.required<number>();
 
+  //#endregion
+
+  //#region services
+
   activeCustomUserService = inject(ActiveCustomUserService);
   shoppingListBackendService = inject(ShoppingListBackendService);
+  snackBarService = inject(MatSnackBar);
+
+  //#endregion
+
+  //#region fields
 
   activeCustomUser: Signal<CustomUser | null> =
     this.activeCustomUserService.activeCustomUser;
@@ -40,9 +52,13 @@ export class IngredientsGridShoppingListButtonComponent {
   isLoading: WritableSignal<boolean> = signal(false);
   hasError: WritableSignal<boolean> = signal(false);
 
+  //#endregion
+
   ngOnInit() {
     this.setIsAddedToShoppingList();
   }
+
+  //#region methods
 
   OnAddToShoppingList() {
     this.hasError.set(false);
@@ -55,11 +71,19 @@ export class IngredientsGridShoppingListButtonComponent {
           console.info('Ingredient added to shopping list.');
           this.isAddedToShoppingList.set(true);
           this.isLoading.set(false);
+          this.displaySnackBar(
+            this.ingredient().name + ' wurde der Einkaufsliste hinzugefügt.'
+          );
         },
         error: (error: any) => {
           console.error('Error adding ingredient to shopping list:', error);
           this.hasError.set(true);
           this.isLoading.set(false);
+          this.displaySnackBar(
+            'Fehler beim Hinzufügen von ' +
+              this.ingredient().name +
+              ' zur Einkaufsliste.'
+          );
         },
       });
   }
@@ -75,14 +99,26 @@ export class IngredientsGridShoppingListButtonComponent {
           console.info('Ingredient removed from shopping list.');
           this.isAddedToShoppingList.set(false);
           this.isLoading.set(false);
+          this.displaySnackBar(
+            this.ingredient().name + ' wurde von der Einkaufsliste entfernt.'
+          );
         },
         error: (error: any) => {
           console.error('Error removing ingredient from shopping list:', error);
           this.hasError.set(true);
           this.isLoading.set(false);
+          this.displaySnackBar(
+            'Fehler beim Entfernen von ' +
+              this.ingredient().name +
+              ' von der Einkaufsliste.'
+          );
         },
       });
   }
+
+  //#endregion
+
+  //#region utilities
 
   setIsAddedToShoppingList(): void {
     const activeCustomUser: CustomUser | null = this.activeCustomUser();
@@ -107,4 +143,12 @@ export class IngredientsGridShoppingListButtonComponent {
     }
     this.isAddedToShoppingList.set(true);
   }
+
+  displaySnackBar(text: string) {
+    this.snackBarService.open(text, '', {
+      duration: 5000,
+    });
+  }
+
+  //#endregion
 }
