@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FoodstuffPatchFormComponent } from './foodstuff-patch-form/foodstuff-patch-form.component';
 import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-header.component';
 
+import { SnackBarService } from '../../../services/snack-bar.service';
+
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -25,7 +27,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 // get foodstuff id from mat dialog data
 // render foodstuff-patch-form
 export class FoodstuffPatchDialogComponent {
-  dialogRef: MatDialogRef<FoodstuffPatchDialogComponent> = inject(MatDialogRef);
+  dialogRef = inject(MatDialogRef);
+  snackBarService = inject(SnackBarService);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {}
+
+  OnSuccess() {
+    this.dialogRef.close();
+    this.snackBarService.open('Änderungen gespeichert');
+  }
 }

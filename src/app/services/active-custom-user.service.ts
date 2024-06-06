@@ -8,16 +8,15 @@ import {
 
 import { CustomUser } from '../interfaces/custom-user';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { CookieService } from 'ngx-cookie-service';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActiveCustomUserService {
-  private snackBarService = inject(MatSnackBar);
   private cookieService = inject(CookieService);
+  private snackBarService = inject(SnackBarService);
 
   private _activeCustomUser: WritableSignal<CustomUser | null> = signal(null);
 
@@ -35,9 +34,7 @@ export class ActiveCustomUserService {
   set activeCustomUser(value: CustomUser) {
     this._activeCustomUser.set(value);
     this.cookieService.set('activeCustomUser', JSON.stringify(value));
-    this.snackBarService.open('Als "' + value.username + '" angemeldet', '', {
-      duration: 5000,
-    });
+    this.snackBarService.open('Als ' + value.username + ' angemeldet');
   }
 
   get activeCustomUser(): Signal<CustomUser | null> {
@@ -47,8 +44,6 @@ export class ActiveCustomUserService {
   public logout(): void {
     this._activeCustomUser.set(null);
     this.cookieService.delete('activeCustomUser');
-    this.snackBarService.open('Abgemeldet', '', {
-      duration: 5000,
-    });
+    this.snackBarService.open('Abgemeldet');
   }
 }

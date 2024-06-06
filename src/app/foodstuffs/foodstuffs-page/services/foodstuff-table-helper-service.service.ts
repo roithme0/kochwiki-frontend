@@ -9,16 +9,14 @@ import {
 import { Foodstuff } from '../../interfaces/foodstuff';
 
 import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
-
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { SnackBarService } from '../../../services/snack-bar.service';
 @Injectable({
   providedIn: 'root',
 })
 // reduces backend calls
 export class FoodstuffTableHelperServiceService {
   private foodstuffBackendService = inject(FoodstuffBackendService);
-  private snackBarService = inject(MatSnackBar);
+  private snackBarService = inject(SnackBarService);
 
   private _foodstuffs: WritableSignal<Foodstuff[]> = signal([]);
 
@@ -56,13 +54,7 @@ export class FoodstuffTableHelperServiceService {
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
-        this.snackBarService.open(
-          'Lebensmittel konnten nicht geladen werden',
-          '',
-          {
-            duration: 5000,
-          }
-        );
+        this.snackBarService.open('Lebensmittel konnten nicht geladen werden');
         this._error.set(true);
         this._loading.set(false);
       },

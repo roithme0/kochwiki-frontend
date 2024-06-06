@@ -1,5 +1,5 @@
 <app-dialog-header title="Lebensmittel erstellen" [showCloseButon]="true" />
 
 <mat-dialog-content>
-  <app-foodstuff-create-form (success)="dialogRef.close()" />
+  <app-foodstuff-create-form (success)="OnSuccess()" />
 </mat-dialog-content>

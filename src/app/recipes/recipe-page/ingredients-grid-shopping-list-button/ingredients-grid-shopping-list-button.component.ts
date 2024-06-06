@@ -10,10 +10,10 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ActiveCustomUserService } from '../../../services/active-custom-user.service';
 import { ShoppingListBackendService } from '../../../shopping-list/services/shopping-list-backend.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { Ingredient } from '../../interfaces/ingredient';
 import { CustomUser } from '../../../interfaces/custom-user';
@@ -39,7 +39,7 @@ export class IngredientsGridShoppingListButtonComponent {
 
   activeCustomUserService = inject(ActiveCustomUserService);
   shoppingListBackendService = inject(ShoppingListBackendService);
-  snackBarService = inject(MatSnackBar);
+  snackBarService = inject(SnackBarService);
 
   //#endregion
 
@@ -71,7 +71,7 @@ export class IngredientsGridShoppingListButtonComponent {
           console.info('Ingredient added to shopping list.');
           this.isAddedToShoppingList.set(true);
           this.isLoading.set(false);
-          this.displaySnackBar(
+          this.snackBarService.open(
             this.ingredient().name + ' wurde der Einkaufsliste hinzugefügt.'
           );
         },
@@ -79,7 +79,7 @@ export class IngredientsGridShoppingListButtonComponent {
           console.error('Error adding ingredient to shopping list:', error);
           this.hasError.set(true);
           this.isLoading.set(false);
-          this.displaySnackBar(
+          this.snackBarService.open(
             'Fehler beim Hinzufügen von ' +
               this.ingredient().name +
               ' zur Einkaufsliste.'
@@ -99,7 +99,7 @@ export class IngredientsGridShoppingListButtonComponent {
           console.info('Ingredient removed from shopping list.');
           this.isAddedToShoppingList.set(false);
           this.isLoading.set(false);
-          this.displaySnackBar(
+          this.snackBarService.open(
             this.ingredient().name + ' wurde von der Einkaufsliste entfernt.'
           );
         },
@@ -107,7 +107,7 @@ export class IngredientsGridShoppingListButtonComponent {
           console.error('Error removing ingredient from shopping list:', error);
           this.hasError.set(true);
           this.isLoading.set(false);
-          this.displaySnackBar(
+          this.snackBarService.open(
             'Fehler beim Entfernen von ' +
               this.ingredient().name +
               ' von der Einkaufsliste.'
@@ -142,12 +142,6 @@ export class IngredientsGridShoppingListButtonComponent {
       return;
     }
     this.isAddedToShoppingList.set(true);
-  }
-
-  displaySnackBar(text: string) {
-    this.snackBarService.open(text, '', {
-      duration: 5000,
-    });
   }
 
   //#endregion
