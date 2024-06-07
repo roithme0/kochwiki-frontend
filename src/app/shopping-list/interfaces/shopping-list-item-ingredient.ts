@@ -5,10 +5,10 @@ export interface ShoppingListItemIngredient {
   isChecked: boolean;
   isPinned: boolean;
   amount: number;
+  shoppingListIds: number[];
   name: string;
   brand: string | null;
-  unit: string;
   unitVerbose: string;
+  unit: string;
   recipeName: string;
-  shoppingLists: ShoppingList[];
 }

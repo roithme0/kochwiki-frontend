@@ -5,17 +5,16 @@ export interface Ingredient {
   [key: string]: any;
   id: number;
   index: number;
-  shoppingListItemIngredients: ShoppingListItemIngredient[];
-  foodstuff: Foodstuff;
-  foodstuffId: number;
   amount: number;
-  recipeId: number;
+  foodstuff: Foodstuff;
+  shoppingListItemIngredients: ShoppingListItemIngredient[];
   name: string;
   brand: string | null;
-  unit: string;
+  recipeId: number;
   unitVerbose: string;
-  kcal: number | null;
   carbs: number | null;
   protein: number | null;
+  unit: string;
+  kcal: number | null;
   fat: number | null;
 }
