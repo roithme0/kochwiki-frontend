@@ -6,13 +6,19 @@ import { ShoppingListItemIngredient } from '../../interfaces/shopping-list-item-
 import { ShoppingListTableDisplayedFieldsService } from '../services/shopping-list-table-displayed-fields.service';
 import { ShoppingListBackendService } from '../../services/shopping-list-backend.service';
 
+import { ShoppingListTableCheckboxComponent } from '../shopping-list-table-checkbox/shopping-list-table-checkbox.component';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-shopping-list-table',
   standalone: true,
-  imports: [MatTableModule, MatCheckboxModule],
+  imports: [
+    ShoppingListTableCheckboxComponent,
+    MatTableModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './shopping-list-table.component.html',
   styleUrl: './shopping-list-table.component.css',
 })
@@ -41,12 +47,6 @@ export class ShoppingListTableComponent {
   });
 
   OnHeaderCheckBoxClick() {}
-
-  OnCheckBoxClick(itemIngredient: ShoppingListItemIngredient) {
-    this.shoppingListBackendService
-      .setIsChecked(itemIngredient, !itemIngredient.isChecked)
-      .subscribe();
-  }
 
   OnPinClick(itemIngredient: ShoppingListItemIngredient) {
     // this.shoppingListBackendService.setIsPinned(

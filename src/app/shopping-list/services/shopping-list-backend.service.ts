@@ -78,7 +78,7 @@ export class ShoppingListBackendService {
   public setIsChecked(
     itemIngredient: ShoppingListItemIngredient,
     newIsChecked: boolean
-  ) {
+  ): Observable<ShoppingListItemIngredient> {
     console.info(
       'PATCH: setting isChecked of shoppingItemIngredient of shoppingList ...'
     );
@@ -86,10 +86,10 @@ export class ShoppingListBackendService {
     const activeCustomUser: CustomUser | null = this.activeCustomUser();
     if (activeCustomUser === null) {
       console.error('No active custom user found.');
-      return new Observable<ShoppingList>();
+      return new Observable<ShoppingListItemIngredient>();
     }
 
-    return this.http.patch<ShoppingList>(
+    return this.http.patch<ShoppingListItemIngredient>(
       backendUrl + '/shoppingLists/ingredientIsChecked',
       {
         customUserId: activeCustomUser.id,
