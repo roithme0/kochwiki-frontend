@@ -43,16 +43,15 @@ export class ShoppingListTableComponent {
   OnHeaderCheckBoxClick() {}
 
   OnCheckBoxClick(itemIngredient: ShoppingListItemIngredient) {
-    this.shoppingListBackendService.setIsChecked(
-      itemIngredient,
-      !itemIngredient.isChecked
-    );
+    this.shoppingListBackendService
+      .setIsChecked(itemIngredient, !itemIngredient.isChecked)
+      .subscribe();
   }
 
   OnPinClick(itemIngredient: ShoppingListItemIngredient) {
-    this.shoppingListBackendService.setIsPinned(
-      itemIngredient,
-      !itemIngredient.isPinned
-    );
+    // this.shoppingListBackendService.setIsPinned(
+    //   itemIngredient,
+    //   !itemIngredient.isPinned
+    // ).subscribe();
   }
 }
