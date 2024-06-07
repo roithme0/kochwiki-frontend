@@ -7,6 +7,7 @@ import { ShoppingListTableDisplayedFieldsService } from '../services/shopping-li
 import { ShoppingListBackendService } from '../../services/shopping-list-backend.service';
 
 import { ShoppingListTableCheckboxComponent } from '../shopping-list-table-checkbox/shopping-list-table-checkbox.component';
+import { ShoppingListTablePinButtonComponent } from '../shopping-list-table-pin-button/shopping-list-table-pin-button.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -16,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   standalone: true,
   imports: [
     ShoppingListTableCheckboxComponent,
+    ShoppingListTablePinButtonComponent,
     MatTableModule,
     MatCheckboxModule,
   ],

@@ -102,5 +102,24 @@ export class ShoppingListBackendService {
   public setIsPinned(
     itemIngredient: ShoppingListItemIngredient,
     newIsPinned: boolean
-  ) {}
+  ): Observable<ShoppingListItemIngredient> {
+    console.info(
+      'PATCH: setting isPinned of shoppingItemIngredient of shoppingList ...'
+    );
+
+    const activeCustomUser: CustomUser | null = this.activeCustomUser();
+    if (activeCustomUser === null) {
+      console.error('No active custom user found.');
+      return new Observable<ShoppingListItemIngredient>();
+    }
+
+    return this.http.patch<ShoppingListItemIngredient>(
+      backendUrl + '/shoppingLists/ingredientIsPinned',
+      {
+        customUserId: activeCustomUser.id,
+        itemIngredientId: itemIngredient.id,
+        isPinned: newIsPinned,
+      }
+    );
+  }
 }
