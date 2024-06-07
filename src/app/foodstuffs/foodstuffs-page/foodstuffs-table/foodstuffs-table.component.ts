@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
-import { VerboseNames } from '../../interfaces/foodstuff-meta-data';
+import { FoodstuffVerboseNames } from '../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffTableDisplayedFieldsServiceService } from '../services/foodstuff-table-displayed-fields-service.service';
 import { FoodstuffTableDisplayedFoodstuffsServiceService } from '../services/foodstuff-table-displayed-foodstuffs-service.service';
@@ -31,7 +31,7 @@ export class FoodstuffsTableComponent {
   foodstuffBackendService = inject(FoodstuffBackendService);
   dialog = inject(MatDialog);
 
-  verboseNames: VerboseNames | null = null;
+  verboseNames: FoodstuffVerboseNames | null = null;
 
   displayedFoodstuffs: Signal<Foodstuff[]> =
     this.displayedFoodstuffsService.displayedFoodstuffs;
@@ -43,11 +43,11 @@ export class FoodstuffsTableComponent {
     this.displayedFieldsService.displayedFields;
 
   ngOnInit(): void {
-    this.fetchVerboseNames();
+    this.fetchFoodstuffVerboseNames();
   }
 
-  fetchVerboseNames(): void {
-    this.foodstuffBackendService.fetchVerboseNames().subscribe({
+  fetchFoodstuffVerboseNames(): void {
+    this.foodstuffBackendService.fetchFoodstuffVerboseNames().subscribe({
       next: (verboseNames) => {
         console.debug('fetched foodstuff verbose names: ', verboseNames);
         this.verboseNames = verboseNames;

@@ -4,7 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
 import { Foodstuff } from '../interfaces/foodstuff';
-import { VerboseNames, UnitChoices } from '../interfaces/foodstuff-meta-data';
+import {
+  FoodstuffVerboseNames,
+  FoodstuffUnitChoices,
+} from '../interfaces/foodstuff-meta-data';
 
 import { environment } from '../../../environments/environment';
 
@@ -54,16 +57,16 @@ export class FoodstuffBackendService {
     return this.http.delete<number>(backendUrl + '/foodstuffs/' + id);
   }
 
-  fetchVerboseNames(): Observable<VerboseNames> {
+  fetchFoodstuffVerboseNames(): Observable<FoodstuffVerboseNames> {
     console.debug('GET: fetching foodstuff verbose names ...');
-    return this.http.get<VerboseNames>(
+    return this.http.get<FoodstuffVerboseNames>(
       backendUrl + '/foodstuffs-meta-data/verbose-names'
     );
   }
 
-  fetchUnitChoices(): Observable<UnitChoices> {
+  fetchFoodstuffUnitChoices(): Observable<FoodstuffUnitChoices> {
     console.debug('GET: fetching foodstuff unit choices ...');
-    return this.http.get<UnitChoices>(
+    return this.http.get<FoodstuffUnitChoices>(
       backendUrl + '/foodstuffs-meta-data/unit-choices'
     );
   }

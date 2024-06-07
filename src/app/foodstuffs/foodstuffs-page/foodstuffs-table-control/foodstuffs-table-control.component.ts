@@ -15,7 +15,7 @@ import { FoodstuffTableControlServiceService } from '../services/foodstuff-table
 import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
-import { UnitChoices } from '../../interfaces/foodstuff-meta-data';
+import { FoodstuffUnitChoices } from '../../interfaces/foodstuff-meta-data';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -77,7 +77,7 @@ export class FoodstuffsTableControlComponent {
 
   foodstuffs: Signal<Foodstuff[]> =
     this.foodstuffsTableControlsService.foodstuffs;
-  unitChoices: UnitChoices | null = null;
+  unitChoices: FoodstuffUnitChoices | null = null;
 
   // constructor() {
   //   // should work but does not
@@ -93,7 +93,7 @@ export class FoodstuffsTableControlComponent {
   // }
 
   ngOnInit(): void {
-    this.fetchUnitChoices();
+    this.fetchFoodstuffUnitChoices();
   }
 
   // workaround for effect not working
@@ -108,8 +108,8 @@ export class FoodstuffsTableControlComponent {
     this.foodstuffsTableControlsService.filterBy = this.filterValue();
   }
 
-  fetchUnitChoices(): void {
-    this.foodstuffBackendService.fetchUnitChoices().subscribe({
+  fetchFoodstuffUnitChoices(): void {
+    this.foodstuffBackendService.fetchFoodstuffUnitChoices().subscribe({
       next: (unitChoices) => {
         console.debug('fetched foodstuff unit choices: ', unitChoices);
         this.unitChoices = unitChoices;

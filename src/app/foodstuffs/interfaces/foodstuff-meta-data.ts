@@ -1,4 +1,4 @@
-export interface VerboseNames {
+export interface FoodstuffVerboseNames {
   [key: string]: string;
   name: string;
   brand: string;
@@ -9,6 +9,6 @@ export interface VerboseNames {
   fat: string;
 }
 
-export interface UnitChoices {
+export interface FoodstuffUnitChoices {
   [key: string]: string;
 }

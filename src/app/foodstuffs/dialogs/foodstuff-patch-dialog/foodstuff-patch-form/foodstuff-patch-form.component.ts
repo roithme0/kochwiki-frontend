@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { Foodstuff } from '../../../interfaces/foodstuff';
-import { VerboseNames } from '../../../interfaces/foodstuff-meta-data';
-import { UnitChoices } from '../../../interfaces/foodstuff-meta-data';
+import { FoodstuffVerboseNames } from '../../../interfaces/foodstuff-meta-data';
+import { FoodstuffUnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffBackendService } from '../../../services/foodstuff-backend.service';
 
@@ -40,8 +40,8 @@ export class FoodstuffPatchFormComponent {
   id = input.required<number>();
   success = output<void>();
 
-  verboseNames: VerboseNames | null = null;
-  unitChoices: UnitChoices | null = null;
+  verboseNames: FoodstuffVerboseNames | null = null;
+  unitChoices: FoodstuffUnitChoices | null = null;
 
   foodstuffForm = this.fb.group({
     name: ['', Validators.required],
@@ -54,8 +54,8 @@ export class FoodstuffPatchFormComponent {
   });
 
   ngOnInit(): void {
-    this.fetchVerboseNames();
-    this.fetchUnitChoices();
+    this.fetchFoodstuffVerboseNames();
+    this.fetchFoodstuffUnitChoices();
     this.fetchFoodstuffById(this.id());
   }
 
@@ -89,8 +89,8 @@ export class FoodstuffPatchFormComponent {
     });
   }
 
-  fetchVerboseNames(): void {
-    this.foodstuffBackendService.fetchVerboseNames().subscribe({
+  fetchFoodstuffVerboseNames(): void {
+    this.foodstuffBackendService.fetchFoodstuffVerboseNames().subscribe({
       next: (verboseNames) => {
         console.debug('fetched foodstuff verbose names: ', verboseNames);
         this.verboseNames = verboseNames;
@@ -101,8 +101,8 @@ export class FoodstuffPatchFormComponent {
     });
   }
 
-  fetchUnitChoices(): void {
-    this.foodstuffBackendService.fetchUnitChoices().subscribe({
+  fetchFoodstuffUnitChoices(): void {
+    this.foodstuffBackendService.fetchFoodstuffUnitChoices().subscribe({
       next: (unitChoices) => {
         console.debug('fetched foodstuff unit choices: ', unitChoices);
         this.unitChoices = unitChoices;
