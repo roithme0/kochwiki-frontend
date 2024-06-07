@@ -20,7 +20,10 @@
   @else{
   <app-shopping-list-table-controls />
   <div class="table-wrapper">
-    <app-shopping-list-table [shoppingList]="shoppingList()" />
+    <app-shopping-list-table
+      [shoppingList]="shoppingList()"
+      [shoppingListItemVerboseNames]="shoppingListItemVerboseNames()"
+    />
   </div>
   <app-shopping-list-table-buttons />
   }

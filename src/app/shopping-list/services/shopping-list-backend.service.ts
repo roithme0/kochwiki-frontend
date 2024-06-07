@@ -9,8 +9,10 @@ import { CustomUser } from '../../interfaces/custom-user';
 import { ActiveCustomUserService } from '../../services/active-custom-user.service';
 
 import { environment } from '../../../environments/environment';
+
 import { Ingredient } from '../../recipes/interfaces/ingredient';
 import { ShoppingListItemIngredient } from '../interfaces/shopping-list-item-ingredient';
+import { ShoppingListItemVerboseNames } from '../interfaces/shopping-list-meta-data';
 
 const backendUrl = environment.backendUrl;
 
@@ -120,6 +122,13 @@ export class ShoppingListBackendService {
         itemIngredientId: itemIngredient.id,
         isPinned: newIsPinned,
       }
+    );
+  }
+
+  fetchShoppingItemVerboseNames(): Observable<ShoppingListItemVerboseNames> {
+    console.debug('GET: fetching itemIngredient verbose names ...');
+    return this.http.get<ShoppingListItemVerboseNames>(
+      backendUrl + '/shopping-list-item-meta-data/verbose-names'
     );
   }
 }

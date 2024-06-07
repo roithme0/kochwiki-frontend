@@ -2,6 +2,7 @@ import { Component, Signal, computed, inject, input } from '@angular/core';
 
 import { ShoppingList } from '../../interfaces/shopping-list';
 import { ShoppingListItemIngredient } from '../../interfaces/shopping-list-item-ingredient';
+import { ShoppingListItemVerboseNames } from '../../interfaces/shopping-list-meta-data';
 
 import { ShoppingListTableDisplayedFieldsService } from '../services/shopping-list-table-displayed-fields.service';
 import { ShoppingListBackendService } from '../../services/shopping-list-backend.service';
@@ -26,6 +27,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 })
 export class ShoppingListTableComponent {
   shoppingList = input.required<ShoppingList | null>();
+  shoppingListItemVerboseNames =
+    input.required<ShoppingListItemVerboseNames | null>();
+
   shoppingListBackendService = inject(ShoppingListBackendService);
 
   displayedFieldsService = inject(ShoppingListTableDisplayedFieldsService);
@@ -39,6 +43,20 @@ export class ShoppingListTableComponent {
       return shoppingList.shoppingListItemIngredients;
     }
   );
+  displayedShoppingListItemVerboseNames: Signal<ShoppingListItemVerboseNames> =
+    computed(() => {
+      const shoppingListItemVerboseNames: ShoppingListItemVerboseNames | null =
+        this.shoppingListItemVerboseNames();
+      if (shoppingListItemVerboseNames == null) {
+        return {
+          name: 'Name',
+          amount: 'Menge',
+          unitVerbose: 'Einheit',
+          brand: 'Marke',
+        };
+      }
+      return shoppingListItemVerboseNames;
+    });
   displayedFields: Signal<string[]> =
     this.displayedFieldsService.displayedFields;
 
@@ -47,13 +65,4 @@ export class ShoppingListTableComponent {
       this.displayedItemIngredients();
     return itemIngredients.every((itemIngredient) => itemIngredient.isChecked);
   });
-
-  OnHeaderCheckBoxClick() {}
-
-  OnPinClick(itemIngredient: ShoppingListItemIngredient) {
-    // this.shoppingListBackendService.setIsPinned(
-    //   itemIngredient,
-    //   !itemIngredient.isPinned
-    // ).subscribe();
-  }
 }

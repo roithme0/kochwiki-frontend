@@ -11,6 +11,7 @@ import { ShoppingListTableControlsComponent } from './shopping-list-table-contro
 import { ShoppingListTableButtonsComponent } from './shopping-list-table-buttons/shopping-list-table-buttons.component';
 
 import { ShoppingList } from '../interfaces/shopping-list';
+import { ShoppingListItemVerboseNames } from '../interfaces/shopping-list-meta-data';
 
 @Component({
   selector: 'app-shopping-list-page',
@@ -35,6 +36,8 @@ export class ShoppingListPageComponent {
     this.shoppingListTableHelperService.hasError;
   shoppingList: Signal<ShoppingList | null> =
     this.shoppingListTableHelperService.shoppingList;
+  shoppingListItemVerboseNames: Signal<ShoppingListItemVerboseNames | null> =
+    this.shoppingListTableHelperService.shoppingListItemVerboseNames;
 
   // set header values
   ngOnInit() {

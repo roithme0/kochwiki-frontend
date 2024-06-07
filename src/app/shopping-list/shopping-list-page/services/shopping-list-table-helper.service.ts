@@ -12,6 +12,8 @@ import { ActiveCustomUserService } from '../../../services/active-custom-user.se
 
 import { CustomUser } from '../../../interfaces/custom-user';
 import { ShoppingList } from '../../interfaces/shopping-list';
+import { forkJoin } from 'rxjs';
+import { ShoppingListItemVerboseNames } from '../../interfaces/shopping-list-meta-data';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +31,8 @@ export class ShoppingListTableHelperService {
   private _activeCustomUser: Signal<CustomUser | null> =
     this.activeCustomUserService.activeCustomUser;
   private _shoppingList: WritableSignal<ShoppingList | null> = signal(null);
+  private _shoppingListItemVerboseNames: WritableSignal<ShoppingListItemVerboseNames | null> =
+    signal(null);
 
   private _isLoading: WritableSignal<boolean> = signal(false);
   private _hasError: WritableSignal<boolean> = signal(false);
@@ -55,6 +59,10 @@ export class ShoppingListTableHelperService {
     return this._shoppingList;
   }
 
+  get shoppingListItemVerboseNames(): Signal<ShoppingListItemVerboseNames | null> {
+    return this._shoppingListItemVerboseNames;
+  }
+
   get isLoading(): Signal<boolean> {
     return this._isLoading;
   }
@@ -71,19 +79,25 @@ export class ShoppingListTableHelperService {
     this._isLoading.set(true);
     this._hasError.set(false);
 
-    this.shoppingListBackendService
-      .getShoppingListByCustomUserId(customUserId)
-      .subscribe({
-        next: (shoppingList) => {
-          this._shoppingList.set(shoppingList);
-          this._isLoading.set(false);
-        },
-        error: (error: any) => {
-          console.error('Error fetching shopping list:', error);
-          this._hasError.set(true);
-          this._isLoading.set(false);
-        },
-      });
+    forkJoin({
+      shoppingList:
+        this.shoppingListBackendService.getShoppingListByCustomUserId(
+          customUserId
+        ),
+      shoppingListItemVerboseNames:
+        this.shoppingListBackendService.fetchShoppingItemVerboseNames(),
+    }).subscribe({
+      next: ({ shoppingList, shoppingListItemVerboseNames }) => {
+        this._shoppingList.set(shoppingList);
+        this._shoppingListItemVerboseNames.set(shoppingListItemVerboseNames);
+        this._isLoading.set(false);
+      },
+      error: (error: any) => {
+        console.error('Error fetching shopping list:', error);
+        this._hasError.set(true);
+        this._isLoading.set(false);
+      },
+    });
   }
 
   //#endregion
