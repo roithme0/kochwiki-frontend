@@ -6,7 +6,7 @@ import { WindowWidthService } from '../../../services/window-width.service';
   providedIn: 'root',
 })
 export class FoodstuffTableDisplayedFieldsServiceService {
-  private windowWidthService: WindowWidthService = inject(WindowWidthService);
+  private windowWidthService = inject(WindowWidthService);
 
   private windowInnerWidth: Signal<number> =
     this.windowWidthService.getWindowInnerWidth();

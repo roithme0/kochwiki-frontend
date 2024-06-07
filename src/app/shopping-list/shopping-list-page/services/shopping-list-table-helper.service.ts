@@ -36,14 +36,17 @@ export class ShoppingListTableHelperService {
   //#endregion
 
   constructor() {
-    effect(() => {
-      const activeCustomUser: CustomUser | null = this._activeCustomUser();
-      if (activeCustomUser == null) {
-        this._shoppingList.set(null);
-        return;
-      }
-      this.fetchShoppingList(activeCustomUser.id);
-    });
+    effect(
+      () => {
+        const activeCustomUser: CustomUser | null = this._activeCustomUser();
+        if (activeCustomUser == null) {
+          this._shoppingList.set(null);
+          return;
+        }
+        this.fetchShoppingList(activeCustomUser.id);
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   //#region getters

@@ -1,1 +1,30 @@
-<p>shopping-list-table works!</p>
+<table mat-table [dataSource]="displayedIngredients()">
+  @for (field of displayedFields(); track field) {
+
+  <!-- isChecked -->
+  @if(field == 'isChecked'){
+  <ng-container [matColumnDef]="field">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let ingredient"></td>
+  </ng-container>
+  }
+
+  <!-- isPinned -->
+  @else if (field == 'isPinned') {
+  <ng-container [matColumnDef]="field">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let ingredient"></td>
+  </ng-container>
+  }
+
+  <!-- properties -->
+  @else{
+  <ng-container [matColumnDef]="field">
+    <th mat-header-cell *matHeaderCellDef>header</th>
+    <td mat-cell *matCellDef="let ingredient">{{ ingredient[field] }}</td>
+  </ng-container>
+  }}
+
+  <tr mat-header-row *matHeaderRowDef="displayedFields(); sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedFields()"></tr>
+</table>
