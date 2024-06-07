@@ -10,6 +10,7 @@ import { ActiveCustomUserService } from '../../services/active-custom-user.servi
 
 import { environment } from '../../../environments/environment';
 import { Ingredient } from '../../recipes/interfaces/ingredient';
+import { ShoppingListItemIngredient } from '../interfaces/shopping-list-item-ingredient';
 
 const backendUrl = environment.backendUrl;
 
@@ -73,4 +74,14 @@ export class ShoppingListBackendService {
       }
     );
   }
+
+  public setIsChecked(
+    itemIngredient: ShoppingListItemIngredient,
+    newIsChecked: boolean
+  ) {}
+
+  public setIsPinned(
+    itemIngredient: ShoppingListItemIngredient,
+    newIsPinned: boolean
+  ) {}
 }
