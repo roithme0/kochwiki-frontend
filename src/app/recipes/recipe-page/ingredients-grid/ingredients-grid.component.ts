@@ -67,7 +67,7 @@ export class IngredientsGridComponent {
     this.isLoading.set(true);
 
     const requests = this.recipe().ingredients.map((ingredient) =>
-      this.foodstuffBackendService.getFoodstuffById(ingredient.foodstuffId)
+      this.foodstuffBackendService.getFoodstuffById(ingredient.foodstuff.id)
     );
 
     if (requests.length === 0) {

@@ -130,8 +130,8 @@ export class IngredientsGridShoppingListButtonComponent {
 
     var shoppingListItemIngredient: ShoppingListItemIngredient | undefined;
     this.ingredient().shoppingListItemIngredients.forEach((item) => {
-      item.shoppingLists.forEach((shoppingList) => {
-        if (shoppingList.customUserId === activeCustomUser.id) {
+      item.shoppingListIds.forEach((id: number) => {
+        if (id === activeCustomUser.id) {
           shoppingListItemIngredient = item;
         }
       });
