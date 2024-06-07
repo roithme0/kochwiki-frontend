@@ -1,7 +1,27 @@
 <main>
+  <!-- loading -->
+  @if(isLoadingShoppingList() == true){
+  <div class="spinner-wrapper">
+    <mat-spinner />
+  </div>
+  }
+
+  <!-- error -->
+  @else if (hasErrorShoppingList() == true) {
+  <div class="error-wrapper">
+    <div class="error">
+      <mat-icon aria-hidden="false" aria-label="Fehler" fontIcon="error" />
+      <p>Einkaufsliste konnte nicht geladen werden.</p>
+    </div>
+  </div>
+  }
+
+  <!-- loaded -->
+  @else{
   <app-shopping-list-table-controls />
   <div class="table-wrapper">
     <app-shopping-list-table />
   </div>
   <app-shopping-list-table-buttons />
+  }
 </main>

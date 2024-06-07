@@ -30,6 +30,9 @@ export class ShoppingListTableHelperService {
     this.activeCustomUserService.activeCustomUser;
   private _shoppingList: WritableSignal<ShoppingList | null> = signal(null);
 
+  private _isLoading: WritableSignal<boolean> = signal(false);
+  private _hasError: WritableSignal<boolean> = signal(false);
+
   //#endregion
 
   constructor() {
@@ -49,15 +52,34 @@ export class ShoppingListTableHelperService {
     return this._shoppingList;
   }
 
+  get isLoading(): Signal<boolean> {
+    return this._isLoading;
+  }
+
+  get hasError(): Signal<boolean> {
+    return this._hasError;
+  }
+
   //#endregion
 
   //#region utilities
 
   private fetchShoppingList(customUserId: number): void {
+    this._isLoading.set(true);
+    this._hasError.set(false);
+
     this.shoppingListBackendService
       .getShoppingListByCustomUserId(customUserId)
-      .subscribe((shoppingList) => {
-        this._shoppingList.set(shoppingList);
+      .subscribe({
+        next: (shoppingList) => {
+          this._shoppingList.set(shoppingList);
+          this._isLoading.set(false);
+        },
+        error: (error: any) => {
+          console.error('Error fetching shopping list:', error);
+          this._hasError.set(true);
+          this._isLoading.set(false);
+        },
       });
   }
 
