@@ -8,13 +8,13 @@ import {
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { FoodstuffTableHelperServiceService } from './foodstuff-table-helper-service.service';
+import { FoodstuffsService } from './foodstuffs.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FoodstuffTableControlServiceService {
-  foodstuffTableHelperService = inject(FoodstuffTableHelperServiceService);
+export class FoodstuffTableControlService {
+  foodstuffsService = inject(FoodstuffsService);
 
   private _searchBy: WritableSignal<string> = signal('');
   private _filterBy: WritableSignal<string> = signal('all');
@@ -40,6 +40,6 @@ export class FoodstuffTableControlServiceService {
   }
 
   get foodstuffs(): Signal<Foodstuff[]> {
-    return this.foodstuffTableHelperService.foodstuffs;
+    return this.foodstuffsService.foodstuffs;
   }
 }

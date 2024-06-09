@@ -4,10 +4,8 @@
   flex-direction: column;
 }
 
-.mat-column-actions {
+.mat-column-edit,
+.mat-column-delete {
   max-width: fit-content;
-}
-
-.buttons-wrapper {
-  display: flex;
+  padding: 0;
 }

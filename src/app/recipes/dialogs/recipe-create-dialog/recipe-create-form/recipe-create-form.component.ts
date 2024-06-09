@@ -1,4 +1,10 @@
-import { Component, inject, output } from '@angular/core';
+import {
+  Component,
+  WritableSignal,
+  inject,
+  output,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -68,8 +74,8 @@ export class RecipeCreateFormComponent {
 
   foodstuffs!: Foodstuff[];
 
-  isLoadingFetchAllFoodstuffs: boolean = true;
-  hasErrorFetchAllFoodstuffs: boolean = false;
+  isLoading: WritableSignal<boolean> = signal(true);
+  hasError: WritableSignal<boolean> = signal(false);
 
   recipeForm = this.fb.group({
     metaFormGroup: this.fb.group({
@@ -105,14 +111,14 @@ export class RecipeCreateFormComponent {
         console.debug('fetched foodstuffs: ', foodstuffs);
         this.foodstuffs = foodstuffs;
 
-        this.isLoadingFetchAllFoodstuffs = false;
-        this.hasErrorFetchAllFoodstuffs = false;
+        this.isLoading.set(false);
+        this.hasError.set(false);
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
 
-        this.isLoadingFetchAllFoodstuffs = false;
-        this.hasErrorFetchAllFoodstuffs = true;
+        this.isLoading.set(false);
+        this.hasError.set(true);
       },
     });
   }

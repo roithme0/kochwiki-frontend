@@ -1,0 +1,35 @@
+<!-- loading -->
+@if(isLoading() == true){
+<mat-spinner />
+}
+
+<!-- error -->
+@else if(hasError() == true){
+<button mat-icon-button (click)="hasError.set(false)">
+  <mat-icon aria-hidden="false" aria-label="Fehler" fontIcon="error" />
+</button>
+
+}
+
+<!-- loaded -->
+@else{
+<!-- add to shopping list -->
+@if(isAddedToShoppingList() == false){
+<button mat-icon-button (click)="OnAddToShoppingList()">
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Einkaufsliste hinzufügen"
+    fontIcon="add_shopping_cart"
+  />
+</button>
+
+<!-- remove from shopping list -->
+}@else {
+<button mat-icon-button (click)="OnRemoveFromShoppingList()">
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Von Einkaufsliste entfernen"
+    fontIcon="remove_shopping_cart"
+  />
+</button>
+} }

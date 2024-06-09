@@ -1,0 +1,5 @@
+<app-dialog-header title="Nutzer erstellen" [showCloseButon]="true" />
+
+<mat-dialog-content class="mat-dialog-content">
+  <app-user-create-form (success)="dialogRef.close()" />
+</mat-dialog-content>

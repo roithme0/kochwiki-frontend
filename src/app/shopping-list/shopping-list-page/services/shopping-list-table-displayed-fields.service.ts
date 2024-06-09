@@ -5,25 +5,23 @@ import { WindowWidthService } from '../../../services/window-width.service';
 @Injectable({
   providedIn: 'root',
 })
-export class FoodstuffTableDisplayedFieldsServiceService {
-  private windowWidthService: WindowWidthService = inject(WindowWidthService);
+export class ShoppingListTableDisplayedFieldsService {
+  private windowWidthService = inject(WindowWidthService);
 
   private windowInnerWidth: Signal<number> =
     this.windowWidthService.getWindowInnerWidth();
 
   // adjust displayed fields based on window with
   private _displayedFields: Signal<string[]> = computed(() => {
-    var displayedFields: string[] = ['name', 'brand'];
+    var displayedFields: string[] = ['isChecked', 'name', 'amount'];
     if (this.windowInnerWidth() > 600) {
-      displayedFields.push('kcal');
+      displayedFields.push('brand');
     }
-    if (this.windowInnerWidth() > 1100) {
-      displayedFields.push('carbs', 'protein', 'fat');
+
+    if (this.windowInnerWidth() > 800) {
+      displayedFields.push('recipeName');
     }
-    if (this.windowInnerWidth() > 1200) {
-      displayedFields.push('unitVerbose');
-    }
-    displayedFields.push('actions');
+    displayedFields.push('isPinned');
     return displayedFields;
   });
 

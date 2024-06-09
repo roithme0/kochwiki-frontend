@@ -10,16 +10,14 @@ import {
 import { Recipe } from '../../interfaces/recipe';
 
 import { RecipeBackendService } from '../../services/recipe-backend.service';
-import { RecipesGridControlsService } from './recipes-grid-controls.service';
-
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipesGridHelperServiceService {
   private recipeBackendService = inject(RecipeBackendService);
-  private snackBarService = inject(MatSnackBar);
+  private snackBarService = inject(SnackBarService);
 
   private _recipes: WritableSignal<Recipe[]> = signal([]);
   private _loading: WritableSignal<boolean> = signal(true);
@@ -57,9 +55,7 @@ export class RecipesGridHelperServiceService {
       },
       error: (err) => {
         console.error('failed to fetch recipes: ', err);
-        this.snackBarService.open('Rezepte konnten nicht geladen werden', '', {
-          duration: 5000,
-        });
+        this.snackBarService.open('Rezepte konnten nicht geladen werden');
         this._error.set(true);
         this._loading.set(false);
       },

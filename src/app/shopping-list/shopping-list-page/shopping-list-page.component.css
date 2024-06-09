@@ -1,0 +1,51 @@
+:host {
+  /* stretch hole page */
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  /* stretch hole page */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.spinner-wrapper,
+.error-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+app-shopping-list-table-controls {
+  flex: 0;
+}
+
+.table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+}
+
+app-shopping-list-table::after {
+  content: "";
+  display: block;
+  height: 5rem;
+}
+
+app-shopping-list-table-buttons {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}

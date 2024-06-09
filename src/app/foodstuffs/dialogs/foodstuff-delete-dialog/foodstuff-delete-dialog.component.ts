@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Foodstuff } from '../../interfaces/foodstuff';
 
 import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -28,9 +29,9 @@ import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-
 // fetch foodstuff by id
 // render buttons to delete foodstuff
 export class FoodstuffDeleteDialogComponent {
-  dialogRef: MatDialogRef<FoodstuffDeleteDialogComponent> =
-    inject(MatDialogRef);
+  dialogRef = inject(MatDialogRef);
   foodstuffBackendService = inject(FoodstuffBackendService);
+  snackBarService = inject(SnackBarService);
 
   foodstuff: Foodstuff | undefined;
 
@@ -55,6 +56,7 @@ export class FoodstuffDeleteDialogComponent {
               console.info('foodstuff deleted: ', id);
               this.foodstuffBackendService.notifyFoodstuffsChanged();
               this.dialogRef.close();
+              this.snackBarService.open('Zutat gelöscht');
             },
             error: (error) => {
               console.error('failed to delete foodstuff: ', error);

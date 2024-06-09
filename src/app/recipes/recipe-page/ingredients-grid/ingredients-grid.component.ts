@@ -1,7 +1,16 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  WritableSignal,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Recipe } from '../../interfaces/recipe';
+
+import { IngredientsGridShoppingListButtonComponent } from '../ingredients-grid-shopping-list-button/ingredients-grid-shopping-list-button.component';
 
 import { FoodstuffBackendService } from '../../../foodstuffs/services/foodstuff-backend.service';
 
@@ -13,35 +22,56 @@ import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-ingredients-grid',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatProgressBarModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatProgressBarModule,
+    IngredientsGridShoppingListButtonComponent,
+  ],
   templateUrl: './ingredients-grid.component.html',
   styleUrl: './ingredients-grid.component.css',
 })
-// fetch foodstuffs associated with recipe
-// render ingredients as grid
 export class IngredientsGridComponent {
-  foodstuffBackendService = inject(FoodstuffBackendService);
+  //#region inputs and outputs
 
   recipe = input.required<Recipe>();
 
-  isLoading: boolean = false;
-  hasError: boolean = false;
+  //#endregion
 
-  ngOnChanges() {
-    this.hasError = false;
-    this.fetchAssociatedFoodstuffs();
+  //#region services
+
+  foodstuffBackendService = inject(FoodstuffBackendService);
+
+  //#endregion services
+
+  //#region fields
+
+  isLoading: WritableSignal<boolean> = signal(false);
+  hasError: WritableSignal<boolean> = signal(false);
+
+  //#endregion
+
+  constructor() {
+    effect(
+      () => {
+        this.fetchAssociatedFoodstuffs();
+      },
+      { allowSignalWrites: true }
+    );
   }
 
-  // fetch foodstuffs associated with recipe
+  //#region utilities
+
   fetchAssociatedFoodstuffs() {
-    this.isLoading = true;
+    this.hasError.set(false);
+    this.isLoading.set(true);
 
     const requests = this.recipe().ingredients.map((ingredient) =>
-      this.foodstuffBackendService.getFoodstuffById(ingredient.foodstuffId)
+      this.foodstuffBackendService.getFoodstuffById(ingredient.foodstuff.id)
     );
 
     if (requests.length === 0) {
-      this.isLoading = false;
+      this.isLoading.set(false);
       return;
     }
 
@@ -51,13 +81,15 @@ export class IngredientsGridComponent {
         for (let i = 0; i < foodstuffs.length; i++) {
           this.recipe().ingredients[i].foodstuff = foodstuffs[i];
         }
-        this.isLoading = false;
+        this.isLoading.set(false);
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
-        this.hasError = true;
-        this.isLoading = false;
+        this.hasError.set(true);
+        this.isLoading.set(false);
       },
     });
   }
+
+  //#endregion
 }

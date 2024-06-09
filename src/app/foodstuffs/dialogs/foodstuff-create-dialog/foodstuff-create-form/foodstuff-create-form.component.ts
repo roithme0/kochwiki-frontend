@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { Foodstuff } from '../../../interfaces/foodstuff';
-import { VerboseNames } from '../../../interfaces/foodstuff-meta-data';
-import { UnitChoices } from '../../../interfaces/foodstuff-meta-data';
+import { FoodstuffVerboseNames } from '../../../interfaces/foodstuff-meta-data';
+import { FoodstuffUnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffBackendService } from '../../../services/foodstuff-backend.service';
 
@@ -14,6 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-foodstuff-create-form',
@@ -35,8 +37,8 @@ import { MatSelectModule } from '@angular/material/select';
 export class FoodstuffCreateFormComponent {
   success = output<void>();
 
-  verboseNames: VerboseNames | null = null;
-  unitChoices: UnitChoices | null = null;
+  verboseNames: FoodstuffVerboseNames | null = null;
+  unitChoices: FoodstuffUnitChoices | null = null;
 
   foodstuffBackendService = inject(FoodstuffBackendService);
   fb = inject(FormBuilder);
@@ -52,8 +54,7 @@ export class FoodstuffCreateFormComponent {
   });
 
   ngOnInit(): void {
-    this.fetchVerboseNames();
-    this.fetchUnitChoices();
+    this.fetchMetaData();
   }
 
   // submit form to create foodstuff
@@ -77,26 +78,21 @@ export class FoodstuffCreateFormComponent {
     });
   }
 
-  fetchVerboseNames(): void {
-    this.foodstuffBackendService.fetchVerboseNames().subscribe({
-      next: (verboseNames) => {
-        console.debug('fetched foodstuff verbose names: ', verboseNames);
-        this.verboseNames = verboseNames;
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuff verbose names: ', error);
-      },
+  fetchMetaData(): void {
+    const requests: Observable<any> = forkJoin({
+      verboseNames: this.foodstuffBackendService.fetchFoodstuffVerboseNames(),
+      unitChoices: this.foodstuffBackendService.fetchFoodstuffUnitChoices(),
     });
-  }
 
-  fetchUnitChoices(): void {
-    this.foodstuffBackendService.fetchUnitChoices().subscribe({
-      next: (unitChoices) => {
+    requests.subscribe({
+      next: ({ verboseNames, unitChoices }) => {
+        console.debug('fetched foodstuff verbose names: ', verboseNames);
         console.debug('fetched foodstuff unit choices: ', unitChoices);
+        this.verboseNames = verboseNames;
         this.unitChoices = unitChoices;
       },
       error: (error) => {
-        console.error('failed to fetch foodstuff unit choices: ', error);
+        console.error('failed to fetch foodstuff meta data: ', error);
       },
     });
   }

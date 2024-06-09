@@ -1,4 +1,4 @@
-import { Component, Signal, inject } from '@angular/core';
+import { Component, Signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatTableModule } from '@angular/material/table';
@@ -7,11 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
-import { VerboseNames } from '../../interfaces/foodstuff-meta-data';
+import { FoodstuffVerboseNames } from '../../interfaces/foodstuff-meta-data';
 
-import { FoodstuffTableDisplayedFieldsServiceService } from '../services/foodstuff-table-displayed-fields-service.service';
-import { FoodstuffTableDisplayedFoodstuffsServiceService } from '../services/foodstuff-table-displayed-foodstuffs-service.service';
-import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
+import { FoodstuffTableDisplayedFieldsService } from '../services/foodstuff-table-displayed-fields.service';
+import { FoodstuffTableDisplayedFoodstuffsService } from '../services/foodstuff-table-displayed-foodstuffs.service';
+import { FoodstuffsService } from '../services/foodstuffs.service';
 
 import { FoodstuffPatchDialogComponent } from '../../dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
 import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
@@ -24,39 +24,43 @@ import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-d
   styleUrl: './foodstuffs-table.component.css',
 })
 export class FoodstuffsTableComponent {
-  displayedFieldsService = inject(FoodstuffTableDisplayedFieldsServiceService);
-  displayedFoodstuffsService = inject(
-    FoodstuffTableDisplayedFoodstuffsServiceService
-  );
-  foodstuffBackendService = inject(FoodstuffBackendService);
+  //#region services
+
+  displayedFieldsService = inject(FoodstuffTableDisplayedFieldsService);
+  displayedFoodstuffsService = inject(FoodstuffTableDisplayedFoodstuffsService);
+  foodstuffsService = inject(FoodstuffsService);
   dialog = inject(MatDialog);
 
-  verboseNames: VerboseNames | null = null;
+  //#endregion
+
+  //#region fields
+
+  verboseNames: Signal<FoodstuffVerboseNames | null> =
+    this.foodstuffsService.verboseNames;
 
   displayedFoodstuffs: Signal<Foodstuff[]> =
     this.displayedFoodstuffsService.displayedFoodstuffs;
-  loadingDisplayedFoodstuffs: Signal<boolean> =
-    this.displayedFoodstuffsService.loading;
-  errorLoadingDisplayedFoodstuffs: Signal<boolean> =
-    this.displayedFoodstuffsService.error;
   displayedFields: Signal<string[]> =
     this.displayedFieldsService.displayedFields;
+  displayedVerboseNames: Signal<FoodstuffVerboseNames> = computed(() => {
+    const verboseNames: FoodstuffVerboseNames | null = this.verboseNames();
+    if (verboseNames == null) {
+      return {
+        name: 'Name',
+        brand: 'Marke',
+        unit: 'Einheit',
+        kcal: 'Kalorien',
+        carbs: 'Kohlenhydrate',
+        protein: 'Protein',
+        fat: 'Fett',
+      };
+    }
+    return verboseNames;
+  });
 
-  ngOnInit(): void {
-    this.fetchVerboseNames();
-  }
+  //#endregion
 
-  fetchVerboseNames(): void {
-    this.foodstuffBackendService.fetchVerboseNames().subscribe({
-      next: (verboseNames) => {
-        console.debug('fetched foodstuff verbose names: ', verboseNames);
-        this.verboseNames = verboseNames;
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuff verbose names: ', error);
-      },
-    });
-  }
+  //#region methods
 
   openEditFoodstuffDialog(foodstuff: Foodstuff): void {
     this.dialog.open(FoodstuffPatchDialogComponent, {
@@ -76,4 +80,6 @@ export class FoodstuffsTableComponent {
       autoFocus: false,
     });
   }
+
+  //#endregion
 }

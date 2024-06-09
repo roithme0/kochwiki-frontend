@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FoodstuffCreateFormComponent } from './foodstuff-create-form/foodstuff-create-form.component';
 import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-header.component';
 
+import { SnackBarService } from '../../../services/snack-bar.service';
+
 @Component({
   selector: 'app-foodstuff-create-dialog',
   standalone: true,
@@ -24,4 +26,10 @@ import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-
 // render foodstuff-create-form
 export class FoodstuffCreateDialogComponent {
   dialogRef = inject(MatDialogRef);
+  snackBarService = inject(SnackBarService);
+
+  OnSuccess() {
+    this.dialogRef.close();
+    this.snackBarService.open('Zutat erstellt');
+  }
 }

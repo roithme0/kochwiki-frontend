@@ -33,3 +33,9 @@ img {
   height: width;
   border-radius: 50%;
 }
+
+.create-user-button {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}

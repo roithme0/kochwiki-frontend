@@ -1,0 +1,34 @@
+<!-- loading -->
+@if(isLoading() == true){
+<mat-spinner />
+}
+
+<!-- error -->
+@else if (hasError() == true) {
+<button mat-icon-button (click)="hasError.set(false)">
+  <mat-icon aria-hidden="false" aria-label="Fehler" fontIcon="error" />
+</button>
+}
+
+<!-- loaded -->
+@else {
+<button mat-icon-button (click)="OnClick()">
+  <!-- isPinned -->
+  @if(isPinned() == true){
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Pin hinzufügen"
+    fontIcon="star"
+  ></mat-icon>
+  }
+
+  <!-- isNotPinned -->
+  @else{
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Pin entfernen"
+    fontIcon="star_border"
+  ></mat-icon>
+  }
+</button>
+}

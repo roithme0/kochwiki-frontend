@@ -1,41 +1,53 @@
 <div class="table-wrapper">
-  @if(verboseNames != null){
   <table mat-table [dataSource]="displayedFoodstuffs()">
     @for (field of displayedFields(); track field) {
 
-    <!-- edit + delete -->
-    @if(field == 'actions'){
-    <ng-container matColumnDef="actions">
+    <!-- edit -->
+    @if(field == 'edit'){
+    <ng-container [matColumnDef]="field">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let foodstuff">
-        <div class="buttons-wrapper">
-          <button mat-icon-button (click)="openEditFoodstuffDialog(foodstuff)">
-            <mat-icon
-              aria-hidden="false"
-              aria-label="Bearbeiten"
-              fontIcon="edit"
-            />
-          </button>
-
-          <button
-            mat-icon-button
-            color="warn"
-            (click)="openDeleteFoodstuffDialog(foodstuff)"
-          >
-            <mat-icon
-              aria-hidden="false"
-              aria-label="Löschen"
-              fontIcon="delete"
-            />
-          </button>
-        </div>
+        <button mat-icon-button (click)="openEditFoodstuffDialog(foodstuff)">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Bearbeiten"
+            fontIcon="edit"
+          />
+        </button>
       </td>
     </ng-container>
+    }
+
+    <!-- delete -->
+    @else if(field == 'delete'){
+    <ng-container [matColumnDef]="field">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let foodstuff">
+        <!-- ony deletable if not used in any recipe -->
+        @if(foodstuff.recipeIds.length == 0){
+
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="openDeleteFoodstuffDialog(foodstuff)"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Löschen"
+            fontIcon="delete"
+          />
+        </button>
+        }
+      </td>
+    </ng-container>
+    }
 
     <!-- foodstuff properties -->
-    }@else{
+    @else{
     <ng-container [matColumnDef]="field">
-      <th mat-header-cell *matHeaderCellDef>{{ verboseNames[field] }}</th>
+      <th mat-header-cell *matHeaderCellDef>
+        {{ displayedVerboseNames()[field] }}
+      </th>
       <td mat-cell *matCellDef="let foodstuff">{{ foodstuff[field] }}</td>
     </ng-container>
     }}
@@ -43,9 +55,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedFields(); sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedFields()"></tr>
   </table>
-  }@else {
-  <span>could not fetch verbose names</span>
-  }
 </div>
 
 <!-- no foodstuffs -->

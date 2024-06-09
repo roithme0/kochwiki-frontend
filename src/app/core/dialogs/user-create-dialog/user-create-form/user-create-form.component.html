@@ -1,0 +1,15 @@
+<form action="POST" [formGroup]="customUserForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Nutzername</mat-label>
+    <input matInput formControlName="username" />
+  </mat-form-field>
+
+  <button
+    mat-stroked-button
+    type="submit"
+    color="primary"
+    [disabled]="!customUserForm.valid"
+  >
+    Erstellen
+  </button>
+</form>

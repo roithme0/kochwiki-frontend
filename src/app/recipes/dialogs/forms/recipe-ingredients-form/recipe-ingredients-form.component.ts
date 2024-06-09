@@ -80,7 +80,7 @@ export class RecipeIngredientsFormComponent {
       this.fb.group({
         index: [1, Validators.required],
         // index: [ingredient?.index ?? null, Validators.required],
-        foodstuffId: [ingredient?.foodstuffId ?? null, Validators.required],
+        foodstuffId: [ingredient?.foodstuff.id ?? null, Validators.required],
         amount: [ingredient?.amount ?? null, Validators.required],
       })
     );
