@@ -21,7 +21,7 @@ import { Observable, forkJoin } from 'rxjs';
   providedIn: 'root',
 })
 // reduces backend calls
-export class FoodstuffTableHelperService {
+export class FoodstuffsService {
   //#region services
 
   private foodstuffBackendService = inject(FoodstuffBackendService);

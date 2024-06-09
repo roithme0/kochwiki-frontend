@@ -11,7 +11,7 @@ import { FoodstuffVerboseNames } from '../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffTableDisplayedFieldsService } from '../services/foodstuff-table-displayed-fields.service';
 import { FoodstuffTableDisplayedFoodstuffsService } from '../services/foodstuff-table-displayed-foodstuffs.service';
-import { FoodstuffTableHelperService } from '../services/foodstuff-table-helper.service';
+import { FoodstuffsService } from '../services/foodstuffs.service';
 
 import { FoodstuffPatchDialogComponent } from '../../dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
 import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
@@ -24,16 +24,20 @@ import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-d
   styleUrl: './foodstuffs-table.component.css',
 })
 export class FoodstuffsTableComponent {
+  //#region services
+
   displayedFieldsService = inject(FoodstuffTableDisplayedFieldsService);
   displayedFoodstuffsService = inject(FoodstuffTableDisplayedFoodstuffsService);
-  foodstuffTableHelperService = inject(FoodstuffTableHelperService);
+  foodstuffsService = inject(FoodstuffsService);
   dialog = inject(MatDialog);
 
-  verboseNames: Signal<FoodstuffVerboseNames | null> =
-    this.foodstuffTableHelperService.verboseNames;
+  //#endregion
 
-  isLoading: Signal<boolean> = this.foodstuffTableHelperService.isLoading;
-  hasError: Signal<boolean> = this.foodstuffTableHelperService.hasError;
+  //#region fields
+
+  verboseNames: Signal<FoodstuffVerboseNames | null> =
+    this.foodstuffsService.verboseNames;
+
   displayedFoodstuffs: Signal<Foodstuff[]> =
     this.displayedFoodstuffsService.displayedFoodstuffs;
   displayedFields: Signal<string[]> =
@@ -54,6 +58,10 @@ export class FoodstuffsTableComponent {
     return verboseNames;
   });
 
+  //#endregion
+
+  //#region methods
+
   openEditFoodstuffDialog(foodstuff: Foodstuff): void {
     this.dialog.open(FoodstuffPatchDialogComponent, {
       data: { id: foodstuff.id },
@@ -72,4 +80,6 @@ export class FoodstuffsTableComponent {
       autoFocus: false,
     });
   }
+
+  //#endregion
 }

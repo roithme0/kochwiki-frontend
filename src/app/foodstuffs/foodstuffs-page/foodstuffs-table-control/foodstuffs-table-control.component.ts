@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { FoodstuffTableControlService } from '../services/foodstuff-table-control.service';
-import { FoodstuffTableHelperService } from '../services/foodstuff-table-helper.service';
+import { FoodstuffsService } from '../services/foodstuffs.service';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 import { FoodstuffUnitChoices } from '../../interfaces/foodstuff-meta-data';
@@ -43,7 +43,7 @@ export class FoodstuffsTableControlComponent {
   //#region services
 
   foodstuffTableControlsService = inject(FoodstuffTableControlService);
-  FoodstuffTableHelperService = inject(FoodstuffTableHelperService);
+  foodstuffsService = inject(FoodstuffsService);
 
   //#endregion
 
@@ -55,7 +55,7 @@ export class FoodstuffsTableControlComponent {
   foodstuffs: Signal<Foodstuff[]> =
     this.foodstuffTableControlsService.foodstuffs;
   unitChoices: Signal<FoodstuffUnitChoices | null> =
-    this.FoodstuffTableHelperService.unitChoices;
+    this.foodstuffsService.unitChoices;
 
   displayedUnitChoices: Signal<FoodstuffUnitChoices> = computed(() => {
     const unitChoices = this.unitChoices();

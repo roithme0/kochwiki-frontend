@@ -9,7 +9,7 @@ import {
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { FoodstuffTableHelperService } from './foodstuff-table-helper.service';
+import { FoodstuffsService } from './foodstuffs.service';
 import { FoodstuffTableControlService } from './foodstuff-table-control.service';
 
 @Injectable({
@@ -18,15 +18,14 @@ import { FoodstuffTableControlService } from './foodstuff-table-control.service'
 export class FoodstuffTableDisplayedFoodstuffsService {
   //#region services
 
-  private foodstuffTableHelperService = inject(FoodstuffTableHelperService);
+  private foodstuffsService = inject(FoodstuffsService);
   private foodstuffsTableControlsService = inject(FoodstuffTableControlService);
 
   //#endregion
 
   //#region fields
 
-  private _foodstuffs: Signal<Foodstuff[]> =
-    this.foodstuffTableHelperService.foodstuffs;
+  private _foodstuffs: Signal<Foodstuff[]> = this.foodstuffsService.foodstuffs;
   private _displayedFoodstuffs: Signal<Foodstuff[]> = computed(() => {
     var displayedFoodstuffs = this._foodstuffs();
     displayedFoodstuffs =

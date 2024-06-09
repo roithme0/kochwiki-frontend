@@ -6,7 +6,7 @@ import { FoodstuffsTableComponent } from './foodstuffs-table/foodstuffs-table.co
 import { FoodstuffsTableCreateFoodstuffComponent } from './foodstuffs-table-create-foodstuff/foodstuffs-table-create-foodstuff.component';
 
 import { PageHeaderService } from '../../services/page-header.service';
-import { FoodstuffTableHelperService } from './services/foodstuff-table-helper.service';
+import { FoodstuffsService } from './services/foodstuffs.service';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,10 +27,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class FoodstuffsPageComponent {
   pageHeaderService = inject(PageHeaderService);
-  foodstuffTableHelperService = inject(FoodstuffTableHelperService);
+  foodstuffsService = inject(FoodstuffsService);
 
-  isLoading: Signal<boolean> = this.foodstuffTableHelperService.isLoading;
-  hasError: Signal<boolean> = this.foodstuffTableHelperService.hasError;
+  isLoading: Signal<boolean> = this.foodstuffsService.isLoading;
+  hasError: Signal<boolean> = this.foodstuffsService.hasError;
 
   ngOnInit() {
     this.pageHeaderService.headline = 'Lebensmittel';
