@@ -24,7 +24,7 @@ export class ActiveCustomUserService {
     const user = this.cookieService.get('activeCustomUser');
     if (user) {
       try {
-        this._activeCustomUser.set(JSON.parse(user));
+        this.activeCustomUser = JSON.parse(user);
       } catch (e) {
         console.error(e);
       }
