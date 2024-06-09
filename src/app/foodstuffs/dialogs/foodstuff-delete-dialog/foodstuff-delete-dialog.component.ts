@@ -25,9 +25,6 @@ import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-
   templateUrl: './foodstuff-delete-dialog.component.html',
   styleUrl: './foodstuff-delete-dialog.component.css',
 })
-// get foodstuff id from mat dialog data
-// fetch foodstuff by id
-// render buttons to delete foodstuff
 export class FoodstuffDeleteDialogComponent {
   dialogRef = inject(MatDialogRef);
   foodstuffBackendService = inject(FoodstuffBackendService);
@@ -43,6 +40,7 @@ export class FoodstuffDeleteDialogComponent {
       },
       error: (error) => {
         console.error('failed to fetch foodstuff: ', error);
+        this.snackBarService.open('Zutat konnte nicht geladen werden');
       },
     });
   }
@@ -54,12 +52,13 @@ export class FoodstuffDeleteDialogComponent {
           .subscribe({
             next: (id) => {
               console.info('foodstuff deleted: ', id);
+              this.snackBarService.open('Zutat gelöscht');
               this.foodstuffBackendService.notifyFoodstuffsChanged();
               this.dialogRef.close();
-              this.snackBarService.open('Zutat gelöscht');
             },
             error: (error) => {
               console.error('failed to delete foodstuff: ', error);
+              this.snackBarService.open('Zutat konnte nicht gelöscht werden');
             },
           })
       : null;

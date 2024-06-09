@@ -10,6 +10,7 @@ import { Recipe } from '../interfaces/recipe';
 
 import { RecipeBackendService } from '../services/recipe-backend.service';
 import { PageHeaderService } from '../../services/page-header.service';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 import { IngredientsGridComponent } from './ingredients-grid/ingredients-grid.component';
 import { StepsGridComponent } from './steps-grid/steps-grid.component';
@@ -38,6 +39,7 @@ export class RecipePageComponent {
   route = inject(ActivatedRoute);
   pageHeaderService = inject(PageHeaderService);
   recipeBackendService = inject(RecipeBackendService);
+  snackBarService = inject(SnackBarService);
   dialog = inject(MatDialog);
 
   id: number | undefined;
@@ -79,6 +81,7 @@ export class RecipePageComponent {
       },
       error: (error: any) => {
         console.error('failed to fetch recipe: ', error);
+        this.snackBarService.open('Rezept konnte nicht geladen werden');
         this.pageHeaderService.headline = 'Fehler';
       },
     });

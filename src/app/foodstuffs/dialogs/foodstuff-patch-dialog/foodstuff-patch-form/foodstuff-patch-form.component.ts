@@ -8,6 +8,7 @@ import { FoodstuffVerboseNames } from '../../../interfaces/foodstuff-meta-data';
 import { FoodstuffUnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffBackendService } from '../../../services/foodstuff-backend.service';
+import { SnackBarService } from '../../../../services/snack-bar.service';
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,11 +33,9 @@ import { Observable, forkJoin } from 'rxjs';
   templateUrl: './foodstuff-patch-form.component.html',
   styleUrl: './foodstuff-patch-form.component.css',
 })
-// fetch foodstuff meta data
-// fetch foodstuff by id
-// render form to edit foodstuff
 export class FoodstuffPatchFormComponent {
   foodstuffBackendService = inject(FoodstuffBackendService);
+  snackBarService = inject(SnackBarService);
   fb = inject(FormBuilder);
 
   id = input.required<number>();
@@ -69,11 +68,13 @@ export class FoodstuffPatchFormComponent {
     this.foodstuffBackendService.patchFoodstuff(this.id(), updates).subscribe({
       next: (foodstuff) => {
         console.debug('foodstuff patched: ', foodstuff);
+        this.snackBarService.open('Zutat aktualisiert');
         this.foodstuffBackendService.notifyFoodstuffsChanged();
         this.success.emit();
       },
       error: (error) => {
         console.error('failed to patch foodstuff: ', error);
+        this.snackBarService.open('Zutat konnte nicht aktualisiert werden');
       },
     });
   }
@@ -86,6 +87,7 @@ export class FoodstuffPatchFormComponent {
       },
       error: (error) => {
         console.error('failed to fetch foodstuff: ', error);
+        this.snackBarService.open('Zutat konnte nicht geladen werden');
       },
     });
   }
@@ -105,6 +107,9 @@ export class FoodstuffPatchFormComponent {
       },
       error: (error) => {
         console.error('failed to fetch foodstuff meta data: ', error);
+        this.snackBarService.open(
+          'Metadaten für Lebensmittel konnten nicht geladen werden'
+        );
       },
     });
   }

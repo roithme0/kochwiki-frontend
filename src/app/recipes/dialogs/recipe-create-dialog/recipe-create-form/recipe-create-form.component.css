@@ -3,7 +3,12 @@
   place-items: center;
 }
 
+mat-spinner {
+  margin: 2rem;
+}
+
 .error {
+  margin: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;

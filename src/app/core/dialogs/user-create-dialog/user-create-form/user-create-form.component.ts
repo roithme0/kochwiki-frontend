@@ -1,8 +1,9 @@
 import { Component, inject, output } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CustomUserBackendService } from '../../../../services/custom-user-backend.service';
+import { SnackBarService } from '../../../../services/snack-bar.service';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -26,6 +27,7 @@ export class UserCreateFormComponent {
   success = output<void>();
 
   customUserBackendService = inject(CustomUserBackendService);
+  snackBarService = inject(SnackBarService);
   fb = inject(FormBuilder);
 
   customUserForm = this.fb.group({
@@ -43,11 +45,13 @@ export class UserCreateFormComponent {
     this.customUserBackendService.postCustomUser(customUser).subscribe({
       next: (customUser: CustomUser) => {
         console.info('customUser created: ', customUser);
+        this.snackBarService.open('Benutzer erstellt');
         this.customUserBackendService.notifyCustomUsersChanged();
         this.success.emit();
       },
       error: (error: any) => {
         console.error('failed to create customUser: ', error);
+        this.snackBarService.open('Benutzer konnte nicht erstellt werden');
       },
     });
   }

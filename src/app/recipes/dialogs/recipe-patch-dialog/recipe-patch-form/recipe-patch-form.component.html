@@ -1,17 +1,17 @@
 <!-- loading -->
-@if (isLoadingFetchRecipe || isLoadingFetchAllFoodstuffs) {
+@if (isLoadingRecipe() || isLoadingFoodstuffs()) {
 <mat-spinner />
 }
 
-<!-- loaded -->
-@else {
-
 <!-- error -->
-@if(hasErrorFetchRecipe || hasErrorFetchAllFoodstuffs) {
-<div>hasErrorFetchRecipe or hasErrorFetchAllFoodstuffs</div>
+@else if(hasErrorRecipe() || hasErrorFoodstuffs()) {
+<div class="error">
+  <mat-icon aria-hidden="false" aria-label="Fehler" fontIcon="error" />
+  <p>Zutaten konnten nicht geladen werden.</p>
+</div>
 }
 
-<!-- no error -->
+<!-- loaded -->
 @else {
 <form [formGroup]="recipeForm" action="PATCH" class="form">
   <mat-stepper #stepper>
@@ -45,4 +45,4 @@
     </button>
   </div>
 </form>
-} }
+}

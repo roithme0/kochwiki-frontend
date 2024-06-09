@@ -7,6 +7,14 @@ mat-spinner {
   margin: 2rem;
 }
 
+.error {
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .form {
   min-width: 0;
   max-width: 100%;

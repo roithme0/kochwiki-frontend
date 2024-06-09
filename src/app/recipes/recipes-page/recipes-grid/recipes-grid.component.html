@@ -1,19 +1,21 @@
 <!-- loading -->
 @if(loadingDisplayedRecipes() == true){
 <div class="spinner-wrapper">
-  <mat-spinner></mat-spinner>
+  <mat-spinner />
 </div>
 }
 
 <!-- error -->
-@if(loadingDisplayedRecipes() == false && errorLoadingDisplayedRecipes() ==
-true) {
+@else if(errorLoadingDisplayedRecipes() == true) {
 <p>Ein Fehler ist aufgetreten</p>
 }
 
 <!-- loaded -->
-@if(loadingDisplayedRecipes() == false && errorLoadingDisplayedRecipes() ==
-false) { @if(displayedRecipes().length > 0){
+@else if(loadingDisplayedRecipes() == false && errorLoadingDisplayedRecipes() ==
+false) {
+
+<!-- recipes -->
+@if(displayedRecipes().length > 0){
 <div class="grid" [style.--columns]="displayedColumns()">
   @for(recipe of displayedRecipes(); track recipe.id){
   <app-recipes-grid-element
@@ -25,6 +27,6 @@ false) { @if(displayedRecipes().length > 0){
 }
 
 <!-- no recipes -->
-@if(displayedRecipes().length == 0){
+@else{
 <p>Keine passenden Rezepte gefunden</p>
 } }

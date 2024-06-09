@@ -15,6 +15,7 @@ import {
 
 import { FoodstuffBackendService } from '../../../../foodstuffs/services/foodstuff-backend.service';
 import { RecipeBackendService } from '../../../services/recipe-backend.service';
+import { SnackBarService } from '../../../../services/snack-bar.service';
 
 import { Foodstuff } from '../../../../foodstuffs/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
@@ -69,6 +70,7 @@ export class RecipeCreateFormComponent {
   fb = inject(FormBuilder);
   foodstuffBackendService = inject(FoodstuffBackendService);
   recipeBackendService = inject(RecipeBackendService);
+  snackBarService = inject(SnackBarService);
 
   success = output<void>();
 
@@ -110,13 +112,12 @@ export class RecipeCreateFormComponent {
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
         this.foodstuffs = foodstuffs;
-
         this.isLoading.set(false);
         this.hasError.set(false);
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
-
+        this.snackBarService.open('Zutaten konnten nicht geladen werden');
         this.isLoading.set(false);
         this.hasError.set(true);
       },
@@ -171,11 +172,13 @@ export class RecipeCreateFormComponent {
     this.recipeBackendService.postRecipe(recipe).subscribe({
       next: (recipe) => {
         console.info('recipe created: ', recipe);
+        this.snackBarService.open('Rezept erstellt');
         this.success.emit();
         this.recipeBackendService.notifyRecipesChanged();
       },
       error: (error) => {
         console.error('failed to create recipe: ', error);
+        this.snackBarService.open('Rezept konnte nicht erstellt werden');
       },
     });
   }

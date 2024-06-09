@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 
 import { ShoppingListBackendService } from '../../services/shopping-list-backend.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { ShoppingListItemIngredient } from '../../interfaces/shopping-list-item-ingredient';
 
@@ -25,6 +26,7 @@ export class ShoppingListTablePinButtonComponent {
   itemIngredient = input.required<ShoppingListItemIngredient>();
 
   shoppingListBackendService = inject(ShoppingListBackendService);
+  snackBarService = inject(SnackBarService);
 
   isPinned: WritableSignal<boolean> = signal(false);
 
@@ -48,6 +50,7 @@ export class ShoppingListTablePinButtonComponent {
         },
         error: (error: any) => {
           console.error('Error setting isPinned: ', error);
+          this.snackBarService.open('Pin konnte nicht gesetzt/entfernt werden');
           this.hasError.set(true);
           this.isLoading.set(false);
         },
