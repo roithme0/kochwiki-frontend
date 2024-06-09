@@ -18,7 +18,7 @@ import { ShoppingListItemVerboseNames } from '../../interfaces/shopping-list-met
 @Injectable({
   providedIn: 'root',
 })
-export class ShoppingListTableHelperService {
+export class ShoppingListService {
   //#region service
 
   private shoppingListBackendService = inject(ShoppingListBackendService);
@@ -53,11 +53,15 @@ export class ShoppingListTableHelperService {
     );
   }
 
-  //#region getters
+  //#region setters
 
   set shoppingList(shoppingList: ShoppingList) {
     this._shoppingList.set(shoppingList);
   }
+
+  //#endregion
+
+  //#region getters
 
   get shoppingList(): Signal<ShoppingList | null> {
     return this._shoppingList;

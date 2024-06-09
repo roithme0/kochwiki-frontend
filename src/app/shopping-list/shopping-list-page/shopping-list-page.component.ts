@@ -1,7 +1,7 @@
 import { Component, Signal, inject } from '@angular/core';
 
 import { PageHeaderService } from '../../services/page-header.service';
-import { ShoppingListTableHelperService } from './services/shopping-list-table-helper.service';
+import { ShoppingListService } from './services/shopping-list.service';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,16 +28,14 @@ import { ShoppingListItemVerboseNames } from '../interfaces/shopping-list-meta-d
 })
 export class ShoppingListPageComponent {
   pageHeaderService = inject(PageHeaderService);
-  shoppingListTableHelperService = inject(ShoppingListTableHelperService);
+  shoppingListService = inject(ShoppingListService);
 
-  isLoadingShoppingList: Signal<boolean> =
-    this.shoppingListTableHelperService.isLoading;
-  hasErrorShoppingList: Signal<boolean> =
-    this.shoppingListTableHelperService.hasError;
+  isLoadingShoppingList: Signal<boolean> = this.shoppingListService.isLoading;
+  hasErrorShoppingList: Signal<boolean> = this.shoppingListService.hasError;
   shoppingList: Signal<ShoppingList | null> =
-    this.shoppingListTableHelperService.shoppingList;
+    this.shoppingListService.shoppingList;
   shoppingListItemVerboseNames: Signal<ShoppingListItemVerboseNames | null> =
-    this.shoppingListTableHelperService.shoppingListItemVerboseNames;
+    this.shoppingListService.shoppingListItemVerboseNames;
 
   // set header values
   ngOnInit() {

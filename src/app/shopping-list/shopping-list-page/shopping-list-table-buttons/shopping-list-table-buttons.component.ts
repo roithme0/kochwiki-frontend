@@ -1,7 +1,7 @@
 import { Component, WritableSignal, inject, signal } from '@angular/core';
 
 import { ShoppingListBackendService } from '../../services/shopping-list-backend.service';
-import { ShoppingListTableHelperService } from '../services/shopping-list-table-helper.service';
+import { ShoppingListService } from '../services/shopping-list.service';
 import { ActiveCustomUserService } from '../../../services/active-custom-user.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 
@@ -20,7 +20,7 @@ import { CustomUser } from '../../../interfaces/custom-user';
 })
 export class ShoppingListTableButtonsComponent {
   shoppingListBackendService = inject(ShoppingListBackendService);
-  shoppingListTableHelperService = inject(ShoppingListTableHelperService);
+  shoppingListService = inject(ShoppingListService);
   activeCustomUserService = inject(ActiveCustomUserService);
   snackBarService = inject(SnackBarService);
 
@@ -41,7 +41,7 @@ export class ShoppingListTableButtonsComponent {
     this.shoppingListBackendService.clearChecked().subscribe({
       next: (shoppingList) => {
         console.info('Shopping list cleared.');
-        this.shoppingListTableHelperService.shoppingList = shoppingList;
+        this.shoppingListService.shoppingList = shoppingList;
         this.snackBarService.open('Abgehakte Artikel gelöscht');
         this.isLoading.set(false);
       },
