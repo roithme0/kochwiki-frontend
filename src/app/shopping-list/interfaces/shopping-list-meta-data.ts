@@ -4,4 +4,5 @@ export interface ShoppingListItemVerboseNames {
   name: string;
   unitVerbose: string;
   brand: string;
+  recipeName: string;
 }

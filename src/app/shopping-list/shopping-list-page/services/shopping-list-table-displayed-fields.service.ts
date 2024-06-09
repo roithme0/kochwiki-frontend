@@ -23,6 +23,10 @@ export class ShoppingListTableDisplayedFieldsService {
     if (this.windowInnerWidth() > 600) {
       displayedFields.push('brand');
     }
+
+    if (this.windowInnerWidth() > 800) {
+      displayedFields.push('recipeName');
+    }
     return displayedFields;
   });
 

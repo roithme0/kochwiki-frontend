@@ -51,6 +51,7 @@ export class ShoppingListTableComponent {
         amount: 'Menge',
         unitVerbose: 'Einheit',
         brand: 'Marke',
+        recipeName: 'Rezept',
       };
     }
     return shoppingListItemVerboseNames;
