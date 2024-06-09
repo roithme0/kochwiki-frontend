@@ -14,6 +14,21 @@ main {
   position: relative;
 }
 
+.spinner-wrapper,
+.error-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 app-foodstuffs-table-control {
   flex: 0;
 }

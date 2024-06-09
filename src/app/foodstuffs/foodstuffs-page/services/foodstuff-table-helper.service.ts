@@ -101,7 +101,7 @@ export class FoodstuffTableHelperService {
           'failed to fetch foodstuffs, verbose names or unit choices: ',
           error
         );
-        this.snackBarService.open('Unerwarteter Fehler');
+        this.snackBarService.open('Zutaten konnten nicht geladen werden');
         this._hasError.set(true);
         this._isLoading.set(false);
       },

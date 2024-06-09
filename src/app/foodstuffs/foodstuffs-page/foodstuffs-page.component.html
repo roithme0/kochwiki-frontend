@@ -1,7 +1,27 @@
 <main>
+  <!-- loading -->
+  @if(isLoading() == true){
+  <div class="spinner-wrapper">
+    <mat-spinner />
+  </div>
+  }
+
+  <!-- error -->
+  @if(hasError() == true){
+  <div class="error-wrapper">
+    <div class="error">
+      <mat-icon aria-hidden="false" aria-label="Fehler" fontIcon="error" />
+      <p>Zutaten konnten nicht geladen werden.</p>
+    </div>
+  </div>
+  }
+
+  <!-- loaded -->
+  @else {
   <app-foodstuffs-table-control />
   <div class="table-wrapper">
     <app-foodstuffs-table />
   </div>
   <app-foodstuffs-table-create-foodstuff />
+  }
 </main>

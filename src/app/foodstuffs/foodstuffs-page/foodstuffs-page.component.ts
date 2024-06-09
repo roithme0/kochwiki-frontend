@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FoodstuffsTableControlComponent } from './foodstuffs-table-control/foodstuffs-table-control.component';
@@ -6,6 +6,10 @@ import { FoodstuffsTableComponent } from './foodstuffs-table/foodstuffs-table.co
 import { FoodstuffsTableCreateFoodstuffComponent } from './foodstuffs-table-create-foodstuff/foodstuffs-table-create-foodstuff.component';
 
 import { PageHeaderService } from '../../services/page-header.service';
+import { FoodstuffTableHelperService } from './services/foodstuff-table-helper.service';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-foodstuffs-page',
@@ -15,14 +19,18 @@ import { PageHeaderService } from '../../services/page-header.service';
     FoodstuffsTableControlComponent,
     FoodstuffsTableComponent,
     FoodstuffsTableCreateFoodstuffComponent,
+    MatProgressSpinnerModule,
+    MatIconModule,
   ],
   templateUrl: './foodstuffs-page.component.html',
   styleUrl: './foodstuffs-page.component.css',
 })
-// set header values
-// render foodtuffs-grid component
 export class FoodstuffsPageComponent {
-  pageHeaderService: PageHeaderService = inject(PageHeaderService);
+  pageHeaderService = inject(PageHeaderService);
+  foodstuffTableHelperService = inject(FoodstuffTableHelperService);
+
+  isLoading: Signal<boolean> = this.foodstuffTableHelperService.isLoading;
+  hasError: Signal<boolean> = this.foodstuffTableHelperService.hasError;
 
   ngOnInit() {
     this.pageHeaderService.headline = 'Lebensmittel';
