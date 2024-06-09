@@ -47,6 +47,7 @@ export class ShoppingListTableButtonsComponent {
       },
       error: (error) => {
         console.error('Error clearing shopping list:', error);
+        this.snackBarService.open('Artikel konnten nicht gelöscht werden');
         this.hasError.set(true);
         this.isLoading.set(false);
       },
