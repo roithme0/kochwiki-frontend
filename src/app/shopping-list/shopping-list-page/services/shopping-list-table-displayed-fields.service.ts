@@ -13,12 +13,7 @@ export class ShoppingListTableDisplayedFieldsService {
 
   // adjust displayed fields based on window with
   private _displayedFields: Signal<string[]> = computed(() => {
-    var displayedFields: string[] = [
-      'isChecked',
-      'name',
-      'amount',
-      'unitVerbose',
-    ];
+    var displayedFields: string[] = ['isChecked', 'name', 'amount'];
     if (this.windowInnerWidth() > 600) {
       displayedFields.push('brand');
     }

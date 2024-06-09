@@ -21,6 +21,18 @@
   </ng-container>
   }
 
+  <!-- amount + unit -->
+  @else if (field == 'amount') {
+  <ng-container [matColumnDef]="field">
+    <th mat-header-cell *matHeaderCellDef>
+      {{ displayedVerboseNames()[field] }}
+    </th>
+    <td mat-cell *matCellDef="let itemIngredient">
+      {{ itemIngredient[field] + " " + itemIngredient["unitVerbose"] }}
+    </td>
+  </ng-container>
+  }
+
   <!-- properties -->
   @else{
   <ng-container [matColumnDef]="field">
