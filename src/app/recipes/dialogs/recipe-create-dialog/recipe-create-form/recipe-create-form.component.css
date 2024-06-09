@@ -3,8 +3,11 @@
   place-items: center;
 }
 
-mat-spinner {
-  margin: 2rem;
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .form {

@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
+import { Observable, forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-foodstuff-patch-form',
   standalone: true,
@@ -54,8 +56,7 @@ export class FoodstuffPatchFormComponent {
   });
 
   ngOnInit(): void {
-    this.fetchFoodstuffVerboseNames();
-    this.fetchFoodstuffUnitChoices();
+    this.fetchMetaData();
     this.fetchFoodstuffById(this.id());
   }
 
@@ -89,26 +90,21 @@ export class FoodstuffPatchFormComponent {
     });
   }
 
-  fetchFoodstuffVerboseNames(): void {
-    this.foodstuffBackendService.fetchFoodstuffVerboseNames().subscribe({
-      next: (verboseNames) => {
-        console.debug('fetched foodstuff verbose names: ', verboseNames);
-        this.verboseNames = verboseNames;
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuff verbose names: ', error);
-      },
+  fetchMetaData(): void {
+    const requests: Observable<any> = forkJoin({
+      verboseNames: this.foodstuffBackendService.fetchFoodstuffVerboseNames(),
+      unitChoices: this.foodstuffBackendService.fetchFoodstuffUnitChoices(),
     });
-  }
 
-  fetchFoodstuffUnitChoices(): void {
-    this.foodstuffBackendService.fetchFoodstuffUnitChoices().subscribe({
-      next: (unitChoices) => {
+    requests.subscribe({
+      next: ({ verboseNames, unitChoices }) => {
+        console.debug('fetched foodstuff verbose names: ', verboseNames);
         console.debug('fetched foodstuff unit choices: ', unitChoices);
+        this.verboseNames = verboseNames;
         this.unitChoices = unitChoices;
       },
       error: (error) => {
-        console.error('failed to fetch foodstuff unit choices: ', error);
+        console.error('failed to fetch foodstuff meta data: ', error);
       },
     });
   }
