@@ -136,9 +136,7 @@ export class ShoppingListBackendService {
 
     return this.http.patch<ShoppingList>(
       backendUrl + '/shoppingLists/clearChecked',
-      {
-        customUserId: activeCustomUser.id,
-      }
+      activeCustomUser.id
     );
   }
 
