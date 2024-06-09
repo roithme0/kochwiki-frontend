@@ -94,7 +94,7 @@ export class FoodstuffsService {
         this._foodstuffs.set(foodstuffs);
         this._verboseNames.set(verboseNames);
         this._unitChoices.set(unitChoices);
-        this._hasError.set(false);
+        this._isLoading.set(false);
       },
       error: (error) => {
         console.error(
