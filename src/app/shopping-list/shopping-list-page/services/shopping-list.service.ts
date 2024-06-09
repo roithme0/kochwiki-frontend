@@ -9,6 +9,7 @@ import {
 
 import { ShoppingListBackendService } from '../../services/shopping-list-backend.service';
 import { ActiveCustomUserService } from '../../../services/active-custom-user.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { CustomUser } from '../../../interfaces/custom-user';
 import { ShoppingList } from '../../interfaces/shopping-list';
@@ -23,6 +24,7 @@ export class ShoppingListService {
 
   private shoppingListBackendService = inject(ShoppingListBackendService);
   private activeCustomUserService = inject(ActiveCustomUserService);
+  private snackBarService = inject(SnackBarService);
 
   //#endregion
 
@@ -102,6 +104,7 @@ export class ShoppingListService {
       },
       error: (error: any) => {
         console.error('Error fetching shopping list:', error);
+        this.snackBarService.open('Einkaufsliste konnte nicht geladen werden');
         this._hasError.set(true);
         this._isLoading.set(false);
       },

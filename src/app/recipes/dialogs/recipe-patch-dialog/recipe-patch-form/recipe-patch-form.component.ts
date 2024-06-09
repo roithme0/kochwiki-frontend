@@ -1,8 +1,16 @@
-import { Component, inject, input, output } from '@angular/core';
+import {
+  Component,
+  WritableSignal,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FoodstuffBackendService } from '../../../../foodstuffs/services/foodstuff-backend.service';
 import { RecipeBackendService } from '../../../services/recipe-backend.service';
+import { SnackBarService } from '../../../../services/snack-bar.service';
 
 import { Foodstuff } from '../../../../foodstuffs/interfaces/foodstuff';
 import { Recipe } from '../../../interfaces/recipe';
@@ -21,6 +29,7 @@ import {
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-recipe-patch-form',
@@ -36,12 +45,11 @@ import { MatDividerModule } from '@angular/material/divider';
     MatStepperModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    MatIconModule,
   ],
   templateUrl: './recipe-patch-form.component.html',
   styleUrl: './recipe-patch-form.component.css',
 })
-// fetch foodstuff associated with recipe
-// render form with values to edit recipe
 export class RecipePatchFormComponent {
   id = input.required<number>();
   success = output<void>();
@@ -49,14 +57,15 @@ export class RecipePatchFormComponent {
   fb = inject(FormBuilder);
   foodstuffBackendService = inject(FoodstuffBackendService);
   recipeBackendService = inject(RecipeBackendService);
+  snackBarService = inject(SnackBarService);
 
   foodstuffs!: Foodstuff[];
   recipe!: Recipe;
 
-  isLoadingFetchAllFoodstuffs: boolean = true;
-  hasErrorFetchAllFoodstuffs: boolean = false;
-  isLoadingFetchRecipe: boolean = true;
-  hasErrorFetchRecipe: boolean = false;
+  isLoadingFoodstuffs: WritableSignal<boolean> = signal(true);
+  hasErrorFoodstuffs: WritableSignal<boolean> = signal(false);
+  isLoadingRecipe: WritableSignal<boolean> = signal(true);
+  hasErrorRecipe: WritableSignal<boolean> = signal(false);
 
   recipeForm = this.fb.group({
     metaFormGroup: this.fb.group({
@@ -93,15 +102,14 @@ export class RecipePatchFormComponent {
       next: (foodstuffs) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
         this.foodstuffs = foodstuffs;
-
-        this.isLoadingFetchAllFoodstuffs = false;
-        this.hasErrorFetchAllFoodstuffs = false;
+        this.isLoadingFoodstuffs.set(false);
+        this.hasErrorFoodstuffs.set(false);
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
-
-        this.isLoadingFetchAllFoodstuffs = false;
-        this.hasErrorFetchAllFoodstuffs = true;
+        this.snackBarService.open('Zutaten konnten nicht geladen werden');
+        this.isLoadingFoodstuffs.set(false);
+        this.hasErrorFoodstuffs.set(true);
       },
     });
   }
@@ -112,15 +120,14 @@ export class RecipePatchFormComponent {
       next: (recipe) => {
         console.debug('fetched recipe: ', recipe);
         this.recipe = recipe;
-
-        this.isLoadingFetchRecipe = false;
-        this.hasErrorFetchRecipe = false;
+        this.isLoadingRecipe.set(false);
+        this.hasErrorRecipe.set(false);
       },
       error: (error) => {
         console.error('failed to fetch recipe: ', error);
-
-        this.isLoadingFetchRecipe = false;
-        this.hasErrorFetchRecipe = true;
+        this.snackBarService.open('Rezept konnte nicht geladen werden');
+        this.isLoadingRecipe.set(false);
+        this.hasErrorRecipe.set(true);
       },
     });
   }
@@ -136,11 +143,13 @@ export class RecipePatchFormComponent {
     this.recipeBackendService.patchRecipe(this.id(), recipe).subscribe({
       next: (recipe) => {
         console.info('recipe patched: ', recipe);
+        this.snackBarService.open('Rezept aktualisiert');
         this.success.emit();
         this.recipeBackendService.notifyRecipesChanged();
       },
       error: (error) => {
         console.error('failed to patch recipe: ', error);
+        this.snackBarService.open('Rezept konnte nicht aktualisiert werden');
       },
     });
   }

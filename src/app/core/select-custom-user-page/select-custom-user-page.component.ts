@@ -3,6 +3,7 @@ import { Component, WritableSignal, inject, signal } from '@angular/core';
 import { PageHeaderService } from '../../services/page-header.service';
 import { CustomUserBackendService } from '../../services/custom-user-backend.service';
 import { ActiveCustomUserService } from '../../services/active-custom-user.service';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 import { UserCreateDialogComponent } from '../dialogs/user-create-dialog/user-create-dialog.component';
 
@@ -24,6 +25,7 @@ export class SelectCustomUserPageComponent {
   pageHeaderService = inject(PageHeaderService);
   customUserBackendService = inject(CustomUserBackendService);
   activeCustomUserService = inject(ActiveCustomUserService);
+  snackBarService = inject(SnackBarService);
   dialog = inject(MatDialog);
 
   isLoading: WritableSignal<boolean> = signal(false);
@@ -56,6 +58,7 @@ export class SelectCustomUserPageComponent {
       },
       error: (error) => {
         console.error('failed to fetch customUsers: ', error);
+        this.snackBarService.open('Benutzer konnten nicht geladen werden');
         this.hasError.set(true);
         this.isLoading.set(false);
       },

@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 
 import { ShoppingListBackendService } from '../../services/shopping-list-backend.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { ShoppingListItemIngredient } from '../../interfaces/shopping-list-item-ingredient';
 
@@ -31,6 +32,7 @@ export class ShoppingListTableCheckboxComponent {
   itemIngredient = input.required<ShoppingListItemIngredient>();
 
   shoppingListBackendService = inject(ShoppingListBackendService);
+  snackBarService = inject(SnackBarService);
 
   isChecked: WritableSignal<boolean> = signal(false);
 
@@ -54,6 +56,9 @@ export class ShoppingListTableCheckboxComponent {
         },
         error: (error: any) => {
           console.error('Error setting isChecked: ', error);
+          this.snackBarService.open(
+            'Haken konnte nicht gesetzt/entfernt werden'
+          );
           this.hasError.set(true);
           this.isLoading.set(false);
         },

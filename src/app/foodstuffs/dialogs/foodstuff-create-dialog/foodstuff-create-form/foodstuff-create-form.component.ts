@@ -8,6 +8,7 @@ import { FoodstuffVerboseNames } from '../../../interfaces/foodstuff-meta-data';
 import { FoodstuffUnitChoices } from '../../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffBackendService } from '../../../services/foodstuff-backend.service';
+import { SnackBarService } from '../../../../services/snack-bar.service';
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,8 +33,6 @@ import { Observable, forkJoin } from 'rxjs';
   templateUrl: './foodstuff-create-form.component.html',
   styleUrl: './foodstuff-create-form.component.css',
 })
-// fetch foodstuff meta data
-// render form to create foodstuff
 export class FoodstuffCreateFormComponent {
   success = output<void>();
 
@@ -41,6 +40,7 @@ export class FoodstuffCreateFormComponent {
   unitChoices: FoodstuffUnitChoices | null = null;
 
   foodstuffBackendService = inject(FoodstuffBackendService);
+  snackBarService = inject(SnackBarService);
   fb = inject(FormBuilder);
 
   foodstuffForm = this.fb.group({
@@ -69,11 +69,13 @@ export class FoodstuffCreateFormComponent {
     this.foodstuffBackendService.postFoodstuff(foodstuff).subscribe({
       next: (foodstuff) => {
         console.info('foodstuff created: ', foodstuff);
+        this.snackBarService.open('Lebensmittel erstellt');
         this.foodstuffBackendService.notifyFoodstuffsChanged();
         this.success.emit();
       },
       error: (error) => {
         console.error('failed to create foodstuff: ', error);
+        this.snackBarService.open('Lebensmittel konnte nicht erstellt werden');
       },
     });
   }
@@ -93,6 +95,9 @@ export class FoodstuffCreateFormComponent {
       },
       error: (error) => {
         console.error('failed to fetch foodstuff meta data: ', error);
+        this.snackBarService.open(
+          'Metadaten für Lebensmittel konnten nicht geladen werden'
+        );
       },
     });
   }

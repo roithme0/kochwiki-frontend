@@ -47,13 +47,14 @@ export class RecipeDeleteDialogComponent {
     this.recipeBackendService.deleteRecipe(this.id).subscribe({
       next: (id) => {
         console.info('recipe deleted: ', id);
+        this.snackBarService.open('Rezept gelöscht');
         this.success.emit();
         this.dialogRef.close();
-        this.snackBarService.open('Rezept gelöscht');
         this.router.navigate(['recipes']);
       },
       error: (error) => {
         console.error('failed to delete recipe: ', error);
+        this.snackBarService.open('Rezept konnte nicht gelöscht werden');
       },
     });
   }

@@ -13,6 +13,7 @@ import { Recipe } from '../../interfaces/recipe';
 import { IngredientsGridShoppingListButtonComponent } from '../ingredients-grid-shopping-list-button/ingredients-grid-shopping-list-button.component';
 
 import { FoodstuffBackendService } from '../../../foodstuffs/services/foodstuff-backend.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -41,6 +42,7 @@ export class IngredientsGridComponent {
   //#region services
 
   foodstuffBackendService = inject(FoodstuffBackendService);
+  snackBarService = inject(SnackBarService);
 
   //#endregion services
 
@@ -85,6 +87,7 @@ export class IngredientsGridComponent {
       },
       error: (error) => {
         console.error('failed to fetch foodstuffs: ', error);
+        this.snackBarService.open('Zutaten konnten nicht geladen werden');
         this.hasError.set(true);
         this.isLoading.set(false);
       },
