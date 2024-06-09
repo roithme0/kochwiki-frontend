@@ -55,6 +55,10 @@ export class ShoppingListTableHelperService {
 
   //#region getters
 
+  set shoppingList(shoppingList: ShoppingList) {
+    this._shoppingList.set(shoppingList);
+  }
+
   get shoppingList(): Signal<ShoppingList | null> {
     return this._shoppingList;
   }
