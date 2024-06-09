@@ -15,7 +15,6 @@ export class ShoppingListTableDisplayedFieldsService {
   private _displayedFields: Signal<string[]> = computed(() => {
     var displayedFields: string[] = [
       'isChecked',
-      'isPinned',
       'name',
       'amount',
       'unitVerbose',
@@ -27,6 +26,7 @@ export class ShoppingListTableDisplayedFieldsService {
     if (this.windowInnerWidth() > 800) {
       displayedFields.push('recipeName');
     }
+    displayedFields.push('isPinned');
     return displayedFields;
   });
 
