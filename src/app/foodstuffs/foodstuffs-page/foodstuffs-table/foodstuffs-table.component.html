@@ -2,37 +2,44 @@
   <table mat-table [dataSource]="displayedFoodstuffs()">
     @for (field of displayedFields(); track field) {
 
-    <!-- edit + delete -->
-    @if(field == 'actions'){
-    <ng-container matColumnDef="actions">
+    <!-- edit -->
+    @if(field == 'edit'){
+    <ng-container [matColumnDef]="field">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let foodstuff">
-        <div class="buttons-wrapper">
-          <button mat-icon-button (click)="openEditFoodstuffDialog(foodstuff)">
-            <mat-icon
-              aria-hidden="false"
-              aria-label="Bearbeiten"
-              fontIcon="edit"
-            />
-          </button>
-
-          <button
-            mat-icon-button
-            color="warn"
-            (click)="openDeleteFoodstuffDialog(foodstuff)"
-          >
-            <mat-icon
-              aria-hidden="false"
-              aria-label="Löschen"
-              fontIcon="delete"
-            />
-          </button>
-        </div>
+        <button mat-icon-button (click)="openEditFoodstuffDialog(foodstuff)">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Bearbeiten"
+            fontIcon="edit"
+          />
+        </button>
       </td>
     </ng-container>
+    }
+
+    <!-- delete -->
+    @else if(field == 'delete'){
+    <ng-container [matColumnDef]="field">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let foodstuff">
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="openDeleteFoodstuffDialog(foodstuff)"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Löschen"
+            fontIcon="delete"
+          />
+        </button>
+      </td>
+    </ng-container>
+    }
 
     <!-- foodstuff properties -->
-    }@else{
+    @else{
     <ng-container [matColumnDef]="field">
       <th mat-header-cell *matHeaderCellDef>
         {{ displayedVerboseNames()[field] }}

@@ -23,7 +23,7 @@ export class FoodstuffTableDisplayedFieldsService {
     if (this.windowInnerWidth() > 1200) {
       displayedFields.push('unitVerbose');
     }
-    displayedFields.push('actions');
+    displayedFields.push('edit', 'delete');
     return displayedFields;
   });
 
