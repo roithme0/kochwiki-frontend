@@ -6,8 +6,8 @@
       placeholder="Name oder Marke suchen ..."
       matInput
       [value]="searchValue()"
-      (input)="OnSeachValueChanged(searchValueField.value)"
-      (selectionchange)="OnSeachValueChanged(searchValueField.value)"
+      (input)="searchValue.set(searchValueField.value)"
+      (selectionchange)="searchValue.set(searchValueField.value)"
       [matAutocomplete]="search"
     />
     @if(searchValue() != ''){
@@ -41,15 +41,17 @@
     <mat-label>Filter</mat-label>
     <mat-select
       #filterValueField
-      (selectionChange)="OnFilterValueChanged(filterValueField.value)"
+      (selectionChange)="filterValue.set(filterValueField.value)"
       [value]="filterValue()"
       placeholder="Einheit auswählen ..."
       single
     >
       <mat-option>Alle</mat-option>
-      @if(unitChoices){@for(choice of getKeys(unitChoices); track choice) {
-      <mat-option [value]="choice">{{ unitChoices[choice] }}</mat-option
-      >} }
+      @for(choice of getKeys(displayedUnitChoices()); track choice) {
+      <mat-option [value]="choice">{{
+        displayedUnitChoices()[choice]
+      }}</mat-option
+      >}
     </mat-select>
   </mat-form-field>
 </form>

@@ -1,4 +1,4 @@
-import { Component, Signal, inject } from '@angular/core';
+import { Component, Signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatTableModule } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { FoodstuffVerboseNames } from '../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffTableDisplayedFieldsService } from '../services/foodstuff-table-displayed-fields.service';
 import { FoodstuffTableDisplayedFoodstuffsService } from '../services/foodstuff-table-displayed-foodstuffs.service';
-import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
+import { FoodstuffTableHelperService } from '../services/foodstuff-table-helper.service';
 
 import { FoodstuffPatchDialogComponent } from '../../dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
 import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-dialog/foodstuff-delete-dialog.component';
@@ -26,35 +26,33 @@ import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-d
 export class FoodstuffsTableComponent {
   displayedFieldsService = inject(FoodstuffTableDisplayedFieldsService);
   displayedFoodstuffsService = inject(FoodstuffTableDisplayedFoodstuffsService);
-  foodstuffBackendService = inject(FoodstuffBackendService);
+  foodstuffTableHelperService = inject(FoodstuffTableHelperService);
   dialog = inject(MatDialog);
 
-  verboseNames: FoodstuffVerboseNames | null = null;
+  verboseNames: Signal<FoodstuffVerboseNames | null> =
+    this.foodstuffTableHelperService.verboseNames;
 
+  isLoading: Signal<boolean> = this.foodstuffTableHelperService.isLoading;
+  hasError: Signal<boolean> = this.foodstuffTableHelperService.hasError;
   displayedFoodstuffs: Signal<Foodstuff[]> =
     this.displayedFoodstuffsService.displayedFoodstuffs;
-  loadingDisplayedFoodstuffs: Signal<boolean> =
-    this.displayedFoodstuffsService.loading;
-  errorLoadingDisplayedFoodstuffs: Signal<boolean> =
-    this.displayedFoodstuffsService.error;
   displayedFields: Signal<string[]> =
     this.displayedFieldsService.displayedFields;
-
-  ngOnInit(): void {
-    this.fetchFoodstuffVerboseNames();
-  }
-
-  fetchFoodstuffVerboseNames(): void {
-    this.foodstuffBackendService.fetchFoodstuffVerboseNames().subscribe({
-      next: (verboseNames) => {
-        console.debug('fetched foodstuff verbose names: ', verboseNames);
-        this.verboseNames = verboseNames;
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuff verbose names: ', error);
-      },
-    });
-  }
+  displayedVerboseNames: Signal<FoodstuffVerboseNames> = computed(() => {
+    const verboseNames: FoodstuffVerboseNames | null = this.verboseNames();
+    if (verboseNames == null) {
+      return {
+        name: 'Name',
+        brand: 'Marke',
+        unit: 'Einheit',
+        kcal: 'Kalorien',
+        carbs: 'Kohlenhydrate',
+        protein: 'Protein',
+        fat: 'Fett',
+      };
+    }
+    return verboseNames;
+  });
 
   openEditFoodstuffDialog(foodstuff: Foodstuff): void {
     this.dialog.open(FoodstuffPatchDialogComponent, {

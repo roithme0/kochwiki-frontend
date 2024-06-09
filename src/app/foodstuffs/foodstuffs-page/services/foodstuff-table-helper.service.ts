@@ -7,21 +7,40 @@ import {
 } from '@angular/core';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
+import {
+  FoodstuffUnitChoices,
+  FoodstuffVerboseNames,
+} from '../../interfaces/foodstuff-meta-data';
 
 import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
+
+import { Observable, forkJoin } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
 // reduces backend calls
 export class FoodstuffTableHelperService {
+  //#region services
+
   private foodstuffBackendService = inject(FoodstuffBackendService);
   private snackBarService = inject(SnackBarService);
 
-  private _foodstuffs: WritableSignal<Foodstuff[]> = signal([]);
+  //#endregion
 
-  private _loading: WritableSignal<boolean> = signal(true);
-  private _error: WritableSignal<boolean> = signal(false);
+  //#region fields
+
+  private _foodstuffs: WritableSignal<Foodstuff[]> = signal([]);
+  private _verboseNames: WritableSignal<FoodstuffVerboseNames | null> =
+    signal(null);
+  private _unitChoices: WritableSignal<FoodstuffUnitChoices | null> =
+    signal(null);
+
+  private _isLoading: WritableSignal<boolean> = signal(true);
+  private _hasError: WritableSignal<boolean> = signal(false);
+
+  //#endregion
 
   constructor() {
     this.foodstuffBackendService.foodstuffs$.subscribe(() => {
@@ -31,36 +50,63 @@ export class FoodstuffTableHelperService {
     this.fetchFoodstuffs();
   }
 
-  get loading(): Signal<boolean> {
-    return this._loading;
+  //#region getters
+
+  get isLoading(): Signal<boolean> {
+    return this._isLoading;
   }
 
-  get error(): Signal<boolean> {
-    return this._error;
+  get hasError(): Signal<boolean> {
+    return this._hasError;
   }
 
   get foodstuffs(): Signal<Foodstuff[]> {
     return this._foodstuffs;
   }
 
-  // fetch all foodstuffs
+  get verboseNames(): Signal<FoodstuffVerboseNames | null> {
+    return this._verboseNames;
+  }
+
+  get unitChoices(): Signal<FoodstuffUnitChoices | null> {
+    return this._unitChoices;
+  }
+
+  //#endregion
+
+  //#region utilities
+
   private async fetchFoodstuffs() {
-    this._loading.set(true);
-    this.foodstuffBackendService.getAllFoodstuffs().subscribe({
-      next: (foodstuffs) => {
+    this._isLoading.set(true);
+    this._hasError.set(false);
+
+    const requests: Observable<any> = forkJoin({
+      foodstuffs: this.foodstuffBackendService.getAllFoodstuffs(),
+      verboseNames: this.foodstuffBackendService.fetchFoodstuffVerboseNames(),
+      unitChoices: this.foodstuffBackendService.fetchFoodstuffUnitChoices(),
+    });
+
+    requests.subscribe({
+      next: ({ foodstuffs, verboseNames, unitChoices }) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
+        console.debug('fetched verbose names: ', verboseNames);
+        console.debug('fetched unit choices: ', unitChoices);
         this._foodstuffs.set(foodstuffs);
-        this._error.set(false);
+        this._verboseNames.set(verboseNames);
+        this._unitChoices.set(unitChoices);
+        this._hasError.set(false);
       },
       error: (error) => {
-        console.error('failed to fetch foodstuffs: ', error);
-        this.snackBarService.open('Lebensmittel konnten nicht geladen werden');
-        this._error.set(true);
-        this._loading.set(false);
-      },
-      complete: () => {
-        this._loading.set(false);
+        console.error(
+          'failed to fetch foodstuffs, verbose names or unit choices: ',
+          error
+        );
+        this.snackBarService.open('Unerwarteter Fehler');
+        this._hasError.set(true);
+        this._isLoading.set(false);
       },
     });
   }
+
+  //#endregion
 }

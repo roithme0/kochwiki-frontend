@@ -31,7 +31,6 @@ export class ShoppingListTableComponent {
     input.required<ShoppingListItemVerboseNames | null>();
 
   shoppingListBackendService = inject(ShoppingListBackendService);
-
   displayedFieldsService = inject(ShoppingListTableDisplayedFieldsService);
 
   displayedItemIngredients: Signal<ShoppingListItemIngredient[]> = computed(
@@ -43,20 +42,19 @@ export class ShoppingListTableComponent {
       return shoppingList.shoppingListItemIngredients;
     }
   );
-  displayedShoppingListItemVerboseNames: Signal<ShoppingListItemVerboseNames> =
-    computed(() => {
-      const shoppingListItemVerboseNames: ShoppingListItemVerboseNames | null =
-        this.shoppingListItemVerboseNames();
-      if (shoppingListItemVerboseNames == null) {
-        return {
-          name: 'Name',
-          amount: 'Menge',
-          unitVerbose: 'Einheit',
-          brand: 'Marke',
-        };
-      }
-      return shoppingListItemVerboseNames;
-    });
+  displayedVerboseNames: Signal<ShoppingListItemVerboseNames> = computed(() => {
+    const shoppingListItemVerboseNames: ShoppingListItemVerboseNames | null =
+      this.shoppingListItemVerboseNames();
+    if (shoppingListItemVerboseNames == null) {
+      return {
+        name: 'Name',
+        amount: 'Menge',
+        unitVerbose: 'Einheit',
+        brand: 'Marke',
+      };
+    }
+    return shoppingListItemVerboseNames;
+  });
   displayedFields: Signal<string[]> =
     this.displayedFieldsService.displayedFields;
 

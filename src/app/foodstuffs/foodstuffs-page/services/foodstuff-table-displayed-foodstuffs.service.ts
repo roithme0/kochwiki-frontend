@@ -16,12 +16,17 @@ import { FoodstuffTableControlService } from './foodstuff-table-control.service'
   providedIn: 'root',
 })
 export class FoodstuffTableDisplayedFoodstuffsService {
+  //#region services
+
   private foodstuffTableHelperService = inject(FoodstuffTableHelperService);
   private foodstuffsTableControlsService = inject(FoodstuffTableControlService);
 
+  //#endregion
+
+  //#region fields
+
   private _foodstuffs: Signal<Foodstuff[]> =
     this.foodstuffTableHelperService.foodstuffs;
-  // apply search & filter functions to foodstuffs
   private _displayedFoodstuffs: Signal<Foodstuff[]> = computed(() => {
     var displayedFoodstuffs = this._foodstuffs();
     displayedFoodstuffs =
@@ -30,45 +35,47 @@ export class FoodstuffTableDisplayedFoodstuffsService {
     return displayedFoodstuffs;
   });
 
-  private searchBy: Signal<string> =
+  private _searchBy: Signal<string> =
     this.foodstuffsTableControlsService.searchBy;
-  private filterBy: Signal<string> =
+  private _filterBy: Signal<string> =
     this.foodstuffsTableControlsService.filterBy;
+
+  //#endregion
+
+  //#region getters
 
   get displayedFoodstuffs(): Signal<Foodstuff[]> {
     return this._displayedFoodstuffs;
   }
 
-  get loading(): Signal<boolean> {
-    return this.foodstuffTableHelperService.loading;
-  }
+  //#endregion
 
-  get error(): Signal<boolean> {
-    return this.foodstuffTableHelperService.error;
-  }
+  //#region utilities
 
   private searchFoodstuffsByNameOrBrand(foodstuffs: Foodstuff[]): Foodstuff[] {
-    const searchBy: string = this.searchBy();
-    console.debug('searching foodstuffs by: ', searchBy);
-    if (searchBy === '') {
+    const _searchBy: string = this._searchBy();
+    console.debug('searching foodstuffs by: ', _searchBy);
+    if (_searchBy === '') {
       return foodstuffs;
     }
     return foodstuffs.filter((foodstuff) => {
       return (
-        foodstuff.name.toLowerCase().includes(searchBy.toLowerCase()) ||
-        foodstuff.brand?.toLowerCase().includes(searchBy.toLowerCase())
+        foodstuff.name.toLowerCase().includes(_searchBy.toLowerCase()) ||
+        foodstuff.brand?.toLowerCase().includes(_searchBy.toLowerCase())
       );
     });
   }
 
   private filterFoodstuffsByUnit(foodstuffs: Foodstuff[]): Foodstuff[] {
-    const filterBy: string = this.filterBy();
-    console.debug('filtering foodstuffs by: ', filterBy);
-    if (filterBy === 'all') {
+    const _filterBy: string = this._filterBy();
+    console.debug('filtering foodstuffs by: ', _filterBy);
+    if (_filterBy === 'all') {
       return foodstuffs;
     }
     return foodstuffs.filter((foodstuff) => {
-      return foodstuff.unit === filterBy;
+      return foodstuff.unit === _filterBy;
     });
   }
+
+  //#endregion
 }

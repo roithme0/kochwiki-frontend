@@ -1,6 +1,5 @@
 import {
   Component,
-  Input,
   Signal,
   WritableSignal,
   computed,
@@ -9,10 +8,10 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FoodstuffTableControlService } from '../services/foodstuff-table-control.service';
-import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
+import { FoodstuffTableHelperService } from '../services/foodstuff-table-helper.service';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 import { FoodstuffUnitChoices } from '../../interfaces/foodstuff-meta-data';
@@ -40,11 +39,35 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './foodstuffs-table-control.component.html',
   styleUrl: './foodstuffs-table-control.component.css',
 })
-// track & emit grid control inputs
-// render grid controls
 export class FoodstuffsTableControlComponent {
+  //#region services
+
+  foodstuffTableControlsService = inject(FoodstuffTableControlService);
+  FoodstuffTableHelperService = inject(FoodstuffTableHelperService);
+
+  //#endregion
+
+  //#region fields
+
   searchValue: WritableSignal<string> = signal('');
   filterValue: WritableSignal<string> = signal('all');
+
+  foodstuffs: Signal<Foodstuff[]> =
+    this.foodstuffTableControlsService.foodstuffs;
+  unitChoices: Signal<FoodstuffUnitChoices | null> =
+    this.FoodstuffTableHelperService.unitChoices;
+
+  displayedUnitChoices: Signal<FoodstuffUnitChoices> = computed(() => {
+    const unitChoices = this.unitChoices();
+    if (unitChoices == null) {
+      return {
+        G: 'g',
+        ML: 'ml',
+        PIECE: 'Stück',
+      };
+    }
+    return unitChoices;
+  });
 
   // generate a list of names of all displayed foodstuffs
   names: Signal<string[]> = computed(() => {
@@ -72,52 +95,22 @@ export class FoodstuffsTableControlComponent {
     return new Set(filtered);
   });
 
-  foodstuffsTableControlsService = inject(FoodstuffTableControlService);
-  foodstuffBackendService = inject(FoodstuffBackendService);
+  //#endregion
 
-  foodstuffs: Signal<Foodstuff[]> =
-    this.foodstuffsTableControlsService.foodstuffs;
-  unitChoices: FoodstuffUnitChoices | null = null;
-
-  // constructor() {
-  //   // should work but does not
-  //   effect(() => {
-  //     this.foodstuffsTableControlsService.searchBy = this.searchValue();
-  //     console.log('searchValue effect fired');
-  //   });
-  //   // should work but does not
-  //   effect(() => {
-  //     this.foodstuffsTableControlsService.filterBy = this.filterValue();
-  //     console.log('filterValue effect fired');
-  //   });
-  // }
-
-  ngOnInit(): void {
-    this.fetchFoodstuffUnitChoices();
-  }
-
-  // workaround for effect not working
-  OnSeachValueChanged(newSearchValue: string): void {
-    this.searchValue.set(newSearchValue);
-    this.foodstuffsTableControlsService.searchBy = this.searchValue();
-  }
-
-  // workaround for effect not working
-  OnFilterValueChanged(newFilterValue: string): void {
-    this.filterValue.set(newFilterValue);
-    this.foodstuffsTableControlsService.filterBy = this.filterValue();
-  }
-
-  fetchFoodstuffUnitChoices(): void {
-    this.foodstuffBackendService.fetchFoodstuffUnitChoices().subscribe({
-      next: (unitChoices) => {
-        console.debug('fetched foodstuff unit choices: ', unitChoices);
-        this.unitChoices = unitChoices;
+  constructor() {
+    effect(
+      () => {
+        console.log('searchValue: ', this.searchValue());
+        this.foodstuffTableControlsService.searchBy = this.searchValue();
       },
-      error: (error) => {
-        console.error('failed to fetch foodstuff unit choices: ', error);
+      { allowSignalWrites: true }
+    );
+    effect(
+      () => {
+        this.foodstuffTableControlsService.filterBy = this.filterValue();
       },
-    });
+      { allowSignalWrites: true }
+    );
   }
 
   // return keys of object
