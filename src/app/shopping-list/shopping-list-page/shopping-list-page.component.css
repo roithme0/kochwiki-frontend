@@ -44,7 +44,7 @@ app-shopping-list-table::after {
   height: 5rem;
 }
 
-app-shopping-list-table-create-foodstuff {
+app-shopping-list-table-buttons {
   position: absolute;
   bottom: 1.5rem;
   right: 1.5rem;
