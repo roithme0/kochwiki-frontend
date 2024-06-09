@@ -125,6 +125,23 @@ export class ShoppingListBackendService {
     );
   }
 
+  public clearChecked(): Observable<ShoppingList> {
+    console.info('PATCH: clearing checked items of shoppingList ...');
+
+    const activeCustomUser: CustomUser | null = this.activeCustomUser();
+    if (activeCustomUser === null) {
+      console.error('No active custom user found.');
+      return new Observable<ShoppingList>();
+    }
+
+    return this.http.patch<ShoppingList>(
+      backendUrl + '/shoppingLists/clearChecked',
+      {
+        customUserId: activeCustomUser.id,
+      }
+    );
+  }
+
   fetchShoppingItemVerboseNames(): Observable<ShoppingListItemVerboseNames> {
     console.debug('GET: fetching itemIngredient verbose names ...');
     return this.http.get<ShoppingListItemVerboseNames>(
