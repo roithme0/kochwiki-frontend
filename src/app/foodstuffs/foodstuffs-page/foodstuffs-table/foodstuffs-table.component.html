@@ -23,6 +23,9 @@
     <ng-container [matColumnDef]="field">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let foodstuff">
+        <!-- ony deletable if not used in any recipe -->
+        @if(foodstuff.recipeIds.length == 0){
+
         <button
           mat-icon-button
           color="warn"
@@ -34,6 +37,7 @@
             fontIcon="delete"
           />
         </button>
+        }
       </td>
     </ng-container>
     }

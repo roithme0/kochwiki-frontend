@@ -11,4 +11,5 @@ export interface Foodstuff {
   carbs: number | null;
   protein: number | null;
   fat: number | null;
+  recipeIds: number[];
 }
