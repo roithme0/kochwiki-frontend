@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { Foodstuff } from '../../interfaces/foodstuff';
 import { FoodstuffVerboseNames } from '../../interfaces/foodstuff-meta-data';
 
-import { FoodstuffTableDisplayedFieldsServiceService } from '../services/foodstuff-table-displayed-fields-service.service';
-import { FoodstuffTableDisplayedFoodstuffsServiceService } from '../services/foodstuff-table-displayed-foodstuffs-service.service';
+import { FoodstuffTableDisplayedFieldsService } from '../services/foodstuff-table-displayed-fields.service';
+import { FoodstuffTableDisplayedFoodstuffsService } from '../services/foodstuff-table-displayed-foodstuffs.service';
 import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 
 import { FoodstuffPatchDialogComponent } from '../../dialogs/foodstuff-patch-dialog/foodstuff-patch-dialog.component';
@@ -24,10 +24,8 @@ import { FoodstuffDeleteDialogComponent } from '../../dialogs/foodstuff-delete-d
   styleUrl: './foodstuffs-table.component.css',
 })
 export class FoodstuffsTableComponent {
-  displayedFieldsService = inject(FoodstuffTableDisplayedFieldsServiceService);
-  displayedFoodstuffsService = inject(
-    FoodstuffTableDisplayedFoodstuffsServiceService
-  );
+  displayedFieldsService = inject(FoodstuffTableDisplayedFieldsService);
+  displayedFoodstuffsService = inject(FoodstuffTableDisplayedFoodstuffsService);
   foodstuffBackendService = inject(FoodstuffBackendService);
   dialog = inject(MatDialog);
 

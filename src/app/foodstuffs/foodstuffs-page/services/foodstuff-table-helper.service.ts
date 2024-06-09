@@ -14,7 +14,7 @@ import { SnackBarService } from '../../../services/snack-bar.service';
   providedIn: 'root',
 })
 // reduces backend calls
-export class FoodstuffTableHelperServiceService {
+export class FoodstuffTableHelperService {
   private foodstuffBackendService = inject(FoodstuffBackendService);
   private snackBarService = inject(SnackBarService);
 

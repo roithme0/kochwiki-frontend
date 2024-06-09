@@ -8,13 +8,13 @@ import {
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { FoodstuffTableHelperServiceService } from './foodstuff-table-helper-service.service';
+import { FoodstuffTableHelperService } from './foodstuff-table-helper.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FoodstuffTableControlServiceService {
-  foodstuffTableHelperService = inject(FoodstuffTableHelperServiceService);
+export class FoodstuffTableControlService {
+  foodstuffTableHelperService = inject(FoodstuffTableHelperService);
 
   private _searchBy: WritableSignal<string> = signal('');
   private _filterBy: WritableSignal<string> = signal('all');

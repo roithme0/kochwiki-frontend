@@ -9,19 +9,15 @@ import {
 
 import { Foodstuff } from '../../interfaces/foodstuff';
 
-import { FoodstuffTableHelperServiceService } from './foodstuff-table-helper-service.service';
-import { FoodstuffTableControlServiceService } from './foodstuff-table-control-service.service';
+import { FoodstuffTableHelperService } from './foodstuff-table-helper.service';
+import { FoodstuffTableControlService } from './foodstuff-table-control.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FoodstuffTableDisplayedFoodstuffsServiceService {
-  private foodstuffTableHelperService = inject(
-    FoodstuffTableHelperServiceService
-  );
-  private foodstuffsTableControlsService = inject(
-    FoodstuffTableControlServiceService
-  );
+export class FoodstuffTableDisplayedFoodstuffsService {
+  private foodstuffTableHelperService = inject(FoodstuffTableHelperService);
+  private foodstuffsTableControlsService = inject(FoodstuffTableControlService);
 
   private _foodstuffs: Signal<Foodstuff[]> =
     this.foodstuffTableHelperService.foodstuffs;

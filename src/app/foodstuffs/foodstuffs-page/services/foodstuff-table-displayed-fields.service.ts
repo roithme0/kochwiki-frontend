@@ -5,7 +5,7 @@ import { WindowWidthService } from '../../../services/window-width.service';
 @Injectable({
   providedIn: 'root',
 })
-export class FoodstuffTableDisplayedFieldsServiceService {
+export class FoodstuffTableDisplayedFieldsService {
   private windowWidthService = inject(WindowWidthService);
 
   private windowInnerWidth: Signal<number> =

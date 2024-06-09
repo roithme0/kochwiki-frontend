@@ -11,7 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import { FoodstuffTableControlServiceService } from '../services/foodstuff-table-control-service.service';
+import { FoodstuffTableControlService } from '../services/foodstuff-table-control.service';
 import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 
 import { Foodstuff } from '../../interfaces/foodstuff';
@@ -72,7 +72,7 @@ export class FoodstuffsTableControlComponent {
     return new Set(filtered);
   });
 
-  foodstuffsTableControlsService = inject(FoodstuffTableControlServiceService);
+  foodstuffsTableControlsService = inject(FoodstuffTableControlService);
   foodstuffBackendService = inject(FoodstuffBackendService);
 
   foodstuffs: Signal<Foodstuff[]> =
