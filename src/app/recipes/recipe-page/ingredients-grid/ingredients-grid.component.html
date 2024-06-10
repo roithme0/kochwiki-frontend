@@ -11,8 +11,9 @@
         @if(isLoading() == false && hasError() == false){ @for(ingredient of
         recipe().ingredients; track ingredient.index){
         <span>{{ ingredient.name }}</span>
-        <span>{{ ingredient.amount }}</span>
-        <span>{{ ingredient.unitVerbose }}</span>
+        <span class="amount"
+          >{{ ingredient.amount }} {{ ingredient.unitVerbose }}</span
+        >
 
         <!-- add to shopping cart -->
         <app-ingredients-grid-shopping-list-button
