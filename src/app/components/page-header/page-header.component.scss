@@ -11,10 +11,10 @@ mat-toolbar {
   --mat-toolbar-mobile-height: 3rem;
   --mat-toolbar-standard-height: 3rem;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .environment {
-  padding-left: 0.5rem;
   font-variant: petite-caps;
 }
 
