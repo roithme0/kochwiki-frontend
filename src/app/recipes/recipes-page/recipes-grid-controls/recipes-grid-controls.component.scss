@@ -2,7 +2,16 @@
 
 :host {
   ::ng-deep .mat-mdc-text-field-wrapper {
+    --mdc-filled-text-field-container-shape: 0.5rem;
+    border-radius: var(--mdc-filled-text-field-container-shape) !important;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
     background-color: $element-background-color !important;
+  }
+
+  ::ng-deep .mdc-line-ripple {
+    display: none !important;
   }
 }
 
