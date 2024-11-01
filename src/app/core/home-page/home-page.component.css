@@ -1,13 +1,20 @@
-nav {
+main {
   display: flex;
-  flex-wrap: wrap;
+}
+
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
   gap: 0.5rem;
 }
 
 a {
-  max-width: 35%;
+  width: 35%;
+  max-width: 150px;
   padding: 5%;
   border-radius: 10%;
+  display: flex;
 
   &:focus,
   &:hover {
