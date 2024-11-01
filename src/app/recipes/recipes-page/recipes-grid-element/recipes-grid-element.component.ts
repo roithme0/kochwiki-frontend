@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatCardModule],
   templateUrl: './recipes-grid-element.component.html',
-  styleUrl: './recipes-grid-element.component.css',
+  styleUrl: './recipes-grid-element.component.scss',
 })
 export class RecipesGridElementComponent {
   recipe = input.required<Recipe>();
