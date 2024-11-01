@@ -1,4 +1,5 @@
-::ng-deep button[mat-icon-button] {
+::ng-deep button[mat-icon-button],
+::ng-deep button[mat-mini-fab] {
   &.medium-size-button {
     $button-size: 2rem;
     $icon-size: 1rem;
@@ -20,6 +21,11 @@
       width: inherit;
       height: inherit;
       line-height: inherit;
+    }
+
+    // mat-mini-fab
+    .mdc-button__label {
+      display: none;
     }
   }
 }

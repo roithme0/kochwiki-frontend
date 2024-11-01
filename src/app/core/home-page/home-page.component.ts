@@ -9,7 +9,7 @@ import { PageHeaderService } from '../../services/page-header.service';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink],
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css',
+  styleUrl: './home-page.component.scss',
 })
 // set header values
 // render navigation

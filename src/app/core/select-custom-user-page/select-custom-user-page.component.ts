@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
   standalone: true,
   imports: [MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './select-custom-user-page.component.html',
-  styleUrl: './select-custom-user-page.component.css',
+  styleUrl: './select-custom-user-page.component.scss',
 })
 export class SelectCustomUserPageComponent {
   pageHeaderService = inject(PageHeaderService);
