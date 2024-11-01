@@ -46,6 +46,6 @@ app-foodstuffs-table::after {
 
 app-foodstuffs-table-create-foodstuff {
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 1rem;
+  right: 1rem;
 }

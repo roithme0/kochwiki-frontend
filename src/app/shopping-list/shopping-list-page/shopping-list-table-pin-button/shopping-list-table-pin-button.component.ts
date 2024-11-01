@@ -11,7 +11,6 @@ import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { ShoppingListItemIngredient } from '../../interfaces/shopping-list-item-ingredient';
 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { take } from 'rxjs';
@@ -19,7 +18,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-shopping-list-table-pin-button',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './shopping-list-table-pin-button.component.html',
   styleUrl: './shopping-list-table-pin-button.component.css',
 })

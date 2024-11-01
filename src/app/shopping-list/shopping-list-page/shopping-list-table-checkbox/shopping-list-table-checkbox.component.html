@@ -1,16 +1,1 @@
-<!-- loading -->
-@if(isLoading() == true){
-<mat-spinner />
-}
-
-<!-- error -->
-@else if (hasError() == true) {
-<button mat-icon-button (click)="hasError.set(false)">
-  <mat-icon aria-hidden="false" aria-label="Fehler" fontIcon="error" />
-</button>
-}
-
-<!-- loaded -->
-@else {
 <mat-checkbox (click)="OnClick()" [checked]="isChecked()"></mat-checkbox>
-}

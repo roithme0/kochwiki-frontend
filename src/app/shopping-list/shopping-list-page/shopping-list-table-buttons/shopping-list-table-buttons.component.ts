@@ -5,7 +5,6 @@ import { ShoppingListService } from '../services/shopping-list.service';
 import { ActiveCustomUserService } from '../../../services/active-custom-user.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -15,7 +14,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-shopping-list-table-buttons',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './shopping-list-table-buttons.component.html',
   styleUrl: './shopping-list-table-buttons.component.css',
 })

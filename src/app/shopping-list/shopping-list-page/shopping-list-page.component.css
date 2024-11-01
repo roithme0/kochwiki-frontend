@@ -46,6 +46,6 @@ app-shopping-list-table::after {
 
 app-shopping-list-table-buttons {
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 1rem;
+  right: 1rem;
 }
