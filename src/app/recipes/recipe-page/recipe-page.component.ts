@@ -32,7 +32,7 @@ import { take, takeUntil } from 'rxjs';
     MatButtonModule,
   ],
   templateUrl: './recipe-page.component.html',
-  styleUrl: './recipe-page.component.css',
+  styleUrl: './recipe-page.component.scss',
 })
 // set header values
 // fetch recipe

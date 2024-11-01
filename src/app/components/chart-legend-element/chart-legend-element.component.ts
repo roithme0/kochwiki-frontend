@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   imports: [CommonModule, MatCardModule],
   templateUrl: './chart-legend-element.component.html',
-  styleUrl: './chart-legend-element.component.css',
+  styleUrl: './chart-legend-element.component.scss',
 })
 export class ChartLegendElementComponent {
   legendElement = input.required<ChartLegendElement>();

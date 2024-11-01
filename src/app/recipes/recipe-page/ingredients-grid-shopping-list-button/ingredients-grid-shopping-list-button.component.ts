@@ -26,25 +26,15 @@ import { take } from 'rxjs';
   standalone: true,
   imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule],
   templateUrl: './ingredients-grid-shopping-list-button.component.html',
-  styleUrl: './ingredients-grid-shopping-list-button.component.css',
+  styleUrl: './ingredients-grid-shopping-list-button.component.scss',
 })
 export class IngredientsGridShoppingListButtonComponent {
-  //#region inputs and outputs
-
   ingredient = input.required<Ingredient>();
   servings = input.required<number>();
-
-  //#endregion
-
-  //#region services
 
   activeCustomUserService = inject(ActiveCustomUserService);
   shoppingListBackendService = inject(ShoppingListBackendService);
   snackBarService = inject(SnackBarService);
-
-  //#endregion
-
-  //#region fields
 
   activeCustomUser: Signal<CustomUser | null> =
     this.activeCustomUserService.activeCustomUser;
@@ -52,8 +42,6 @@ export class IngredientsGridShoppingListButtonComponent {
   isAddedToShoppingList: WritableSignal<boolean> = signal(false);
   isLoading: WritableSignal<boolean> = signal(false);
   hasError: WritableSignal<boolean> = signal(false);
-
-  //#endregion
 
   ngOnInit() {
     this.setIsAddedToShoppingList();

@@ -1,3 +1,6 @@
+@import "../../../styles/styles.scss";
+@import "../../../styles/mat-button-styles.scss";
+
 :host {
   /* stretch hole page */
   display: inline-block;
@@ -24,7 +27,7 @@ article {
 }
 
 .spacer {
-  flex: 0 0 5rem;
+  flex: 0 0 4rem;
 }
 img {
   flex: 0 0 40%;
@@ -36,4 +39,8 @@ img {
   bottom: 1.5rem;
   display: flex;
   gap: 0.5rem;
+}
+
+.no-recipe {
+  font-size: $standard-font-size;
 }

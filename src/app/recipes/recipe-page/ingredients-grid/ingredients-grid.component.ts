@@ -30,7 +30,7 @@ import { forkJoin, take } from 'rxjs';
     IngredientsGridShoppingListButtonComponent,
   ],
   templateUrl: './ingredients-grid.component.html',
-  styleUrl: './ingredients-grid.component.css',
+  styleUrl: './ingredients-grid.component.scss',
 })
 export class IngredientsGridComponent {
   //#region inputs and outputs

@@ -1,8 +1,10 @@
+@import "./styles.scss";
+
 ::ng-deep button[mat-icon-button],
 ::ng-deep button[mat-mini-fab] {
   &.medium-size-button {
-    $button-size: 2rem;
-    $icon-size: 1rem;
+    $button-size: calc($standard-font-size * 2.75);
+    $icon-size: calc($standard-font-size * 1.5);
 
     width: $button-size;
     height: $button-size;

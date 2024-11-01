@@ -1,12 +1,22 @@
-$page-header-font-size: 1rem;
+$page-header-font-size: 1.1rem;
 $headline-font-size: 0.9rem;
 $standard-font-size: 0.8rem;
 
 $element-background-color: rgba(128, 128, 128, 0.1);
 $element-box-shadow: var(--mdc-elevated-card-container-elevation);
 
+// drop down of auto complete field
+::ng-deep .mat-mdc-autocomplete-panel {
+  border-radius: var(--mat-autocomplete-container-shape) !important;
+}
+
 html,
 body {
+  // drop down of auto complete field
+  --mat-autocomplete-container-shape: 0.5rem;
+  --mat-optgroup-label-text-size: #{$standard-font-size};
+  --mat-option-label-text-size: #{$standard-font-size};
+
   height: 100%; /* auto added by material ui */
 }
 

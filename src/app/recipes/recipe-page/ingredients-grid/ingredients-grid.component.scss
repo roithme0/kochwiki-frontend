@@ -1,9 +1,14 @@
+@import "../../../../styles/mat-card-styles.scss";
+
+mat-card {
+  gap: 0.5rem;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr min-content min-content;
   align-items: center;
-  gap: 0.25rem 0.5rem;
-  padding: 1.5rem 0;
+  gap: 0 0.5rem;
 }
 
 .progress-bar-wrapper {
@@ -17,4 +22,14 @@
 
 .amount {
   text-wrap: nowrap;
+}
+
+mat-card-footer {
+  display: flex;
+  justify-content: center;
+}
+
+mat-progress-bar {
+  height: 2px;
+  width: calc(100% - 2rem);
 }

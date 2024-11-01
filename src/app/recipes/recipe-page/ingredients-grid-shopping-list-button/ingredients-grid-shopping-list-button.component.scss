@@ -1,0 +1,7 @@
+@import "../../../../styles/mat-button-styles.scss";
+
+mat-spinner {
+  // equals button size
+  height: calc($standard-font-size * 1.5) !important;
+  width: calc($standard-font-size * 1.5) !important;
+}
