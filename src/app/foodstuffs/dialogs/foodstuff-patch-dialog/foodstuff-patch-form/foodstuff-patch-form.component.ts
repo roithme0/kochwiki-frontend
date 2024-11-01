@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, take } from 'rxjs';
 
 @Component({
   selector: 'app-foodstuff-patch-form',
@@ -65,31 +65,37 @@ export class FoodstuffPatchFormComponent {
     console.debug('submitting patch foodstuff form: ', formData);
     const updates: Partial<Foodstuff> = formData as Foodstuff;
 
-    this.foodstuffBackendService.patchFoodstuff(this.id(), updates).subscribe({
-      next: (foodstuff) => {
-        console.debug('foodstuff patched: ', foodstuff);
-        this.snackBarService.open('Zutat aktualisiert');
-        this.foodstuffBackendService.notifyFoodstuffsChanged();
-        this.success.emit();
-      },
-      error: (error) => {
-        console.error('failed to patch foodstuff: ', error);
-        this.snackBarService.open('Zutat konnte nicht aktualisiert werden');
-      },
-    });
+    this.foodstuffBackendService
+      .patchFoodstuff(this.id(), updates)
+      .pipe(take(1))
+      .subscribe({
+        next: (foodstuff) => {
+          console.debug('foodstuff patched: ', foodstuff);
+          this.snackBarService.open('Zutat aktualisiert');
+          this.foodstuffBackendService.notifyFoodstuffsChanged();
+          this.success.emit();
+        },
+        error: (error) => {
+          console.error('failed to patch foodstuff: ', error);
+          this.snackBarService.open('Zutat konnte nicht aktualisiert werden');
+        },
+      });
   }
 
   fetchFoodstuffById(id: number): void {
-    this.foodstuffBackendService.getFoodstuffById(id).subscribe({
-      next: (foodstuff) => {
-        console.debug('foodstuff fetched: ', foodstuff);
-        this.foodstuffForm.patchValue(foodstuff);
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuff: ', error);
-        this.snackBarService.open('Zutat konnte nicht geladen werden');
-      },
-    });
+    this.foodstuffBackendService
+      .getFoodstuffById(id)
+      .pipe(take(1))
+      .subscribe({
+        next: (foodstuff) => {
+          console.debug('foodstuff fetched: ', foodstuff);
+          this.foodstuffForm.patchValue(foodstuff);
+        },
+        error: (error) => {
+          console.error('failed to fetch foodstuff: ', error);
+          this.snackBarService.open('Zutat konnte nicht geladen werden');
+        },
+      });
   }
 
   fetchMetaData(): void {
@@ -98,7 +104,7 @@ export class FoodstuffPatchFormComponent {
       unitChoices: this.foodstuffBackendService.fetchFoodstuffUnitChoices(),
     });
 
-    requests.subscribe({
+    requests.pipe(take(1)).subscribe({
       next: ({ verboseNames, unitChoices }) => {
         console.debug('fetched foodstuff verbose names: ', verboseNames);
         console.debug('fetched foodstuff unit choices: ', unitChoices);

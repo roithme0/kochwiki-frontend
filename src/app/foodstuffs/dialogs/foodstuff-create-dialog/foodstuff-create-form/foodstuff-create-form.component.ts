@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, take } from 'rxjs';
 
 @Component({
   selector: 'app-foodstuff-create-form',
@@ -66,18 +66,23 @@ export class FoodstuffCreateFormComponent {
     );
     const foodstuff: Partial<Foodstuff> = this.foodstuffForm.value as Foodstuff;
 
-    this.foodstuffBackendService.postFoodstuff(foodstuff).subscribe({
-      next: (foodstuff) => {
-        console.info('foodstuff created: ', foodstuff);
-        this.snackBarService.open('Lebensmittel erstellt');
-        this.foodstuffBackendService.notifyFoodstuffsChanged();
-        this.success.emit();
-      },
-      error: (error) => {
-        console.error('failed to create foodstuff: ', error);
-        this.snackBarService.open('Lebensmittel konnte nicht erstellt werden');
-      },
-    });
+    this.foodstuffBackendService
+      .postFoodstuff(foodstuff)
+      .pipe(take(1))
+      .subscribe({
+        next: (foodstuff) => {
+          console.info('foodstuff created: ', foodstuff);
+          this.snackBarService.open('Lebensmittel erstellt');
+          this.foodstuffBackendService.notifyFoodstuffsChanged();
+          this.success.emit();
+        },
+        error: (error) => {
+          console.error('failed to create foodstuff: ', error);
+          this.snackBarService.open(
+            'Lebensmittel konnte nicht erstellt werden'
+          );
+        },
+      });
   }
 
   fetchMetaData(): void {
@@ -86,7 +91,7 @@ export class FoodstuffCreateFormComponent {
       unitChoices: this.foodstuffBackendService.fetchFoodstuffUnitChoices(),
     });
 
-    requests.subscribe({
+    requests.pipe(take(1)).subscribe({
       next: ({ verboseNames, unitChoices }) => {
         console.debug('fetched foodstuff verbose names: ', verboseNames);
         console.debug('fetched foodstuff unit choices: ', unitChoices);

@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CustomUser } from '../../../interfaces/custom-user';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list-table-buttons',
@@ -38,19 +39,21 @@ export class ShoppingListTableButtonsComponent {
       return;
     }
 
-    this.shoppingListBackendService.clearChecked().subscribe({
-      next: (shoppingList) => {
-        console.info('Shopping list cleared.');
-        this.shoppingListService.shoppingList = shoppingList;
-        this.snackBarService.open('Abgehakte Artikel gelöscht');
-        this.isLoading.set(false);
-      },
-      error: (error) => {
-        console.error('Error clearing shopping list:', error);
-        this.snackBarService.open('Artikel konnten nicht gelöscht werden');
-        this.hasError.set(true);
-        this.isLoading.set(false);
-      },
-    });
+    this.shoppingListBackendService
+      .clearChecked()
+      .pipe(take(1))
+      .subscribe({
+        next: (shoppingList) => {
+          this.shoppingListService.shoppingList = shoppingList;
+          this.snackBarService.open('Abgehakte Artikel gelöscht');
+          this.isLoading.set(false);
+        },
+        error: (error) => {
+          console.error('Error clearing shopping list:', error);
+          this.snackBarService.open('Artikel konnten nicht gelöscht werden');
+          this.hasError.set(true);
+          this.isLoading.set(false);
+        },
+      });
   }
 }

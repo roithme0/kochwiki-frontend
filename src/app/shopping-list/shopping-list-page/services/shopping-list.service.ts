@@ -13,7 +13,7 @@ import { SnackBarService } from '../../../services/snack-bar.service';
 
 import { CustomUser } from '../../../interfaces/custom-user';
 import { ShoppingList } from '../../interfaces/shopping-list';
-import { forkJoin } from 'rxjs';
+import { forkJoin, take } from 'rxjs';
 import { ShoppingListItemVerboseNames } from '../../interfaces/shopping-list-meta-data';
 
 @Injectable({
@@ -96,19 +96,23 @@ export class ShoppingListService {
         ),
       shoppingListItemVerboseNames:
         this.shoppingListBackendService.fetchShoppingItemVerboseNames(),
-    }).subscribe({
-      next: ({ shoppingList, shoppingListItemVerboseNames }) => {
-        this._shoppingList.set(shoppingList);
-        this._shoppingListItemVerboseNames.set(shoppingListItemVerboseNames);
-        this._isLoading.set(false);
-      },
-      error: (error: any) => {
-        console.error('Error fetching shopping list:', error);
-        this.snackBarService.open('Einkaufsliste konnte nicht geladen werden');
-        this._hasError.set(true);
-        this._isLoading.set(false);
-      },
-    });
+    })
+      .pipe(take(1))
+      .subscribe({
+        next: ({ shoppingList, shoppingListItemVerboseNames }) => {
+          this._shoppingList.set(shoppingList);
+          this._shoppingListItemVerboseNames.set(shoppingListItemVerboseNames);
+          this._isLoading.set(false);
+        },
+        error: (error: any) => {
+          console.error('Error fetching shopping list:', error);
+          this.snackBarService.open(
+            'Einkaufsliste konnte nicht geladen werden'
+          );
+          this._hasError.set(true);
+          this._isLoading.set(false);
+        },
+      });
   }
 
   //#endregion

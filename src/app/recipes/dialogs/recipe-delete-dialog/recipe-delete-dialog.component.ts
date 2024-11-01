@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-header.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-delete-dialog',
@@ -44,18 +45,21 @@ export class RecipeDeleteDialogComponent {
       return;
     }
 
-    this.recipeBackendService.deleteRecipe(this.id).subscribe({
-      next: (id) => {
-        console.info('recipe deleted: ', id);
-        this.snackBarService.open('Rezept gelöscht');
-        this.success.emit();
-        this.dialogRef.close();
-        this.router.navigate(['recipes']);
-      },
-      error: (error) => {
-        console.error('failed to delete recipe: ', error);
-        this.snackBarService.open('Rezept konnte nicht gelöscht werden');
-      },
-    });
+    this.recipeBackendService
+      .deleteRecipe(this.id)
+      .pipe(take(1))
+      .subscribe({
+        next: (id) => {
+          console.info('recipe deleted: ', id);
+          this.snackBarService.open('Rezept gelöscht');
+          this.success.emit();
+          this.dialogRef.close();
+          this.router.navigate(['recipes']);
+        },
+        error: (error) => {
+          console.error('failed to delete recipe: ', error);
+          this.snackBarService.open('Rezept konnte nicht gelöscht werden');
+        },
+      });
   }
 }

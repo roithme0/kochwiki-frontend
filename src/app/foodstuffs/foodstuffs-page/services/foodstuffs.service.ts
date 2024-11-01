@@ -15,13 +15,14 @@ import {
 import { FoodstuffBackendService } from '../../services/foodstuff-backend.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, take, takeUntil } from 'rxjs';
+import { Unsubscribe } from '../../../utils/unsubsribe';
 
 @Injectable({
   providedIn: 'root',
 })
 // reduces backend calls
-export class FoodstuffsService {
+export class FoodstuffsService extends Unsubscribe {
   //#region services
 
   private foodstuffBackendService = inject(FoodstuffBackendService);
@@ -43,9 +44,13 @@ export class FoodstuffsService {
   //#endregion
 
   constructor() {
-    this.foodstuffBackendService.foodstuffs$.subscribe(() => {
-      this.fetchFoodstuffs();
-    });
+    super();
+
+    this.foodstuffBackendService.foodstuffs$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.fetchFoodstuffs();
+      });
 
     this.fetchFoodstuffs();
   }
@@ -86,7 +91,7 @@ export class FoodstuffsService {
       unitChoices: this.foodstuffBackendService.fetchFoodstuffUnitChoices(),
     });
 
-    requests.subscribe({
+    requests.pipe(take(1)).subscribe({
       next: ({ foodstuffs, verboseNames, unitChoices }) => {
         console.debug('fetched foodstuffs: ', foodstuffs);
         console.debug('fetched verbose names: ', verboseNames);

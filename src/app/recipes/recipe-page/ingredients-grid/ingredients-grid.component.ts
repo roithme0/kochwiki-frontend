@@ -18,7 +18,7 @@ import { SnackBarService } from '../../../services/snack-bar.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { forkJoin } from 'rxjs';
+import { forkJoin, take } from 'rxjs';
 
 @Component({
   selector: 'app-ingredients-grid',
@@ -77,21 +77,23 @@ export class IngredientsGridComponent {
       return;
     }
 
-    forkJoin(requests).subscribe({
-      next: (foodstuffs) => {
-        console.debug('fetched foodstuffs: ', foodstuffs);
-        for (let i = 0; i < foodstuffs.length; i++) {
-          this.recipe().ingredients[i].foodstuff = foodstuffs[i];
-        }
-        this.isLoading.set(false);
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuffs: ', error);
-        this.snackBarService.open('Zutaten konnten nicht geladen werden');
-        this.hasError.set(true);
-        this.isLoading.set(false);
-      },
-    });
+    forkJoin(requests)
+      .pipe(take(1))
+      .subscribe({
+        next: (foodstuffs) => {
+          console.debug('fetched foodstuffs: ', foodstuffs);
+          for (let i = 0; i < foodstuffs.length; i++) {
+            this.recipe().ingredients[i].foodstuff = foodstuffs[i];
+          }
+          this.isLoading.set(false);
+        },
+        error: (error) => {
+          console.error('failed to fetch foodstuffs: ', error);
+          this.snackBarService.open('Zutaten konnten nicht geladen werden');
+          this.hasError.set(true);
+          this.isLoading.set(false);
+        },
+      });
   }
 
   //#endregion

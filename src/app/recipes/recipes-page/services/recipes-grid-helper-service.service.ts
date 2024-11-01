@@ -11,11 +11,13 @@ import { Recipe } from '../../interfaces/recipe';
 
 import { RecipeBackendService } from '../../services/recipe-backend.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { Unsubscribe } from '../../../utils/unsubsribe';
+import { take, takeUntil } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RecipesGridHelperServiceService {
+export class RecipesGridHelperServiceService extends Unsubscribe {
   private recipeBackendService = inject(RecipeBackendService);
   private snackBarService = inject(SnackBarService);
 
@@ -25,9 +27,13 @@ export class RecipesGridHelperServiceService {
 
   // track changes to recipes
   constructor() {
-    this.recipeBackendService.recipes$.subscribe(() => {
-      this.fetchRecipes();
-    });
+    super();
+
+    this.recipeBackendService.recipes$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.fetchRecipes();
+      });
 
     this.fetchRecipes();
   }
@@ -47,21 +53,24 @@ export class RecipesGridHelperServiceService {
   // fetch all recipes
   private async fetchRecipes() {
     this._loading.set(true);
-    this.recipeBackendService.getAllRecipes().subscribe({
-      next: (recipes) => {
-        console.debug('fetched recipes: ', recipes);
-        this._recipes.set(recipes);
-        this._error.set(false);
-      },
-      error: (err) => {
-        console.error('failed to fetch recipes: ', err);
-        this.snackBarService.open('Rezepte konnten nicht geladen werden');
-        this._error.set(true);
-        this._loading.set(false);
-      },
-      complete: () => {
-        this._loading.set(false);
-      },
-    });
+    this.recipeBackendService
+      .getAllRecipes()
+      .pipe(take(1))
+      .subscribe({
+        next: (recipes) => {
+          console.debug('fetched recipes: ', recipes);
+          this._recipes.set(recipes);
+          this._error.set(false);
+        },
+        error: (err) => {
+          console.error('failed to fetch recipes: ', err);
+          this.snackBarService.open('Rezepte konnten nicht geladen werden');
+          this._error.set(true);
+          this._loading.set(false);
+        },
+        complete: () => {
+          this._loading.set(false);
+        },
+      });
   }
 }
