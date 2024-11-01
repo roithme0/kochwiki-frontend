@@ -19,9 +19,9 @@ nav {
 
 mat-card {
   --mdc-elevated-card-container-shape: 15%;
-  --mat-card-title-text-line-height: $standard-font-size;
-  --mat-card-title-text-size: $standard-font-size;
-  --mdc-elevated-card-container-color: $element-background-color;
+  --mat-card-title-text-line-height: #{$standard-font-size};
+  --mat-card-title-text-size: #{$standard-font-size};
+  --mdc-elevated-card-container-color: #{$element-background-color};
   width: 33%;
   max-width: 150px;
 

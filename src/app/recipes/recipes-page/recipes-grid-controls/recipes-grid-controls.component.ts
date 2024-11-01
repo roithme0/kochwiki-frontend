@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,7 +34,7 @@ import { RecipesGridControlsService } from '../services/recipes-grid-controls.se
     MatButtonModule,
   ],
   templateUrl: './recipes-grid-controls.component.html',
-  styleUrl: './recipes-grid-controls.component.css',
+  styleUrl: './recipes-grid-controls.component.scss',
 })
 // generate a list of names and origins of all displayed recipes
 // render recipe grid controls

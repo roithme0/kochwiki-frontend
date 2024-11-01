@@ -12,7 +12,7 @@ import { RecipeCreateDialogComponent } from '../../dialogs/recipe-create-dialog/
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './recipes-grid-create-recipe.component.html',
-  styleUrl: './recipes-grid-create-recipe.component.css',
+  styleUrl: './recipes-grid-create-recipe.component.scss',
 })
 export class RecipesGridCreateRecipeComponent {
   dialog = inject(MatDialog);

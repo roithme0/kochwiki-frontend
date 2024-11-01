@@ -7,7 +7,7 @@
 }
 
 mat-toolbar {
-  --mat-toolbar-title-text-size: $page-header-font-size;
+  --mat-toolbar-title-text-size: #{$page-header-font-size};
   --mat-toolbar-mobile-height: 3rem;
   --mat-toolbar-standard-height: 3rem;
   align-items: center;
