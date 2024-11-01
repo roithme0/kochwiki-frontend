@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 import { DialogHeaderComponent } from '../../../components/dialog-header/dialog-header.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-foodstuff-delete-dialog',
@@ -33,22 +34,26 @@ export class FoodstuffDeleteDialogComponent {
   foodstuff: Foodstuff | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { id: number }) {
-    this.foodstuffBackendService.getFoodstuffById(data.id).subscribe({
-      next: (foodstuff) => {
-        console.debug('foodstuff fetched: ', foodstuff);
-        this.foodstuff = foodstuff;
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuff: ', error);
-        this.snackBarService.open('Zutat konnte nicht geladen werden');
-      },
-    });
+    this.foodstuffBackendService
+      .getFoodstuffById(data.id)
+      .pipe(take(1))
+      .subscribe({
+        next: (foodstuff) => {
+          console.debug('foodstuff fetched: ', foodstuff);
+          this.foodstuff = foodstuff;
+        },
+        error: (error) => {
+          console.error('failed to fetch foodstuff: ', error);
+          this.snackBarService.open('Zutat konnte nicht geladen werden');
+        },
+      });
   }
 
   deleteFoodstuff(): void {
     this.foodstuff?.id
       ? this.foodstuffBackendService
           .deleteFoodstuff(this.foodstuff.id)
+          .pipe(take(1))
           .subscribe({
             next: (id) => {
               console.info('foodstuff deleted: ', id);

@@ -17,6 +17,8 @@ import { StepsGridComponent } from './steps-grid/steps-grid.component';
 import { RecipeMacroChartComponent } from './recipe-macro-chart/recipe-macro-chart.component';
 import { RecipePatchDialogComponent } from '../dialogs/recipe-patch-dialog/recipe-patch-dialog.component';
 import { RecipeDeleteDialogComponent } from '../dialogs/recipe-delete-dialog/recipe-delete-dialog.component';
+import { Unsubscribe } from '../../utils/unsubsribe';
+import { take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-page',
@@ -35,7 +37,7 @@ import { RecipeDeleteDialogComponent } from '../dialogs/recipe-delete-dialog/rec
 // set header values
 // fetch recipe
 // render recipe details
-export class RecipePageComponent {
+export class RecipePageComponent extends Unsubscribe {
   route = inject(ActivatedRoute);
   pageHeaderService = inject(PageHeaderService);
   recipeBackendService = inject(RecipeBackendService);
@@ -48,12 +50,16 @@ export class RecipePageComponent {
   // fetch recipe id from route
   // track recipe changes
   constructor() {
+    super();
+
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     console.debug('id: ', this.id);
 
-    this.recipeBackendService.recipes$.subscribe(() => {
-      this.fetchRecipe(this.id);
-    });
+    this.recipeBackendService.recipes$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.fetchRecipe(this.id);
+      });
   }
 
   // set headline
@@ -73,18 +79,21 @@ export class RecipePageComponent {
       return;
     }
 
-    this.recipeBackendService.getRecipeById(id).subscribe({
-      next: (recipe: Recipe) => {
-        console.debug('fetched recipe: ', recipe);
-        this.recipe = recipe;
-        this.pageHeaderService.headline = this.recipe.name;
-      },
-      error: (error: any) => {
-        console.error('failed to fetch recipe: ', error);
-        this.snackBarService.open('Rezept konnte nicht geladen werden');
-        this.pageHeaderService.headline = 'Fehler';
-      },
-    });
+    this.recipeBackendService
+      .getRecipeById(id)
+      .pipe(take(1))
+      .subscribe({
+        next: (recipe: Recipe) => {
+          console.debug('fetched recipe: ', recipe);
+          this.recipe = recipe;
+          this.pageHeaderService.headline = this.recipe.name;
+        },
+        error: (error: any) => {
+          console.error('failed to fetch recipe: ', error);
+          this.snackBarService.open('Rezept konnte nicht geladen werden');
+          this.pageHeaderService.headline = 'Fehler';
+        },
+      });
   }
 
   openPatchRecipeDialog(): void {

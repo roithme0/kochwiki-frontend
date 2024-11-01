@@ -19,6 +19,7 @@ import { Ingredient } from '../../interfaces/ingredient';
 import { CustomUser } from '../../../interfaces/custom-user';
 import { ShoppingListItemIngredient } from '../../../shopping-list/interfaces/shopping-list-item-ingredient';
 import { ShoppingList } from '../../../shopping-list/interfaces/shopping-list';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-ingredients-grid-shopping-list-button',
@@ -66,6 +67,7 @@ export class IngredientsGridShoppingListButtonComponent {
 
     this.shoppingListBackendService
       .addIngredient(this.ingredient(), this.servings())
+      .pipe(take(1))
       .subscribe({
         next: (shoppingList: ShoppingList) => {
           console.info('Ingredient added to shopping list.');
@@ -94,6 +96,7 @@ export class IngredientsGridShoppingListButtonComponent {
 
     this.shoppingListBackendService
       .removeIngredient(this.ingredient())
+      .pipe(take(1))
       .subscribe({
         next: (shoppingList: ShoppingList) => {
           console.info('Ingredient removed from shopping list.');

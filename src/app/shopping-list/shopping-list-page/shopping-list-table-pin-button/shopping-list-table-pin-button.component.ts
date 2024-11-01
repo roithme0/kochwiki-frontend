@@ -14,6 +14,7 @@ import { ShoppingListItemIngredient } from '../../interfaces/shopping-list-item-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list-table-pin-button',
@@ -43,6 +44,7 @@ export class ShoppingListTablePinButtonComponent {
 
     this.shoppingListBackendService
       .setIsPinned(this.itemIngredient(), !this.isPinned())
+      .pipe(take(1))
       .subscribe({
         next: (itemIngredient: ShoppingListItemIngredient) => {
           this.isPinned.set(itemIngredient.isPinned);

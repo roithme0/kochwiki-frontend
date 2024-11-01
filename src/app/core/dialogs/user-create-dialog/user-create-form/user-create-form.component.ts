@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { CustomUser } from '../../../../interfaces/custom-user';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-user-create-form',
@@ -42,17 +43,20 @@ export class UserCreateFormComponent {
     const customUser: Partial<CustomUser> = this.customUserForm
       .value as CustomUser;
 
-    this.customUserBackendService.postCustomUser(customUser).subscribe({
-      next: (customUser: CustomUser) => {
-        console.info('customUser created: ', customUser);
-        this.snackBarService.open('Benutzer erstellt');
-        this.customUserBackendService.notifyCustomUsersChanged();
-        this.success.emit();
-      },
-      error: (error: any) => {
-        console.error('failed to create customUser: ', error);
-        this.snackBarService.open('Benutzer konnte nicht erstellt werden');
-      },
-    });
+    this.customUserBackendService
+      .postCustomUser(customUser)
+      .pipe(take(1))
+      .subscribe({
+        next: (customUser: CustomUser) => {
+          console.info('customUser created: ', customUser);
+          this.snackBarService.open('Benutzer erstellt');
+          this.customUserBackendService.notifyCustomUsersChanged();
+          this.success.emit();
+        },
+        error: (error: any) => {
+          console.error('failed to create customUser: ', error);
+          this.snackBarService.open('Benutzer konnte nicht erstellt werden');
+        },
+      });
   }
 }

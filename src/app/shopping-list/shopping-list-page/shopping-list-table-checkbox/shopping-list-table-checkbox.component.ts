@@ -15,6 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list-table-checkbox',
@@ -49,6 +50,7 @@ export class ShoppingListTableCheckboxComponent {
 
     this.shoppingListBackendService
       .setIsChecked(this.itemIngredient(), !this.isChecked())
+      .pipe(take(1))
       .subscribe({
         next: (itemIngredient: ShoppingListItemIngredient) => {
           this.isChecked.set(itemIngredient.isChecked);

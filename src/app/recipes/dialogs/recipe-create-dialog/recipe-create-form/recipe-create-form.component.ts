@@ -34,6 +34,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { Unsubscribe } from '../../../../utils/unsubsribe';
+import { take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-create-form',
@@ -66,7 +68,7 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 // fetch all foodstuffs
 // render form to create recipe
-export class RecipeCreateFormComponent {
+export class RecipeCreateFormComponent extends Unsubscribe {
   fb = inject(FormBuilder);
   foodstuffBackendService = inject(FoodstuffBackendService);
   recipeBackendService = inject(RecipeBackendService);
@@ -98,9 +100,13 @@ export class RecipeCreateFormComponent {
   });
 
   constructor() {
-    this.foodstuffBackendService.foodstuffs$.subscribe(() => {
-      this.fetchFoodstuffs();
-    });
+    super();
+
+    this.foodstuffBackendService.foodstuffs$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.fetchFoodstuffs();
+      });
   }
 
   ngOnInit(): void {
@@ -108,20 +114,23 @@ export class RecipeCreateFormComponent {
   }
 
   fetchFoodstuffs(): void {
-    this.foodstuffBackendService.getAllFoodstuffs().subscribe({
-      next: (foodstuffs) => {
-        console.debug('fetched foodstuffs: ', foodstuffs);
-        this.foodstuffs = foodstuffs;
-        this.isLoading.set(false);
-        this.hasError.set(false);
-      },
-      error: (error) => {
-        console.error('failed to fetch foodstuffs: ', error);
-        this.snackBarService.open('Zutaten konnten nicht geladen werden');
-        this.isLoading.set(false);
-        this.hasError.set(true);
-      },
-    });
+    this.foodstuffBackendService
+      .getAllFoodstuffs()
+      .pipe(take(1))
+      .subscribe({
+        next: (foodstuffs) => {
+          console.debug('fetched foodstuffs: ', foodstuffs);
+          this.foodstuffs = foodstuffs;
+          this.isLoading.set(false);
+          this.hasError.set(false);
+        },
+        error: (error) => {
+          console.error('failed to fetch foodstuffs: ', error);
+          this.snackBarService.open('Zutaten konnten nicht geladen werden');
+          this.isLoading.set(false);
+          this.hasError.set(true);
+        },
+      });
   }
 
   // onUpload(event: any, field: string): void {
@@ -169,17 +178,20 @@ export class RecipeCreateFormComponent {
       ...formValue.ingredientsFormGroup,
       ...formValue.preparationFormGroup,
     } as Recipe;
-    this.recipeBackendService.postRecipe(recipe).subscribe({
-      next: (recipe) => {
-        console.info('recipe created: ', recipe);
-        this.snackBarService.open('Rezept erstellt');
-        this.success.emit();
-        this.recipeBackendService.notifyRecipesChanged();
-      },
-      error: (error) => {
-        console.error('failed to create recipe: ', error);
-        this.snackBarService.open('Rezept konnte nicht erstellt werden');
-      },
-    });
+    this.recipeBackendService
+      .postRecipe(recipe)
+      .pipe(take(1))
+      .subscribe({
+        next: (recipe) => {
+          console.info('recipe created: ', recipe);
+          this.snackBarService.open('Rezept erstellt');
+          this.success.emit();
+          this.recipeBackendService.notifyRecipesChanged();
+        },
+        error: (error) => {
+          console.error('failed to create recipe: ', error);
+          this.snackBarService.open('Rezept konnte nicht erstellt werden');
+        },
+      });
   }
 }

@@ -13,6 +13,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { take, takeUntil } from 'rxjs';
+import { Unsubscribe } from '../../utils/unsubsribe';
 
 @Component({
   selector: 'app-select-custom-user-page',
@@ -21,7 +23,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './select-custom-user-page.component.html',
   styleUrl: './select-custom-user-page.component.scss',
 })
-export class SelectCustomUserPageComponent {
+export class SelectCustomUserPageComponent extends Unsubscribe {
   pageHeaderService = inject(PageHeaderService);
   customUserBackendService = inject(CustomUserBackendService);
   activeCustomUserService = inject(ActiveCustomUserService);
@@ -33,16 +35,16 @@ export class SelectCustomUserPageComponent {
 
   customUsers: CustomUser[] = [];
 
-  constructor() {
-    this.customUserBackendService.customUsers$.subscribe(() => {
-      this.fetchCustomUsers();
-    });
-  }
-
   ngOnInit() {
     this.pageHeaderService.headline = 'Home';
     this.pageHeaderService.back = '';
     this.pageHeaderService.showBack = false;
+
+    this.customUserBackendService.customUsers$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.fetchCustomUsers();
+      });
 
     this.fetchCustomUsers();
   }
@@ -51,18 +53,21 @@ export class SelectCustomUserPageComponent {
     this.isLoading.set(true);
     this.hasError.set(false);
 
-    this.customUserBackendService.getAllCustomUsers().subscribe({
-      next: (customUsers) => {
-        this.customUsers = customUsers;
-        this.isLoading.set(false);
-      },
-      error: (error) => {
-        console.error('failed to fetch customUsers: ', error);
-        this.snackBarService.open('Benutzer konnten nicht geladen werden');
-        this.hasError.set(true);
-        this.isLoading.set(false);
-      },
-    });
+    this.customUserBackendService
+      .getAllCustomUsers()
+      .pipe(take(1))
+      .subscribe({
+        next: (customUsers) => {
+          this.customUsers = customUsers;
+          this.isLoading.set(false);
+        },
+        error: (error) => {
+          console.error('failed to fetch customUsers: ', error);
+          this.snackBarService.open('Benutzer konnten nicht geladen werden');
+          this.hasError.set(true);
+          this.isLoading.set(false);
+        },
+      });
   }
 
   openUserCreateDialog(): void {
