@@ -5,7 +5,7 @@
       mat-icon-button
       color="accent"
       aria-setsize=""
-      class="large-size-button"
+      class="medium-size-button"
     >
       <mat-icon aria-hidden="false" aria-label="Home" fontIcon="home" />
     </button>
@@ -23,7 +23,7 @@
   <!-- back arrow -->
   @if(showBack() == true){
   <a [routerLink]="back()" routerLinkActive="active">
-    <button mat-icon-button color="accent" class="large-size-button">
+    <button mat-icon-button color="accent" class="medium-size-button">
       <mat-icon aria-hidden="false" aria-label="Zurück" fontIcon="arrow_back" />
     </button>
   </a>
@@ -34,7 +34,7 @@
     mat-icon-button
     color="accent"
     (click)="activeCustomUserService.logout()"
-    class="large-size-button"
+    class="medium-size-button"
   >
     <mat-icon aria-hidden="false" aria-label="Logout" fontIcon="logout" />
   </button>

@@ -24,7 +24,7 @@ import { ChartLegendElementComponent } from '../../../components/chart-legend-el
   standalone: true,
   imports: [CommonModule, MatCardModule, ChartLegendElementComponent],
   templateUrl: './recipe-macro-chart.component.html',
-  styleUrl: './recipe-macro-chart.component.css',
+  styleUrl: './recipe-macro-chart.component.scss',
 })
 export class RecipeMacroChartComponent {
   recipe = input.required<Recipe>();

@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   imports: [CommonModule, MatCardModule],
   templateUrl: './steps-grid.component.html',
-  styleUrl: './steps-grid.component.css',
+  styleUrl: './steps-grid.component.scss',
 })
 // render steps as grid
 export class StepsGridComponent {

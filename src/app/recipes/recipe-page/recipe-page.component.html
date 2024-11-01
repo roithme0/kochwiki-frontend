@@ -14,7 +14,11 @@
   </article>
 
   <div class="buttons-wrapper">
-    <button mat-mini-fab (click)="openPatchRecipeDialog()">
+    <button
+      mat-mini-fab
+      (click)="openPatchRecipeDialog()"
+      class="medium-size-button"
+    >
       <mat-icon
         aria-hidden="false"
         aria-label="edit icon"
@@ -22,7 +26,12 @@
       ></mat-icon>
     </button>
 
-    <button mat-mini-fab color="warn" (click)="openDeleteRecipeDialog()">
+    <button
+      mat-mini-fab
+      color="warn"
+      (click)="openDeleteRecipeDialog()"
+      class="medium-size-button"
+    >
       <mat-icon
         aria-hidden="false"
         aria-label="delete icon"
@@ -31,6 +40,6 @@
     </button>
   </div>
   }@else {
-  <p>Rezept nicht gefunden</p>
+  <p class="no-recipe">Rezept nicht gefunden</p>
   }
 </main>

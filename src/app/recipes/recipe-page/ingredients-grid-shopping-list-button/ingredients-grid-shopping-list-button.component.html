@@ -15,7 +15,11 @@
 @else{
 <!-- add to shopping list -->
 @if(isAddedToShoppingList() == false){
-<button mat-icon-button (click)="OnAddToShoppingList()">
+<button
+  mat-icon-button
+  (click)="OnAddToShoppingList()"
+  class="medium-size-button"
+>
   <mat-icon
     aria-hidden="false"
     aria-label="Einkaufsliste hinzufügen"
@@ -25,7 +29,11 @@
 
 <!-- remove from shopping list -->
 }@else {
-<button mat-icon-button (click)="OnRemoveFromShoppingList()">
+<button
+  mat-icon-button
+  (click)="OnRemoveFromShoppingList()"
+  class="medium-size-button"
+>
   <mat-icon
     aria-hidden="false"
     aria-label="Von Einkaufsliste entfernen"
