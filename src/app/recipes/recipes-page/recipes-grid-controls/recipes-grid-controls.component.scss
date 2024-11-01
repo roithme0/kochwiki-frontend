@@ -1,5 +1,11 @@
 @import "../../../../styles/styles.scss";
 
+:host {
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: $element-background-color !important;
+  }
+}
+
 .form {
   display: flex;
 }
