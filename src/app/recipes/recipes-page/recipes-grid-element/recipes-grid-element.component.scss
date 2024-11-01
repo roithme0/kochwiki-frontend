@@ -1,9 +1,13 @@
 @import "../../../../styles/mat-card-styles.scss";
 
 mat-card-content {
-  padding: 10% 10% 0 10% !important;
+  padding: 1rem 1rem 0 !important;
 }
 
 mat-card-header {
-  padding: 0 10% 10% 10% !important;
+  padding: 0 1rem 1rem !important;
+}
+
+mat-card-subtitle {
+  height: 1lh;
 }
