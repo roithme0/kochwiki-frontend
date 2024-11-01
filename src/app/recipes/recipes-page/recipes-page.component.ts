@@ -17,7 +17,7 @@ import { RecipesGridCreateRecipeComponent } from './recipes-grid-create-recipe/r
     RecipesGridCreateRecipeComponent,
   ],
   templateUrl: './recipes-page.component.html',
-  styleUrl: './recipes-page.component.css',
+  styleUrl: './recipes-page.component.scss',
 })
 // set header values
 // render the recipes-grid component

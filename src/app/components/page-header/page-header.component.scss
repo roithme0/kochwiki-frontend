@@ -1,0 +1,23 @@
+@import "../../../styles/styles.scss";
+@import "../../../styles/mat-button-styles.scss";
+
+:host {
+  display: grid;
+  place-items: center;
+}
+
+mat-toolbar {
+  --mat-toolbar-title-text-size: #{$page-header-font-size};
+  --mat-toolbar-mobile-height: 3rem;
+  --mat-toolbar-standard-height: 3rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.environment {
+  font-variant: petite-caps;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

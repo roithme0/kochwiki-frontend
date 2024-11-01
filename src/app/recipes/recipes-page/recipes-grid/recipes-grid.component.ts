@@ -29,7 +29,7 @@ import { WindowWidthService } from '../../../services/window-width.service';
     MatProgressSpinnerModule,
   ],
   templateUrl: './recipes-grid.component.html',
-  styleUrl: './recipes-grid.component.css',
+  styleUrl: './recipes-grid.component.scss',
 })
 // render grid-controls component
 // render recipes in grid

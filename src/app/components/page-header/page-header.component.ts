@@ -23,7 +23,7 @@ import { environment } from '../../../environments/environment';
     MatToolbarModule,
   ],
   templateUrl: './page-header.component.html',
-  styleUrl: './page-header.component.css',
+  styleUrl: './page-header.component.scss',
 })
 // render page header
 export class PageHeaderComponent {

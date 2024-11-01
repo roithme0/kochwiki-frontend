@@ -1,7 +1,12 @@
 <mat-toolbar>
   <!-- home -->
   <a routerLink="" routerLinkActive="active">
-    <button mat-icon-button color="accent">
+    <button
+      mat-icon-button
+      color="accent"
+      aria-setsize=""
+      class="medium-size-button"
+    >
       <mat-icon aria-hidden="false" aria-label="Home" fontIcon="home" />
     </button>
   </a>
@@ -18,7 +23,7 @@
   <!-- back arrow -->
   @if(showBack() == true){
   <a [routerLink]="back()" routerLinkActive="active">
-    <button mat-icon-button color="accent">
+    <button mat-icon-button color="accent" class="medium-size-button">
       <mat-icon aria-hidden="false" aria-label="Zurück" fontIcon="arrow_back" />
     </button>
   </a>
@@ -29,6 +34,7 @@
     mat-icon-button
     color="accent"
     (click)="activeCustomUserService.logout()"
+    class="medium-size-button"
   >
     <mat-icon aria-hidden="false" aria-label="Logout" fontIcon="logout" />
   </button>
