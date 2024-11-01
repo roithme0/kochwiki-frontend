@@ -7,11 +7,8 @@
 
 .canvas-wrapper {
   position: relative;
-}
-
-canvas {
-  max-width: 30rem;
-  max-height: 30rem;
+  width: 80%;
+  max-width: 20rem;
 }
 
 .kcal-wrapper {
@@ -32,7 +29,7 @@ canvas {
 
 .legend {
   width: 100%;
-  max-width: 30rem;
+  max-width: 20rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

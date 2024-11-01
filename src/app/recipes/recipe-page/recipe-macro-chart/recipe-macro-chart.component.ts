@@ -6,7 +6,6 @@ import {
   computed,
   effect,
   input,
-  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import Chart from 'chart.js/auto';
 
-import { ChartLegendElementComponent } from '../../../components/chart-legend-element/chart-legend-element';
+import { ChartLegendElementComponent } from '../../../components/chart-legend-element/chart-legend-element.component';
 
 @Component({
   selector: 'app-recipe-macro-chart',

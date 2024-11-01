@@ -23,3 +23,13 @@ mat-card {
 .amount {
   text-wrap: nowrap;
 }
+
+mat-card-footer {
+  display: flex;
+  justify-content: center;
+}
+
+mat-progress-bar {
+  height: 2px;
+  width: calc(100% - 2rem);
+}
