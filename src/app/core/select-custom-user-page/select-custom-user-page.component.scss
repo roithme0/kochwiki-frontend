@@ -36,6 +36,6 @@ mat-card-title {
 
 .create-user-button {
   position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: $floating-button-position;
+  right: $floating-button-position;
 }

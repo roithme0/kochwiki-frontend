@@ -1,4 +1,5 @@
 @import "../../../styles/styles.scss";
+@import "../../../styles/mat-button-styles.scss";
 
 :host {
   /* stretch hole page */
@@ -17,10 +18,6 @@ main {
   gap: 0.5rem;
 }
 
-app-recipes-grid-control {
-  flex: 0;
-}
-
 .grid-wrapper {
   flex: 1;
   overflow-y: auto;
@@ -32,8 +29,30 @@ app-recipes-grid::after {
   height: 5rem;
 }
 
-app-recipes-grid-create-recipe {
+.fade-effect-wrapper {
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3.2rem;
+  background-color: var(--mat-app-background-color);
+  box-shadow: 0 -1rem 1rem 1rem var(--mat-app-background-color);
+  pointer-events: none;
+  transition: opacity $transform-duration ease-out;
+
+  &.hide {
+    opacity: 0;
+  }
+}
+
+.bottom-elements {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  width: calc(100% - 2 * $floating-button-position);
+  max-width: 30rem;
+  position: absolute;
+  right: $floating-button-position;
+  bottom: $floating-button-position;
 }

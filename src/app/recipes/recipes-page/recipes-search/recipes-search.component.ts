@@ -1,27 +1,24 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
-  Input,
-  Signal,
-  WritableSignal,
   computed,
   inject,
+  output,
   signal,
+  Signal,
+  WritableSignal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { Recipe } from '../../interfaces/recipe';
-
 import { RecipesGridControlsService } from '../services/recipes-grid-controls.service';
 
 @Component({
-  selector: 'app-recipes-grid-controls',
+  selector: 'app-recipes-search',
   standalone: true,
   imports: [
     CommonModule,
@@ -33,17 +30,17 @@ import { RecipesGridControlsService } from '../services/recipes-grid-controls.se
     MatIconModule,
     MatButtonModule,
   ],
-  templateUrl: './recipes-grid-controls.component.html',
-  styleUrl: './recipes-grid-controls.component.scss',
+  templateUrl: './recipes-search.component.html',
+  styleUrl: './recipes-search.component.scss',
 })
-// generate a list of names and origins of all displayed recipes
-// render recipe grid controls
-export class RecipesGridControlsComponent {
+export class RecipesSearchComponent {
   recipesGridControlsService = inject(RecipesGridControlsService);
 
-  recipes: Signal<Recipe[]> = this.recipesGridControlsService.recipes;
+  showSearchChange = output<boolean>();
 
+  recipes: Signal<Recipe[]> = this.recipesGridControlsService.recipes;
   searchValue: WritableSignal<string> = signal('');
+  showSearch: WritableSignal<boolean> = signal(false);
 
   // generate a list of names of all displayed recipes
   names: Signal<string[]> = computed(() => {
@@ -73,17 +70,13 @@ export class RecipesGridControlsComponent {
     );
   });
 
-  // constructor() {
-  //   // should work but does not
-  //   effect(() => {
-  //     this.recipesGridControlsService.searchBy = this.searchValue();
-  //     console.log('searchValue effect fired');
-  //   });
-  // }
-
-  // workaround for effect not working
-  OnSeachValueChanged(newSearchValue: string): void {
+  onSeachValueChanged(newSearchValue: string): void {
     this.searchValue.set(newSearchValue);
     this.recipesGridControlsService.searchBy = this.searchValue();
+  }
+
+  onSearchButtonClicked(): void {
+    this.showSearch.set(!this.showSearch());
+    this.showSearchChange.emit(this.showSearch());
   }
 }

@@ -24,7 +24,7 @@ import { ShoppingListItemVerboseNames } from '../interfaces/shopping-list-meta-d
     ShoppingListTableButtonsComponent,
   ],
   templateUrl: './shopping-list-page.component.html',
-  styleUrl: './shopping-list-page.component.css',
+  styleUrl: './shopping-list-page.component.scss',
 })
 export class ShoppingListPageComponent {
   pageHeaderService = inject(PageHeaderService);

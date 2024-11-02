@@ -20,7 +20,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     MatDialogModule,
   ],
   templateUrl: './recipe-patch-dialog.component.html',
-  styleUrl: './recipe-patch-dialog.component.css',
+  styleUrl: './recipe-patch-dialog.component.scss',
 })
 export class RecipePatchDialogComponent {
   dialogRef = inject(MatDialogRef);

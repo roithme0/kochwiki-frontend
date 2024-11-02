@@ -35,8 +35,8 @@ img {
 
 .buttons-wrapper {
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
+  right: $floating-button-position;
+  bottom: $floating-button-position;
   display: flex;
   gap: 0.5rem;
 }
