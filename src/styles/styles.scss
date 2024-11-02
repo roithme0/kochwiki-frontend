@@ -5,6 +5,10 @@ $standard-font-size: 0.8rem;
 $element-background-color: rgba(128, 128, 128, 0.1);
 $element-box-shadow: var(--mdc-elevated-card-container-elevation);
 
+$transform-duration: 0.5s;
+
+$floating-button-position: 1rem;
+
 // drop down of auto complete field
 ::ng-deep .mat-mdc-autocomplete-panel {
   border-radius: var(--mat-autocomplete-container-shape) !important;

@@ -23,7 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
   ],
   templateUrl: './foodstuffs-page.component.html',
-  styleUrl: './foodstuffs-page.component.css',
+  styleUrl: './foodstuffs-page.component.scss',
 })
 export class FoodstuffsPageComponent {
   pageHeaderService = inject(PageHeaderService);

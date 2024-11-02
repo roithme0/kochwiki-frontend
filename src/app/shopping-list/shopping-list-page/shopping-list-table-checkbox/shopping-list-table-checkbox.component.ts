@@ -12,7 +12,6 @@ import { SnackBarService } from '../../../services/snack-bar.service';
 import { ShoppingListItemIngredient } from '../../interfaces/shopping-list-item-ingredient';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { take } from 'rxjs';
@@ -20,12 +19,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-shopping-list-table-checkbox',
   standalone: true,
-  imports: [
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+  imports: [MatCheckboxModule, MatButtonModule, MatIconModule],
   templateUrl: './shopping-list-table-checkbox.component.html',
   styleUrl: './shopping-list-table-checkbox.component.css',
 })

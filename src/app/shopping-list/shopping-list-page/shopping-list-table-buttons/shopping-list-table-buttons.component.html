@@ -1,17 +1,3 @@
-<!-- loading -->
-@if(isLoading() == true){
-<mat-spinner />
-}
-
-<!-- error -->
-@else if (hasError() == true) {
-<button mat-icon-button (click)="hasError.set(false)">
-  <mat-icon aria-hidden="false" aria-label="Fehler" fontIcon="error" />
-</button>
-}
-
-<!-- loaded -->
-@else {
 <button mat-mini-fab (click)="OnClearCheckedClicked()">
   <mat-icon
     aria-hidden="false"
@@ -19,4 +5,3 @@
     fontIcon="cleaning_services"
   />
 </button>
-}

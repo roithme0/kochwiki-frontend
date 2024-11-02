@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
-
+import { environment } from '../../../environments/environment';
 import { PageHeaderService } from '../../services/page-header.service';
 
 @Component({
@@ -15,6 +15,8 @@ import { PageHeaderService } from '../../services/page-header.service';
 // render navigation
 export class HomePageComponent {
   pageHeaderService = inject(PageHeaderService);
+
+  environmentName: Signal<string> = signal(environment.name);
 
   // set header values
   ngOnInit() {

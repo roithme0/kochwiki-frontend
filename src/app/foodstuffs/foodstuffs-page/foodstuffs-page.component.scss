@@ -1,3 +1,5 @@
+@import "../../../styles/styles.scss";
+
 :host {
   /* stretch hole page */
   display: inline-block;
@@ -46,6 +48,6 @@ app-foodstuffs-table::after {
 
 app-foodstuffs-table-create-foodstuff {
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: $floating-button-position;
+  right: $floating-button-position;
 }

@@ -10,7 +10,7 @@ export class SnackBarService {
 
   open(text: string) {
     this.snackBarService.open(text, '', {
-      duration: 5000,
+      duration: 2000,
     });
   }
 }

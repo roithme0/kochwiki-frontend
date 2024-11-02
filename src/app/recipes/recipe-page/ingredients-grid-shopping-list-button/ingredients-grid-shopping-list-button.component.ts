@@ -9,7 +9,6 @@ import {
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ActiveCustomUserService } from '../../../services/active-custom-user.service';
 import { ShoppingListBackendService } from '../../../shopping-list/services/shopping-list-backend.service';
@@ -24,7 +23,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-ingredients-grid-shopping-list-button',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './ingredients-grid-shopping-list-button.component.html',
   styleUrl: './ingredients-grid-shopping-list-button.component.scss',
 })
