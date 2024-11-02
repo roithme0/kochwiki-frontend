@@ -14,21 +14,18 @@ $floating-button-position: 1rem;
   border-radius: var(--mat-autocomplete-container-shape) !important;
 }
 
-html,
-body {
+html {
   // drop down of auto complete field
   --mat-autocomplete-container-shape: 0.5rem;
   --mat-optgroup-label-text-size: #{$standard-font-size};
   --mat-option-label-text-size: #{$standard-font-size};
 
-  height: 100%; /* auto added by material ui */
-}
-
-html {
   overscroll-behavior-y: none; /* prevent pull to refresh on mobile */
+  height: 100dvh;
 }
 
 body {
+  height: 100%;
   margin: 0; /* auto added by material ui */
   font-family: Roboto, "Helvetica Neue", sans-serif; /* auto added by material ui */
 }
